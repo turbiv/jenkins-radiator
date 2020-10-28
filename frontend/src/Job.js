@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
 
-
-const Radiator = () => {
+const Job = (props) => {
   return(
-    <div>
-      <p>This is a job!</p>
+    <div style={{background: "blue", padding: 10, margin: 5, flexGrow: props.grow, order: props.order}}>
+      <p>{props.text}</p>
     </div>
   )
 }
 
-export default Radiator;
+export default Job;
