@@ -4,7 +4,7 @@ import reportWebVitals from './reportWebVitals';
 import Radiator from "./Radiator";
 
 ReactDOM.render(
-    <Radiator/>,
+    <Radiator />,
   document.getElementById('root')
 );
 

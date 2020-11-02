@@ -1,12 +1,32 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import "./css/radiator-cell.css"
 
 const Job = (props) => {
-  return(
-    <div style={{background: props.color || "blue", padding: 10, margin: 5, flexGrow: props.grow || 1, order: props.order, display: "flex"}}>
-      <div>
+  const refCellWidth = useRef(null);
+  const [amountOfSquares, setAmountOfSquares] = useState([])
 
-      </div>
+  useEffect ( () => {
+    console.log(refCellWidth.current.offsetWidth)
+    setAmountOfSquares(refCellWidth.current.offsetWidth / 19);
+  }, [refCellWidth]);
+
+  /*
+          {(()=> {
+            for (var i = 0; i < amountOfSquares; i++) {
+              return <div className={"status-box"} style={{background: props.status || "gray"}}/>
+            }
+          }
+          )}
+   */
+
+  return(
+    <div className={"cell"} style={{background: props.color || "blue", margin: 5, flexGrow: props.grow || 1, order: props.order}}>
       <p>{props.text}</p>
+      <div className={"status-box-container"} ref={refCellWidth}>
+        <div className={"status-box"} style={{background: props.status || "gray"}}/>
+        <div className={"status-box"} style={{background: props.status || "gray"}}/>
+        <div className={"status-box"} style={{background: props.status || "gray"}}/>
+      </div>
     </div>
   )
 }

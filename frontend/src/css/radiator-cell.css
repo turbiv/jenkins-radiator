@@ -1,0 +1,25 @@
+.status-box{
+    width: 15px;
+    height: 20px;
+    display: flex;
+    margin-right: 5px;
+    border: 2px solid black;
+    border-radius: 6px;
+}
+
+.status-box-container{
+    flex-direction: row;
+    display: flex;
+    margin: auto;
+    width: 100%;
+    position: absolute;
+    bottom: 10px;
+    justify-content: center;
+}
+
+.cell{
+    display: flex;
+    position: relative;
+    border: 2px solid black;
+    border-radius: 6px;
+}
