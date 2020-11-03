@@ -1,11 +1,33 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Job from "./Job"
 import Category from "./Category";
 import "../css/radiator.css";
 
-const Radiator = () => {
+const Radiator = (props) => {
+
+
   return(
     <div>
+      {props.radiatorData.map((category) =>{
+        return(
+          <Category title={category.title}>
+            {category.jobs.map((row)=>{
+              return(
+                <div className={"container"}>
+                  {row.map((job) => <Job grow={job.grow} order={job.order} text={job.text}/>)}
+                </div>
+              );
+            })}
+          </Category>
+        );
+      })}
+    </div>
+  )
+}
+
+export default Radiator;
+
+/*
       <Category title={"Test title 1"}>
         <div className={"container"}>
           <Job grow={1} order={1} text={"One"} color={"red"}/>
@@ -35,8 +57,4 @@ const Radiator = () => {
           <Job order={2} text={"Two"} color={"red"}/>
         </div>
       </Category>
-    </div>
-  )
-}
-
-export default Radiator;
+ */
