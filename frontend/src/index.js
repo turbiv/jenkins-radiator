@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
-import Radiator from "./Radiator";
+import App from "./App";
 
 ReactDOM.render(
-    <Radiator />,
+    <App />,
   document.getElementById('root')
 );
 

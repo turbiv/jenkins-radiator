@@ -14,9 +14,7 @@ const Job = (props) => {
 
     window.addEventListener("resize", handleResize)
 
-    return () => {
-      window.removeEventListener("resize", handleResize)
-    }
+    return () => window.removeEventListener("resize", handleResize)
 
   }, [refCellWidth]);
 
@@ -24,7 +22,7 @@ const Job = (props) => {
   const StatusBoxes = () =>{
     let boxes = []
     for (let i = amountOfSquares; i >= 0; i--) {
-      boxes = boxes.concat(<div className={"status-box"} style={{background: props.status || "gray"}}/>)
+      boxes = boxes.concat(<div key={i} className={"status-box"} style={{background: props.status || "gray"}}/>)
     }
     return boxes
   }
