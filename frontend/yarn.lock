@@ -5522,20 +5522,6 @@ iferr@^0.1.5:
   resolved "https://registry.yarnpkg.com/iferr/-/iferr-0.1.5.tgz#c60eed69e6d8fdb6b3104a1fcbca1c192dc5b501"
   integrity sha1-xg7taebY/bazEEofy8ocGS3FtQE=
 
-igniteui-react-charts@^16.12.5:
-  version "16.12.5"
-  resolved "https://registry.yarnpkg.com/igniteui-react-charts/-/igniteui-react-charts-16.12.5.tgz#7fbecf1d8881001ee7bdcac353bf93d0bd57da28"
-  integrity sha512-Gnb1gapwVOczyrsEQiwwaUK41cCRTKVHuIGxZnUGyzdlb9F06Lrp4L7kkXa1Xo5AYeK68LelHVooyXsiDchkNw==
-  dependencies:
-    tslib "^1.7.1"
-
-igniteui-react-core@^16.12.5:
-  version "16.12.5"
-  resolved "https://registry.yarnpkg.com/igniteui-react-core/-/igniteui-react-core-16.12.5.tgz#d0ef64516a612f244c49eebc9ea6575d23175f40"
-  integrity sha512-B+zI96oroT/FT/XiYSL04cIcoayScyPBCJSlpQLJmT+eEjbVVh+jhjl7JONu8Y2P7lVKxZehKHMC922vpDbeJA==
-  dependencies:
-    tslib "^1.7.1"
-
 ignore@^4.0.6:
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-4.0.6.tgz#750e3db5862087b4737ebac8207ffd1ef27b25fc"
@@ -10557,7 +10543,7 @@ tsconfig-paths@^3.9.0:
     minimist "^1.2.0"
     strip-bom "^3.0.0"
 
-tslib@^1.10.0, tslib@^1.7.1, tslib@^1.8.1, tslib@^1.9.0:
+tslib@^1.10.0, tslib@^1.8.1, tslib@^1.9.0:
   version "1.14.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==

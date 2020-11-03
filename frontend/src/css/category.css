@@ -1,0 +1,10 @@
+.category-text{
+    justify-content: center;
+    display: flex;
+    margin: auto 5px;
+    font: 25px Verdana, sans-serif;
+    border: 2px solid black;
+    background: #373b41;
+    border-radius: 6px;
+    padding: 7px;
+}
