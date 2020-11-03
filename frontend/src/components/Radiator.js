@@ -1,7 +1,7 @@
 import React from 'react'
 import Job from "./Job"
 import Category from "./Category";
-import "./css/radiator.css";
+import "../css/radiator.css";
 
 const Radiator = () => {
   return(

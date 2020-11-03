@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from 'react'
-import "./css/radiator-cell.css"
+import "../css/radiator-cell.css"
 
 const Job = (props) => {
   const refCellWidth = useRef(null);

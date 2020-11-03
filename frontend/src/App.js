@@ -1,12 +1,19 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {
   BrowserRouter as Router,
   Route, withRouter
 } from 'react-router-dom'
+import Menu from "./components/Menu";
+import {connect} from "react-redux"
+import {initializeRadiators} from "./reducers/radiatorReducer"
 
-import Menu from "./Menu";
 
-const App = () => {
+const App = (props) => {
+
+  useEffect(()=>{
+    props.initializeRadiators()
+  },[])
+
   return(
     <div>
       <Router>
@@ -16,4 +23,15 @@ const App = () => {
   )
 }
 
-export default App;
+const mapDispatchToProps = {
+  initializeRadiators
+}
+
+const mapStateToProps = (state) =>{
+  return{
+    radiator: state.radiator
+  }
+}
+
+const connectedApp = connect(mapStateToProps, mapDispatchToProps)(App)
+export default connectedApp;
