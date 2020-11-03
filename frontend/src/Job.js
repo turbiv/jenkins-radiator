@@ -9,15 +9,6 @@ const Job = (props) => {
     setAmountOfSquares(refCellWidth.current.offsetWidth / 34);
   }, [refCellWidth]);
 
-  /*
-          {(()=> {
-            for (var i = 0; i < amountOfSquares; i++) {
-              return <div className={"status-box"} style={{background: props.status || "gray"}}/>
-            }
-          }
-          )}
-   */
-
   const StatusBoxes = () =>{
     let boxes = []
     for (let i = 0; i < amountOfSquares; i++) {
