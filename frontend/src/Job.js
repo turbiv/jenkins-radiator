@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useLayoutEffect } from 'react'
 import "./css/radiator-cell.css"
 
 const Job = (props) => {
@@ -7,7 +7,15 @@ const Job = (props) => {
 
   useEffect ( () => {
     setAmountOfSquares(refCellWidth.current.offsetWidth / 34);
+
+    const handleResize = () =>{
+      setAmountOfSquares(refCellWidth.current.offsetWidth / 34)
+    }
+
+    window.addEventListener("resize", handleResize)
+
   }, [refCellWidth]);
+
 
   const StatusBoxes = () =>{
     let boxes = []
