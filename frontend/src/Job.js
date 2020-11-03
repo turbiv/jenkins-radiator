@@ -6,10 +6,10 @@ const Job = (props) => {
   const [amountOfSquares, setAmountOfSquares] = useState(0)
 
   useEffect ( () => {
-    setAmountOfSquares(refCellWidth.current.offsetWidth / 34);
+    setAmountOfSquares(Math.round(refCellWidth.current.offsetWidth / 34));
 
     const handleResize = () =>{
-      setAmountOfSquares(refCellWidth.current.offsetWidth / 34)
+      setAmountOfSquares(Math.round(refCellWidth.current.offsetWidth / 34))
     }
 
     window.addEventListener("resize", handleResize)
@@ -23,7 +23,7 @@ const Job = (props) => {
 
   const StatusBoxes = () =>{
     let boxes = []
-    for (let i = 0; i < amountOfSquares; i++) {
+    for (let i = amountOfSquares; i >= 0; i--) {
       boxes = boxes.concat(<div className={"status-box"} style={{background: props.status || "gray"}}/>)
     }
     return boxes
