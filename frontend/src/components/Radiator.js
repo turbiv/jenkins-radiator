@@ -4,11 +4,11 @@ import Category from "./Category";
 import "../css/radiator.css";
 
 const Radiator = (props) => {
-
+  console.log(props)
 
   return(
     <div>
-      {props.radiatorData.map((category) =>{
+      {props.radiatorData.categories.map((category) =>{
         return(
           <Category title={category.title}>
             {category.jobs.map((row)=>{

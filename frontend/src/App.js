@@ -21,20 +21,26 @@ const App = (props) => {
     console.log(props.radiator)
   }
 
-  const findRadiator = (id) =>{
-    console.log("radiator json ", props.radiator)
-    props.radiator.radiators.find(rad => rad.id === id)
+  const getRadiator = (id) =>{
+    console.log("radiator json ", props.radiator) //just get single radiator from backend
+    console.log(props.radiator.radiators.find(rad => rad.id === id))
+    return props.radiator.radiators.find(rad => rad.id === id)
   }
 
-  return(
-    <div>
-      <Router>
-        <Route exact path={"/"} render={() => <Menu/>}/>
-        <Route exact path={"/radiator/:id"} render={({match}) => <Radiator radiatorData={findRadiator(match.params.id)}/>}/>
-      </Router>
-      <button onClick={handleButton}>click</button>
-    </div>
-  )
+  if(props.radiator.radiators){
+    return(
+      <div>
+        <Router>
+          <Route exact path={"/"} render={() => <Menu/>}/>
+          <Route exact path={"/radiator/:id"} render={({match}) => <Radiator radiatorData={getRadiator(match.params.id)}/>}/>
+        </Router>
+        <button onClick={handleButton}>click</button>
+      </div>
+    )
+  }else{
+    return(<div>loading</div>)
+  }
+
 }
 
 const mapDispatchToProps = {
