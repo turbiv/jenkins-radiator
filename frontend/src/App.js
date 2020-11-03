@@ -14,11 +14,17 @@ const App = (props) => {
     props.initializeRadiators()
   },[])
 
+  const handleButton = (event) =>{
+    event.preventDefault()
+    console.log(props.radiator)
+  }
+
   return(
     <div>
       <Router>
         <Route exact path={"/"} render={() => <Menu/>}/>
       </Router>
+      <button onClick={handleButton}>click</button>
     </div>
   )
 }
