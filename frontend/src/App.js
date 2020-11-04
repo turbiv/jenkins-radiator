@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {
   BrowserRouter as Router,
   Route, withRouter
@@ -7,40 +7,24 @@ import Menu from "./components/Menu";
 import {connect} from "react-redux"
 import {initializeRadiators} from "./reducers/radiatorReducer"
 import Radiator from "./components/Radiator";
+import {getRadiatorById} from "./services/radiator"
 
 
 const App = (props) => {
 
-  useEffect(()=>{
-    console.log("use effect")
-    props.initializeRadiators()
-  },[])
-
-  const handleButton = (event) =>{
-    event.preventDefault()
-    console.log(props.radiator)
-  }
-
   const getRadiator = (id) =>{
-    console.log("radiator json ", props.radiator) //just get single radiator from backend
-    console.log(props.radiator.radiators.find(rad => rad.id === id))
-    return props.radiator.radiators.find(rad => rad.id === id)
+    //props.radiator.radiators.find(rad => rad.id === id)
+    return getRadiatorById() // Get single radiator straight from backend (less data to check by just asking for 1 radiator)
   }
 
-  if(props.radiator.radiators){
-    return(
-      <div>
-        <Router>
-          <Route exact path={"/"} render={() => <Menu/>}/>
-          <Route exact path={"/radiator/:id"} render={({match}) => <Radiator radiatorData={getRadiator(match.params.id)}/>}/>
-        </Router>
-        <button onClick={handleButton}>click</button>
-      </div>
-    )
-  }else{
-    return(<div>loading</div>)
-  }
-
+  return(
+    <div>
+      <Router>
+        <Route exact path={"/"} render={() => <Menu/>}/>
+        <Route exact path={"/radiator/:id"} render={({match}) => <Radiator radiatorData={getRadiator(match.params.id)}/>}/>
+      </Router>
+    </div>
+  )
 }
 
 const mapDispatchToProps = {

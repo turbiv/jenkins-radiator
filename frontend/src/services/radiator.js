@@ -1,12 +1,12 @@
 import data from "../test_data/radiators.json"
 import singleRad from "../test_data/single_radiator.json"
 
-const getAll = () => {
+export const getAll = () => {
   return data
 };
 
-const getRadiator = () =>{
+export const getRadiatorById = () =>{
   return singleRad
 }
 
-export default { getAll }
+export default { getAll, getRadiatorById }

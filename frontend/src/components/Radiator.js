@@ -4,8 +4,6 @@ import Category from "./Category";
 import "../css/radiator.css";
 
 const Radiator = (props) => {
-  console.log(props)
-
   return(
     <div>
       {props.radiatorData.categories.map((category) =>{
@@ -28,6 +26,7 @@ const Radiator = (props) => {
 export default Radiator;
 
 /*
+      without loops how it should look like:
       <Category title={"Test title 1"}>
         <div className={"container"}>
           <Job grow={1} order={1} text={"One"} color={"red"}/>
