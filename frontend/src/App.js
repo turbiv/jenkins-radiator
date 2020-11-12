@@ -8,6 +8,8 @@ import {connect} from "react-redux"
 import {initializeRadiators} from "./reducers/radiatorReducer"
 import Radiator from "./components/Radiator";
 import {getRadiatorById} from "./services/radiator"
+import MainPage from "./components/MainPage"
+import AdminMenu from "./components/AdminMenu"
 
 
 const App = (props) => {
@@ -20,8 +22,10 @@ const App = (props) => {
   return(
     <div>
       <Router>
-        <Route exact path={"/"} render={() => <Menu/>}/>
+        <Route exact path={"/"} render={() => <MainPage/>}/>
+        <Route exact path={"/radiator"} render={() => <Menu/>}/>
         <Route exact path={"/radiator/:id"} render={({match}) => <Radiator radiatorData={getRadiator(match.params.id)}/>}/>
+        <Route exact path={"/admin"} render={() => <AdminMenu/>}/>
       </Router>
     </div>
   )
