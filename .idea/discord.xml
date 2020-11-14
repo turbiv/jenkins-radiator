@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DiscordProjectSettings">
+    <option name="show" value="true" />
+    <option name="description" value="A modern radiator for jenkins! Made with react and nodejs, compatible with mongodb and mysql servers" />
+  </component>
+</project>

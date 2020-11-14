@@ -6,7 +6,7 @@
     justify-content: center;
     position: fixed;
     top: 0;
-    left: 0
+    left: 0;
 }
 
 .nav-text {
@@ -16,6 +16,8 @@
     padding: 8px 0px 8px;
     list-style: none;
     height: 60px;
+    border-bottom: white;
+
 }
 
 .nav-text a {
@@ -37,7 +39,7 @@
 .nav-menu-items {
     margin: 0;
     padding: 0;
-    width: 80%;
+    width: 90%;
 }
 
 span {

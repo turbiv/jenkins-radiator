@@ -51,18 +51,18 @@ const Sidebar = () => {
     <div>
       <IconContext.Provider value={{ color: '#fff' }}>
         <div className={'nav-menu'}>
-          <ul className='nav-menu-items'>
+          <div className='nav-menu-items'>
             {SidebarData.map((item, index) => {
               return (
-                <li key={index} className={item.cName}>
+                <div key={index} className={item.cName}>
                   <Link to={item.path}>
                     {item.icon}
                     <span>{item.title}</span>
                   </Link>
-                </li>
+                </div>
               );
             })}
-          </ul>
+          </div>
         </div>
       </IconContext.Provider>
     </div>

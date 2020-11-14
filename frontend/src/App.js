@@ -1,7 +1,7 @@
 import React from 'react'
 import {
   BrowserRouter as Router,
-  Route, withRouter
+  Route, Switch
 } from 'react-router-dom'
 import Menu from "./components/Menu";
 import {connect} from "react-redux"
@@ -9,7 +9,8 @@ import {initializeRadiators} from "./reducers/radiatorReducer"
 import Radiator from "./components/Radiator";
 import {getRadiatorById} from "./services/radiator"
 import MainPage from "./components/MainPage"
-import AdminMenu from "./components/AdminMenu"
+import AdminRouter from "./components/AdminRouter"
+import Test from "./components/Test"
 
 
 const App = (props) => {
@@ -24,8 +25,8 @@ const App = (props) => {
       <Router>
         <Route exact path={"/"} render={() => <MainPage/>}/>
         <Route exact path={"/radiator"} render={() => <Menu/>}/>
-        <Route exact path={"/radiator/:id"} render={({match}) => <Radiator radiatorData={getRadiator(match.params.id)}/>}/>
-        <Route exact path={"/admin"} render={() => <AdminMenu/>}/>
+        <Route path={"/radiator/:id"} render={({match}) => <Radiator radiatorData={getRadiator(match.params.id)}/>}/>
+        <Route path={"/admin"} render={() => <AdminRouter/>}/>
       </Router>
     </div>
   )
