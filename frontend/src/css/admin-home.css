@@ -1,11 +1,13 @@
 .radiator-list-column{
     width: 65%;
     float: left;
+    font-family: 'Roboto', sans-serif;
 }
 
 .history-column{
     width: 35%;
     float: left;
+    font-family: 'Roboto', sans-serif;
 }
 
 .radiator-list-container{
@@ -24,12 +26,35 @@
     justify-content: center;
     align-items: center;
     flex-basis: 0;
-    margin-bottom: 5px;
+    margin-bottom: 7px;
     height: 100%;
 }
 .radiator-list-box p{
     font-size: 20px;
     text-align: center;
     border-width: thin;
+    line-height: 30px;
     margin: 0;
+    flex-basis: 0;
+}
+
+.radiator-list-header{
+    display: flex;
+    position: relative;
+    border: 2px solid black;
+    border-radius: 3px;
+    justify-content: center;
+    align-items: center;
+    flex-basis: 0;
+    margin-bottom: 7px;
+    height: 100%;
+}
+
+.radiator-list-header p{
+    font-size: 20px;
+    text-align: center;
+    border-width: thin;
+    line-height: 30px;
+    margin: 0;
+    flex-basis: 0;
 }

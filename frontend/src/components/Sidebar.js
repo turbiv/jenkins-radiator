@@ -11,38 +11,50 @@ const Sidebar = () => {
   const SidebarData = [
     {
       title: 'Home',
-      path: '/',
+      path: '/admin/home',
       icon: <AiIcons.AiFillHome />,
       cName: 'nav-text'
     },
     {
-      title: 'Reports',
-      path: '/reports',
+      title: 'Groups',
+      path: '/admin/groups',
       icon: <IoIcons.IoIosPaper />,
       cName: 'nav-text'
     },
     {
-      title: 'Products',
-      path: '/products',
+      title: 'Jobs',
+      path: '/admin/jobs',
       icon: <FaIcons.FaCartPlus />,
       cName: 'nav-text'
     },
     {
-      title: 'Team',
-      path: '/team',
+      title: 'Owners',
+      path: '/admin/owners',
       icon: <IoIcons.IoMdPeople />,
       cName: 'nav-text'
     },
     {
-      title: 'Messages',
-      path: '/messages',
+      title: 'Options',
+      path: '/admin/options',
+      icon: <IoIcons.IoMdHelpCircle />,
+      cName: 'nav-text'
+    },
+    {
+      title: 'Account',
+      path: '/admin/account',
       icon: <FaIcons.FaEnvelopeOpenText />,
       cName: 'nav-text'
     },
     {
       title: 'Support',
-      path: '/support',
+      path: '/admin/support',
       icon: <IoIcons.IoMdHelpCircle />,
+      cName: 'nav-text'
+    },
+    {
+      title: 'Exit',
+      path: '/',
+      icon: <IoIcons.IoIosPower />,
       cName: 'nav-text'
     }
   ];

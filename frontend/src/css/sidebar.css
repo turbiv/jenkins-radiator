@@ -1,6 +1,6 @@
 .nav-menu {
     background-color: #060b26;
-    width: 250px;
+    width: 170px;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -16,7 +16,8 @@
     padding: 8px 0px 8px;
     list-style: none;
     height: 60px;
-    border-bottom: white;
+    border-bottom: #1c2026;
+    border-bottom-style: solid;
 
 }
 
@@ -30,6 +31,7 @@
     align-items: center;
     padding: 0 16px;
     border-radius: 4px;
+    font-family: 'Roboto', sans-serif;
 }
 
 .nav-text a:hover {
@@ -42,6 +44,6 @@
     width: 90%;
 }
 
-span {
+.nav-menu span {
     margin-left: 16px;
 }

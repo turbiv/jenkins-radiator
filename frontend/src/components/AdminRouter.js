@@ -10,7 +10,7 @@ const AdminRouter = () => {
   return (
     <div >
       <Sidebar/>
-      <div style={{marginLeft: 250}}>
+      <div style={{marginLeft: 170}}>
         <Route exact path={"/admin/home"} render={() => <AdminHome/>}/>
         <Route exact path={"/admin/jobs"} render={() => <Test/>}/>
       </div>
