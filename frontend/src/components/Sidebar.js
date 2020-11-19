@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import * as FaIcons from 'react-icons/fa';
-import * as AiIcons from 'react-icons/ai';
-import * as IoIcons from 'react-icons/io';
 import '../css/sidebar.css';
 import { IconContext } from 'react-icons';
+import { MdAccountCircle } from 'react-icons/md'
+import { IoIosPower, IoMdHelpCircle, IoIosSettings, IoMdPeople, IoIosBriefcase, IoLogoBuffer  } from 'react-icons/io'
+import { AiFillHome } from 'react-icons/ai'
+
 
 const Sidebar = () => {
 
@@ -12,49 +13,49 @@ const Sidebar = () => {
     {
       title: 'Home',
       path: '/admin/home',
-      icon: <AiIcons.AiFillHome />,
+      icon: <AiFillHome />,
       cName: 'nav-text'
     },
     {
       title: 'Groups',
       path: '/admin/groups',
-      icon: <IoIcons.IoIosPaper />,
+      icon: <IoLogoBuffer />,
       cName: 'nav-text'
     },
     {
       title: 'Jobs',
       path: '/admin/jobs',
-      icon: <FaIcons.FaCartPlus />,
+      icon: <IoIosBriefcase />,
       cName: 'nav-text'
     },
     {
       title: 'Owners',
       path: '/admin/owners',
-      icon: <IoIcons.IoMdPeople />,
+      icon: <IoMdPeople />,
       cName: 'nav-text'
     },
     {
       title: 'Options',
       path: '/admin/options',
-      icon: <IoIcons.IoMdHelpCircle />,
+      icon: <IoIosSettings />,
       cName: 'nav-text'
     },
     {
       title: 'Account',
       path: '/admin/account',
-      icon: <FaIcons.FaEnvelopeOpenText />,
+      icon: <MdAccountCircle />,
       cName: 'nav-text'
     },
     {
       title: 'Support',
       path: '/admin/support',
-      icon: <IoIcons.IoMdHelpCircle />,
+      icon: <IoMdHelpCircle />,
       cName: 'nav-text'
     },
     {
       title: 'Exit',
       path: '/',
-      icon: <IoIcons.IoIosPower />,
+      icon: <IoIosPower />,
       cName: 'nav-text'
     }
   ];

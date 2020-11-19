@@ -1,12 +1,12 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import Job from "./Job"
 import Category from "./Category";
 import "../css/radiator.css";
 
-const Radiator = (props) => {
+const Radiator = ({radiatorData}) => {
   return(
     <div>
-      {props.radiatorData.categories.map((category) =>{
+      {radiatorData.categories.map((category) =>{
         return(
           <Category title={category.title}>
             {category.jobs.map((row)=>{

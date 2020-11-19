@@ -4,6 +4,12 @@ import "../css/admin-home.css"
 import {Link} from "react-router-dom"
 
 const AdminHome = () => {
+
+  const handleDropDown = (event) => {
+    event.preventDefault()
+
+  }
+
   return (
     <div>
       <div className={"radiator-list-column"}>
@@ -21,9 +27,9 @@ const AdminHome = () => {
             Options
           </p>
         </div>
-        {getAll().radiators.map((radiator)=>{
+        {getAll().radiators.map((radiator, index)=>{
           return(
-            <div className={"radiator-list-box"}>
+            <div className={"radiator-list-box"} id={index}>
               <p style={{flexGrow: 0.2}}>
                 {radiator.id}
               </p>
@@ -34,7 +40,12 @@ const AdminHome = () => {
                 {radiator.owner}
               </p>
               <p style={{flexGrow: 1}}>
-                Edit
+                <button onClick={handleDropDown}>Options</button>
+                <div id={"dropdown"} className={"dropdown-content"}>
+                  <Link className={"dropdown-content-links"} to={"/admin/radiator/1" + radiator.id}>Edit radiator</Link>
+                  <Link className={"dropdown-content-links"} to={"/admin/radiator/1" + radiator.id}>Edit radiator groups</Link>
+                  <Link className={"dropdown-content-links"} to={"/admin/radiator/1" + radiator.id}>Edit radiator jobs</Link>
+                </div>
               </p>
             </div>
           );

@@ -4,4 +4,7 @@
     <option name="show" value="true" />
     <option name="description" value="A modern radiator for jenkins! Made with react and nodejs, compatible with mongodb and mysql servers" />
   </component>
+  <component name="ProjectNotificationSettings">
+    <option name="askShowProject" value="false" />
+  </component>
 </project>

@@ -9,4 +9,9 @@ export const getRadiatorById = () =>{
   return singleRad
 }
 
+export const postRadiator = (radiatorJson) =>{
+  console.log(radiatorJson)
+  return true
+}
+
 export default { getAll, getRadiatorById }

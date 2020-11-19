@@ -1,6 +1,7 @@
 {
   "mongo_category_id": "1238718278",
   "title": "test title 1",
+  "id": 1,
   "jobs": [[
     {
       "mongo_job_id": "128318263",

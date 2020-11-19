@@ -5,6 +5,7 @@
   "name": "test1",
   "categories": [{
     "title": "test title 1",
+    "id": 1,
     "jobs": [[
       {
         "mongo_job_id": "128318263",
@@ -41,6 +42,7 @@
     ]]
   },{
     "title": "test title 2",
+    "id": 2,
     "jobs": [[
       {
         "mongo_job_id": "128318263",
