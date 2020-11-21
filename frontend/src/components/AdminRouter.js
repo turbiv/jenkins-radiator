@@ -1,15 +1,15 @@
-import React from "react";
-import { Route } from 'react-router-dom'
+import React from "react"
+import {Route} from 'react-router-dom'
 import Sidebar from "./Sidebar"
 import AdminHome from "./AdminHome"
 import AdminEditor from "./AdminEditor"
-import { getRadiatorById } from "../services/radiator"
+import {getRadiatorById} from "../services/radiator"
 
 const AdminRouter = () => {
 
-  const getRadiator = (id) =>{
+  const getRadiator = async (id) =>{
     //props.radiator.radiators.find(rad => rad.id === id)
-    return getRadiatorById() // Get single radiator straight from backend (less data to check by just asking for 1 radiator)
+    return await getRadiatorById() // Get single radiator straight from backend (less data to check by just asking for 1 radiator)
   }
 
 

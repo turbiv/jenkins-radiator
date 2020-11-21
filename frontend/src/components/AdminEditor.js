@@ -2,14 +2,21 @@ import React, {useEffect, useState} from "react"
 import "../css/admin-home.css"
 import Category from "./Category"
 import Job from "./Job"
+import {postRadiator} from "../services/radiator"
 import {DragDropContext, Draggable, Droppable} from 'react-beautiful-dnd'
 
 const AdminEditor = ({radiatorData}) => {
 
-  const [items, setItems] = useState(null);
+  const [items, setItems] = useState({html: [], json: []});
+  const [radiatorStatus, setRadiatorStatus] = useState(null)
 
-  useEffect(() => {
-    setItems(() => getCategories())
+  useEffect(async () => {
+    console.log("radiator data: ", radiatorData)
+    radiatorData.then(() => {
+        setItems({html: getCategories(), json: radiatorData.categories})
+    }).catch((error) => {
+      setRadiatorStatus(error)
+    })
   }, [])
 
   const reorder = (list, startIndex, endIndex) => {
@@ -20,46 +27,59 @@ const AdminEditor = ({radiatorData}) => {
     return result;
   };
 
-  const onDragEnd = (result) => {
+  const onDragEnd = async (result) => {
     // dropped outside the list
     if (!result.destination) {
       return;
     }
 
     const orderedItems = reorder(
-      items,
+      items.html,
       result.source.index,
       result.destination.index
     );
 
-    setItems(orderedItems)
+    const orderedJson = reorder(
+      items.json,
+      result.source.index,
+      result.destination.index
+    )
 
-    console.log(orderedItems)
-    // TODO: order as json here
+    setItems({html: orderedItems, json: orderedJson})
+    await postRadiator(orderedJson)
   }
 
   const getCategories = () =>{
-    return radiatorData.categories.map((category, index) => {
-      return (
-        <Draggable key={index} draggableId={"draggable-" + index} index={index}>
-          {(provided) => (
-            <div ref={provided.innerRef}
-                 {...provided.draggableProps}
-                 {...provided.dragHandleProps}>
-              <Category id={index} title={category.title}>
-                {category.jobs.map((row) => {
-                  return (
-                    <div className={"container"}>
-                      {row.map((job) => <Job grow={job.grow} order={job.order} text={job.text}/>)}
-                    </div>
-                  );
-                })}
-              </Category>
-            </div>)}
-        </Draggable>
-      )
-    })
+      return radiatorData.categories.map((category, index) => {
+        return (
+          <Draggable key={index} draggableId={"draggable-" + index} index={index}>
+            {(provided) => (
+              <div ref={provided.innerRef}
+                   {...provided.draggableProps}
+                   {...provided.dragHandleProps}>
+                <Category id={index} title={category.title}>
+                  {category.jobs.map((row) => {
+                    return (
+                      <div className={"container"}>
+                        {row.map((job) => <Job grow={job.grow} order={job.order} text={job.text}/>)}
+                      </div>
+                    );
+                  })}
+                </Category>
+              </div>)}
+          </Draggable>
+        )
+      })
   }
+
+  if(radiatorStatus){
+    return(
+      <div>
+        <img style={{display: "block", marginLeft: "auto", marginRight: "auto", width: "50%"}} src={"https://http.cat/" + radiatorStatus} alt={"http error"}/>
+      </div>
+    );
+  }
+
 
   return (
     <div>
@@ -68,7 +88,7 @@ const AdminEditor = ({radiatorData}) => {
           {(provided) => (
           <div ref={provided.innerRef}
                {...provided.droppableProps}>
-            {items}
+            {items.html}
             {provided.placeholder}
           </div>)}
         </Droppable>
