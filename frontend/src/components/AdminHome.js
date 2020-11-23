@@ -2,13 +2,9 @@ import React from "react";
 import {getAll} from "../services/radiator"
 import "../css/admin-home.css"
 import {Link} from "react-router-dom"
+import DropdownButton from "./DropdownButton"
 
 const AdminHome = () => {
-
-  const handleDropDown = (event) => {
-    event.preventDefault()
-
-  }
 
   return (
     <div>
@@ -40,12 +36,11 @@ const AdminHome = () => {
                 {radiator.owner}
               </p>
               <p style={{flexGrow: 1}}>
-                <button onClick={handleDropDown}>Options</button>
-                <div id={"dropdown"} className={"dropdown-content"}>
-                  <Link className={"dropdown-content-links"} to={"/admin/radiator/1" + radiator.id}>Edit radiator</Link>
-                  <Link className={"dropdown-content-links"} to={"/admin/radiator/1" + radiator.id}>Edit radiator groups</Link>
-                  <Link className={"dropdown-content-links"} to={"/admin/radiator/1" + radiator.id}>Edit radiator jobs</Link>
-                </div>
+                <DropdownButton title={"Options"}>
+                  <Link to={"/admin/radiator/" + radiator.id}>Edit radiator</Link>
+                  <Link to={"/admin/radiator/" + radiator.id}>Edit radiator groups</Link>
+                  <Link to={"/admin/radiator/" + radiator.id}>Edit radiator jobs</Link>
+                </DropdownButton>
               </p>
             </div>
           );

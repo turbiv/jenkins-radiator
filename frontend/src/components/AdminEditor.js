@@ -2,18 +2,16 @@ import React, {useEffect, useState} from "react"
 import "../css/admin-home.css"
 import Category from "./Category"
 import Job from "./Job"
-import {postRadiator} from "../services/radiator"
+import {putRadiator} from "../services/radiator"
 import {DragDropContext, Draggable, Droppable} from 'react-beautiful-dnd'
 
 const AdminEditor = ({radiatorData}) => {
-
-  const [items, setItems] = useState({html: [], json: []});
+  const [items, setItems] = useState({html: [], json: {}});
   const [radiatorStatus, setRadiatorStatus] = useState(null)
 
   useEffect(async () => {
-    console.log("radiator data: ", radiatorData)
-    radiatorData.then(() => {
-        setItems({html: getCategories(), json: radiatorData.categories})
+    radiatorData.then((response) => {
+        setItems({html: getCategories(response), json: response})
     }).catch((error) => {
       setRadiatorStatus(error)
     })
@@ -28,7 +26,7 @@ const AdminEditor = ({radiatorData}) => {
   };
 
   const onDragEnd = async (result) => {
-    // dropped outside the list
+    // Dropped outside the list
     if (!result.destination) {
       return;
     }
@@ -39,17 +37,28 @@ const AdminEditor = ({radiatorData}) => {
       result.destination.index
     );
 
-    const orderedJson = reorder(
-      items.json,
+    const orderedJsonCategories = reorder(
+      items.json.categories,
       result.source.index,
       result.destination.index
     )
 
-    setItems({html: orderedItems, json: orderedJson})
-    await postRadiator(orderedJson)
+    const orderedJson = {
+      json: {...items.json,
+        categories: orderedJsonCategories
+      }
+    }
+
+    setItems({html: orderedItems, ...orderedJson})
+
+    await putRadiator(orderedJson.json).catch(() => {
+      console.error("Was not able to post radiator categories")
+      // TODO: Add notification here
+    })
   }
 
-  const getCategories = () =>{
+  const getCategories = (radiatorData) =>{
+
       return radiatorData.categories.map((category, index) => {
         return (
           <Draggable key={index} draggableId={"draggable-" + index} index={index}>
@@ -80,7 +89,6 @@ const AdminEditor = ({radiatorData}) => {
     );
   }
 
-
   return (
     <div>
       <DragDropContext onDragEnd={onDragEnd}>
@@ -93,6 +101,7 @@ const AdminEditor = ({radiatorData}) => {
           </div>)}
         </Droppable>
       </DragDropContext>
+      <button id={"placeboButton"} style={{visibility: "hidden"}}>Save</button>
     </div>
   );
 }
