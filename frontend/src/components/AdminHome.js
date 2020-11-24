@@ -25,23 +25,23 @@ const AdminHome = () => {
         </div>
         {getAll().radiators.map((radiator, index)=>{
           return(
-            <div className={"radiator-list-box"} id={index}>
-              <p style={{flexGrow: 0.2}}>
+            <div key={index} className={"radiator-list-box"} id={index}>
+              <div style={{flexGrow: 0.2}}>
                 {radiator.id}
-              </p>
-              <p style={{flexGrow: 3, borderLeftStyle: "dashed"}}>
+              </div>
+              <div style={{flexGrow: 3, borderLeftStyle: "dashed"}}>
                 <Link to={"/radiator/" + radiator.id}>{radiator.name}<br/></Link>
-              </p>
-              <p style={{flexGrow: 1, borderLeftStyle: "dashed", borderRightStyle: "dashed"}}>
+              </div>
+              <div style={{flexGrow: 1, borderLeftStyle: "dashed", borderRightStyle: "dashed"}}>
                 {radiator.owner}
-              </p>
-              <p style={{flexGrow: 1}}>
+              </div>
+              <div style={{flexGrow: 1}}>
                 <DropdownButton title={"Options"}>
-                  <Link to={"/admin/radiator/" + radiator.id}>Edit radiator</Link>
-                  <Link to={"/admin/radiator/" + radiator.id}>Edit radiator groups</Link>
-                  <Link to={"/admin/radiator/" + radiator.id}>Edit radiator jobs</Link>
+                  <Link to={`/admin/radiator/${radiator.id}`}>Edit radiator</Link>
+                  <Link to={`/admin/radiator/${radiator.id}/categories`}>Edit radiator groups</Link>
+                  <Link to={`/admin/radiator/${radiator.id}`}>Edit radiator jobs</Link>
                 </DropdownButton>
-              </p>
+              </div>
             </div>
           );
         })}

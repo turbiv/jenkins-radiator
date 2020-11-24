@@ -29,7 +29,8 @@
     margin-bottom: 7px;
     height: 100%;
 }
-.radiator-list-box p{
+
+.radiator-list-box div{
     font-size: 20px;
     text-align: center;
     border-width: thin;

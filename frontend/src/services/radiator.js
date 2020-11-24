@@ -12,8 +12,8 @@ export const getAll = () => {
   return data
 };
 
-export const getRadiatorById =  () =>{
-  const request = axios.get("http://localhost:3001/singleRad/1")
+export const getRadiatorById = (id) =>{
+  const request = axios.get("http://localhost:3001/singleRad/" + id)
   return request.then(response => response.data)
     .catch(error => Promise.reject(error.response.status))
 }
@@ -24,4 +24,10 @@ export const putRadiator = async (radiatorJson) => {
     .catch(error => Promise.reject(error.response.status))
 }
 
-export default { getAll, getRadiatorById }
+export const getCategoryById = async (id) => {
+  const request = axios.get("http://localhost:3001/categories/" + id)
+  return request.then(response => response.data)
+    .catch(error => Promise.reject(error.response.status))
+}
+
+export default { getAll, getRadiatorById, getCategoryById }

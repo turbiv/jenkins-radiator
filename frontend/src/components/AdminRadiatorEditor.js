@@ -5,13 +5,13 @@ import Job from "./Job"
 import {putRadiator} from "../services/radiator"
 import {DragDropContext, Draggable, Droppable} from 'react-beautiful-dnd'
 
-const AdminEditor = ({radiatorData}) => {
+const AdminRadiatorEditor = ({radiatorData}) => {
   const [items, setItems] = useState({html: [], json: {}});
   const [radiatorStatus, setRadiatorStatus] = useState(null)
 
   useEffect(async () => {
     radiatorData.then((response) => {
-        setItems({html: getCategories(response), json: response})
+      setItems({html: getCategories(response), json: response})
     }).catch((error) => {
       setRadiatorStatus(error)
     })
@@ -58,27 +58,26 @@ const AdminEditor = ({radiatorData}) => {
   }
 
   const getCategories = (radiatorData) =>{
-
-      return radiatorData.categories.map((category, index) => {
-        return (
-          <Draggable key={index} draggableId={"draggable-" + index} index={index}>
-            {(provided) => (
-              <div ref={provided.innerRef}
-                   {...provided.draggableProps}
-                   {...provided.dragHandleProps}>
-                <Category id={index} title={category.title}>
-                  {category.jobs.map((row) => {
-                    return (
-                      <div className={"container"}>
-                        {row.map((job) => <Job grow={job.grow} order={job.order} text={job.text}/>)}
-                      </div>
-                    );
-                  })}
-                </Category>
-              </div>)}
-          </Draggable>
-        )
-      })
+    return radiatorData.categories.map((category, index) => {
+      return (
+        <Draggable key={index} draggableId={"draggable-" + index} index={index}>
+          {(provided) => (
+            <div ref={provided.innerRef}
+                 {...provided.draggableProps}
+                 {...provided.dragHandleProps}>
+              <Category id={index} title={category.title}>
+                {category.jobs.map((row) => {
+                  return (
+                    <div className={"container"}>
+                      {row.map((job) => <Job grow={job.grow} order={job.order} text={job.text}/>)}
+                    </div>
+                  );
+                })}
+              </Category>
+            </div>)}
+        </Draggable>
+      )
+    })
   }
 
   if(radiatorStatus){
@@ -106,4 +105,4 @@ const AdminEditor = ({radiatorData}) => {
   );
 }
 
-export default AdminEditor;
+export default AdminRadiatorEditor;
