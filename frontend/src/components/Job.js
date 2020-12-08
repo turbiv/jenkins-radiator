@@ -28,7 +28,12 @@ const Job = (props) => {
   }
 
   return(
-    <div className={"cell"} style={{background: props.color || "blue", margin: 5, flexGrow: props.grow || 1, order: props.order}}>
+    <div ref={props.draggable.innerRef || null}
+         {...props.draggable.draggableProps || null}
+         {...props.draggable.dragHandleProps || null}
+         className={"cell"}
+         style={{background: "blue", margin: 5, flexGrow: props.grow || 1, ...props.draggable.draggableProps.style}}
+    >
       <h2 className={"title"}>{props.text}</h2>
       <div className={"status-box-container"} ref={refCellWidth}>
         <StatusBoxes/>
