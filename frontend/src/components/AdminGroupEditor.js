@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react"
 import "../css/admin-home.css"
 import Category from "./Category"
 import Job from "./Job"
-import { putRadiator } from "../services/radiator"
 import {DragDropContext, Draggable, Droppable} from 'react-beautiful-dnd'
 
 const AdminGroupEditor = ({categoryData}) => {
@@ -80,17 +79,9 @@ const AdminGroupEditor = ({categoryData}) => {
     return result;
   };
 
-  /*
-  const getList = id => items.html.map(row => row.filter(item => {
-    console.log("item id", item)
-    return item.props.id === id
-  }))
-   */
+  const getList = id => items.html.filter(row => row.some(item => item.props.id === id))[0] //TODO: This will break if nothing matches.... fix this
 
-  const getList = id => items.html.filter(row => row.some(item => {
-    console.log("item id", item)
-    return item.props.id === id
-  }))[0] //TODO: This will break if nothing matches.... fix this
+  const getListIndex = id => items.html.findIndex((row, index) => row.some( item => item.props.id === id) ? index : false)
 
   const onDragEnd = async (result) => {
     const { source, destination } = result
@@ -101,6 +92,44 @@ const AdminGroupEditor = ({categoryData}) => {
     }
     console.log("get list:", getList(source.droppableId))
 
+    if(source.droppableId === destination.droppableId){
+      const orderedItems = reorder(
+        getList(source.droppableId),
+        source.index,
+        destination.index
+      )
+
+      const copyItemsHtml = items.html
+      copyItemsHtml[getListIndex(source.droppableId)] = orderedItems
+
+      const orderedJsonCategories = reorder(
+        items.json,
+        source.index,
+        destination.index
+      )
+
+      const orderedJson = {
+        json: {...items.json,
+          categories: orderedJsonCategories
+        }
+      }
+
+      setItems({html: copyItemsHtml, ...orderedJson})
+    }else{
+
+      console.log("source", source)
+
+      const result = move(
+        getList(source.droppableId),
+        getList(destination.droppableId),
+        source,
+        destination
+      )
+      console.log("move result", result)
+
+    }
+
+    /*
     const orderedItems = reorder(
       getList(source.droppableId),
       source.index,
@@ -123,7 +152,7 @@ const AdminGroupEditor = ({categoryData}) => {
     console.log("droppabledid", source.droppableId )
     console.log("orderedItems:", orderedItems)
     setItems({html: [...items, orderedItems], ...orderedJson})
-
+*/
 
     /*
     const orderedItems = reorder(
@@ -167,7 +196,19 @@ const AdminGroupEditor = ({categoryData}) => {
   return (
     <Category id={1} title={categoryTitle}>
       <DragDropContext onDragEnd={onDragEnd}>
-        {items.droppables}
+        {items.html.map((row, index) => {
+          return(
+            <Droppable droppableId={"droppable-" + index} direction="horizontal">
+              {(provided) => (
+                <div ref={provided.innerRef}
+                     {...provided.droppableProps} className={"container"}>
+                  {row}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          )
+        })}
       </DragDropContext>
       <button id={"placeboButton"} style={{visibility: "hidden"}}>Save</button>
     </Category>
