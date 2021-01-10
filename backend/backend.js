@@ -6,8 +6,12 @@ const cors = require('cors');
 const mongoose = require("mongoose");
 const morgan = require('morgan');
 const middleware = require("./utils/middleware");
-const baseurl = "/v1/";
-const mongoUrl = "mongodb+srv://turbiv:ivan123.@cluster01.pzhm6.mongodb.net/raidator?retryWrites=true&w=majority";
+
+const groupController = require("./controllers/group")
+const jobController = require("./controllers/job")
+const radiatorController = require("./controllers/radiator")
+
+const mongoUrl = "mongodb+srv://turbiv:test123.@cluster01.pzhm6.mongodb.net/radiator?retryWrites=true&w=majority";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use(cors());
@@ -16,6 +20,9 @@ app.use(morgan("tiny"));
 app.use(middleware.getToken);
 //mongoose.set('debug', true);
 
+app.use("/api/radiator/group", groupController)
+app.use("/api/radiator/job", jobController)
+app.use("/api/radiator", radiatorController)
 
 //TODO: Error handlers
 app.use(middleware.errorHandler);
