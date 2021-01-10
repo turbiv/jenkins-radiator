@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 const morgan = require('morgan');
 const middleware = require("./utils/middleware");
 const baseurl = "/v1/";
-const mongoUrl = "mongourl";
+const mongoUrl = "mongodb+srv://turbiv:ivan123.@cluster01.pzhm6.mongodb.net/raidator?retryWrites=true&w=majority";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use(cors());
