@@ -6,77 +6,36 @@ import {putRadiator} from "../services/radiator"
 import {DragDropContext, Draggable, Droppable} from 'react-beautiful-dnd'
 
 const AdminRadiatorEditor = ({radiatorData}) => {
-  const [items, setItems] = useState({html: [], json: {}});
+  const [items, setItems] = useState([]);
   const [radiatorStatus, setRadiatorStatus] = useState(null)
+  const [responseData, setResponseData] = useState({name: "loading", owner: "loading", id: null})
 
   useEffect(async () => {
     radiatorData.then((response) => {
-      setItems({html: getCategories(response), json: response})
+      setItems(response.categories)
+      setResponseData(response)
     }).catch((error) => {
       setRadiatorStatus(error)
     })
   }, [])
 
-  const reorder = (list, startIndex, endIndex) => {
-    const result = Array.from(list);
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
-
-    return result;
-  };
-
   const onDragEnd = async (result) => {
-    // Dropped outside the list
-    if (!result.destination) {
-      return;
+    const { source, destination } = result
+
+    if(!destination){
+      return
     }
 
-    const orderedItems = reorder(
-      items.html,
-      result.source.index,
-      result.destination.index
-    );
+    const copyItems = [...items]
+    const [removed] = copyItems.splice(source.index, 1);
+    copyItems.splice(destination.index, 0, removed)
+    setItems(copyItems)
 
-    const orderedJsonCategories = reorder(
-      items.json.categories,
-      result.source.index,
-      result.destination.index
-    )
+    const formattedData = {...responseData, categories: copyItems}
 
-    const orderedJson = {
-      json: {...items.json,
-        categories: orderedJsonCategories
-      }
-    }
-
-    setItems({html: orderedItems, ...orderedJson})
-
-    await putRadiator(orderedJson.json).catch(() => {
+    await putRadiator(formattedData).catch(() => {
       console.error("Was not able to post radiator categories")
       // TODO: Add notification here
-    })
-  }
-
-  const getCategories = (radiatorData) =>{
-    return radiatorData.categories.map((category, index) => {
-      return (
-        <Draggable key={index} draggableId={"draggable-" + index} index={index}>
-          {(provided) => (
-            <div ref={provided.innerRef}
-                 {...provided.draggableProps}
-                 {...provided.dragHandleProps}>
-              <Category id={index} title={category.title}>
-                {category.jobs.map((row) => {
-                  return (
-                    <div className={"container"}>
-                      {row.map((job) => <Job grow={job.grow} order={job.order} text={job.text}/>)}
-                    </div>
-                  );
-                })}
-              </Category>
-            </div>)}
-        </Draggable>
-      )
     })
   }
 
@@ -95,7 +54,26 @@ const AdminRadiatorEditor = ({radiatorData}) => {
           {(provided) => (
           <div ref={provided.innerRef}
                {...provided.droppableProps}>
-            {items.html}
+            {items.map((category, draggableIndex) => {
+              return (
+                <Draggable draggableId={"draggable-" + draggableIndex} key={draggableIndex} index={draggableIndex}>
+                  {(provided) => (
+                    <div ref={provided.innerRef}
+                         {...provided.draggableProps}
+                         {...provided.dragHandleProps}>
+                      <Category id={draggableIndex} title={category.title}>
+                        {category.jobs.map((row) => {
+                          return (
+                            <div className={"container"}>
+                              {row.map((job) => <Job grow={job.grow} order={job.order} text={job.text}/>)}
+                            </div>
+                          );
+                        })}
+                      </Category>
+                    </div>)}
+                </Draggable>
+              )
+            })}
             {provided.placeholder}
           </div>)}
         </Droppable>

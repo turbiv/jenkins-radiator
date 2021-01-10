@@ -24,10 +24,22 @@ export const putRadiator = async (radiatorJson) => {
     .catch(error => Promise.reject(error.response.status))
 }
 
+export const putCategory = async (categoryJson) => {
+  const request = axios.put("http://localhost:3001/categories/" + categoryJson.id, categoryJson, headers)
+  return request.then(() => Promise.resolve())
+    .catch(error => Promise.reject(error.response.status))
+}
+
 export const getCategoryById = async (id) => {
   const request = axios.get("http://localhost:3001/categories/" + id)
   return request.then(response => response.data)
     .catch(error => Promise.reject(error.response.status))
 }
 
-export default { getAll, getRadiatorById, getCategoryById }
+export const getAllCategories = async () => {
+  const request = axios.get("http://localhost:3001/categories/")
+  return request.then(response => response.data)
+    .catch(error => Promise.reject(error.response.status))
+}
+
+export default { getAll, getRadiatorById, getCategoryById, getAllCategories }

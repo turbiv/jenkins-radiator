@@ -27,10 +27,22 @@ const Job = (props) => {
     return boxes
   }
 
+
+  if(props.draggable === undefined){
+    return(
+      <div className={"cell"} style={{background: "blue", margin: 5, flexGrow: props.grow || 1}}>
+        <h2 className={"title"}>{props.text}</h2>
+        <div className={"status-box-container"} ref={refCellWidth}>
+          <StatusBoxes/>
+        </div>
+      </div>
+    )
+  }
+
   return(
-    <div ref={props.draggable.innerRef || null}
-         {...props.draggable.draggableProps || null}
-         {...props.draggable.dragHandleProps || null}
+    <div ref={props.draggable.innerRef}
+         {...props.draggable.draggableProps}
+         {...props.draggable.dragHandleProps}
          className={"cell"}
          style={{background: "blue", margin: 5, flexGrow: props.grow || 1, ...props.draggable.draggableProps.style}}
     >
