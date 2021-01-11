@@ -1,19 +1,12 @@
 {
-  "publish": {
-    "draft": 1,
-    "staging": 2,
-    "production": 3
-  },
-  "order": {
-    "started": 1,
-    "done": 2
-  },
   "response": {
     "badrequest": 400,
     "unauthorized": 401,
     "notfound": 404,
     "too_many_requests": 429,
     "internal_server_error": 500,
-    "ok": 200
+    "ok": 200,
+    "created": 201,
+    "no_content": 204
   }
 }

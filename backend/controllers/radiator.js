@@ -4,6 +4,7 @@ const mongoRadiator = require("../models/radiator");
 const mongoose = require("mongoose");
 const config = require("../config.json");
 
+// Create new radiator
 expressRouter.post("/", async (request, response) => {
   const body = request.body;
 

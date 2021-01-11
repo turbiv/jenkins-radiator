@@ -42,4 +42,16 @@ export const getAllCategories = async () => {
     .catch(error => Promise.reject(error.response.status))
 }
 
-export default { getAll, getRadiatorById, getCategoryById, getAllCategories }
+export const postNewGroup = async (payload) => {
+  const request = axios.post("http://localhost:3003/api/radiator/group/", payload, headers)
+  return request.then(() => Promise.resolve())
+    .catch(error => Promise.reject(error.response.status))
+}
+
+export const postNewRadiator = async (payload)  => {
+  const request = axios.post("http://localhost:3003/api/radiator/job/", payload, headers)
+  return request.then(() => Promise.resolve())
+    .catch(error => Promise.reject(error.response.status))
+}
+
+export default { getAll, getRadiatorById, getCategoryById, getAllCategories, postNewRadiator, postNewGroup }

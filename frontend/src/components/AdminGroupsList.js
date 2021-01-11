@@ -26,6 +26,7 @@ const AdminGroupsList = () => {
 
   return(
     <div>
+      <Link to={"/admin/groups/new"}><button>New group</button></Link>
       <h2>Categories:</h2>
       {categories.map((category, index) => <Link key={index} to={`/admin/category/${category.id}`}>{category.title}<br/></Link>)}
     </div>

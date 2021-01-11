@@ -4,6 +4,7 @@ const mongoJob = require("../models/job");
 const mongoose = require("mongoose");
 const config = require("../config.json");
 
+// Create new job
 expressRouter.post("/", async (request, response) => {
   const body = request.body;
 

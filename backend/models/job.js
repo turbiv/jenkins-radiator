@@ -8,8 +8,8 @@ mongo.set('useUnifiedTopology', true);
 
 const jobSchema = mongo.Schema({
   text: {type: String},
-  order: {type: String},
-  grow: {type: String}
+  order: {type: String, default: "1"},
+  grow: {type: String, default: "1"}
 });
 
 jobSchema.plugin(uniqueValidator);
