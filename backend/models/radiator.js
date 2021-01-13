@@ -6,7 +6,7 @@ mongo.set('useFindAndModify', false);
 mongo.set('useCreateIndex', true);
 mongo.set('useUnifiedTopology', true);
 
-const radiatorSchema = mongo.Schema({
+const radiatorSchema = new mongo.Schema({
   owner: {type: mongo.Schema.Types.ObjectId},
   name: {type: String},
   groups: [mongo.Schema.Types.ObjectId]

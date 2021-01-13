@@ -4,6 +4,18 @@ const mongoRadiator = require("../models/radiator");
 const mongoose = require("mongoose");
 const config = require("../config.json");
 
+// Get all radiators
+expressRouter.get("/", async (request, response) => {
+  const radiators = await mongoRadiator.find({}).catch(() => response.status(config.response.notfound).send({error: "Radiators not found"}).end())
+  await radiators.populate({
+    path: "groups",
+    populate: {
+      path: "jobs"
+    }
+  })
+  response.status(config.response.ok).send(radiators).end()
+})
+
 // Create new radiator
 expressRouter.post("/", async (request, response) => {
   const body = request.body;

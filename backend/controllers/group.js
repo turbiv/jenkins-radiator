@@ -7,6 +7,7 @@ const config = require("../config.json");
 // Get all groups
 expressRouter.get("/", async (request, response) => {
   const groups = await mongoGroup.find({}).catch(() => response.status(config.response.notfound).send({error: "Groups not found"}).end())
+  await groups.populate("jobs")
   response.status(config.response.ok).send(groups).end()
 })
 

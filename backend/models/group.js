@@ -6,7 +6,7 @@ mongo.set('useFindAndModify', false);
 mongo.set('useCreateIndex', true);
 mongo.set('useUnifiedTopology', true);
 
-const groupSchema = mongo.Schema({
+const groupSchema = new mongo.Schema({
   title: {type: String},
   jobs: [mongo.Schema.Types.ObjectId],
 });
