@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from "react"
 import {Link} from "react-router-dom"
-import {getAllCategories} from "../services/radiator"
+import {getAllGroups} from "../services/radiator"
 
 const AdminGroupsList = () => {
 
-  const [categories, setCategories] = useState([])
+  const [groups, setGroups] = useState([])
   const [radiatorStatus, setRadiatorStatus] = useState(null)
 
   useEffect(async () => {
-    getAllCategories().then((response) => {
+    getAllGroups().then((response) => {
       console.log("Response: ", response)
-      setCategories(response)
+      setGroups(response)
     }).catch((error) => {
       setRadiatorStatus(error)
     })
@@ -27,8 +27,8 @@ const AdminGroupsList = () => {
   return(
     <div>
       <Link to={"/admin/groups/new"}><button>New group</button></Link>
-      <h2>Categories:</h2>
-      {categories.map((category, index) => <Link key={index} to={`/admin/category/${category.id}`}>{category.title}<br/></Link>)}
+      <h2>Groups:</h2>
+      {groups.map((group, index) => <Link key={index} to={`/admin/group/${group.id}`}>{group.title}<br/></Link>)}
     </div>
   );
 }

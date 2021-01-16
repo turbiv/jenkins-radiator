@@ -1,15 +1,17 @@
 import React from "react"
 import {Route} from 'react-router-dom'
-import Sidebar from "./Sidebar"
+import Sidebar from "../common/Sidebar"
 import AdminHome from "./AdminHome"
 import AdminRadiatorEditor from "./AdminRadiatorEditor"
-import {getRadiatorById, getCategoryById} from "../services/radiator"
+import {getRadiatorById, getGroupById} from "../services/radiator"
 import AdminGroupEditor from "./AdminGroupEditor"
 import AdminRadiatorGroupsList from "./AdminRadiatorGroupsList"
 import AdminGroupsList from "./AdminGroupsList"
 import AdminJobsList from "./AdminJobsList"
 import AdminJobCreator from "./AdminJobCreator"
 import AdminGroupCreator from "./AdminGroupCreator"
+import AdminRadiatorCreator from "./AdminRadiatorCreator"
+import AdminRadiatorGroupsEditor from "./AdminRadiatorGroupsEditor"
 
 
 const AdminRouter = () => {
@@ -19,8 +21,8 @@ const AdminRouter = () => {
     return await getRadiatorById(id) // Get single radiator straight from backend (less data to check by just asking for 1 radiator)
   }
 
-  const getCategory = async (id) => {
-    return await getCategoryById(id)
+  const getGroup = async (id) => {
+    return await getGroupById(id)
   }
 
 
@@ -34,9 +36,11 @@ const AdminRouter = () => {
         <Route exact path={"/admin/groups/new"} render={() => <AdminGroupCreator/>}/>
         <Route exact path={"/admin/jobs"} render={() => <AdminJobsList/>}/>
         <Route exact path={"/admin/jobs/new"} render={() => <AdminJobCreator/>}/>
+        <Route exact path={"/admin/radiators/new"} render={() => <AdminRadiatorCreator/>}/>
         <Route exact path={"/admin/radiator/:id"} render={({match}) => <AdminRadiatorEditor radiatorData={getRadiator(match.params.id)}/>}/>
-        <Route exact path={"/admin/radiator/:id/categories"} render={({match}) => <AdminRadiatorGroupsList radiatorData={getRadiator(match.params.id)}/>}/>
-        <Route exact path={"/admin/category/:id/"} render={({match}) => <AdminGroupEditor categoryData={getCategory(match.params.id)}/>}/>
+        <Route exact path={"/admin/radiator/:id/groups"} render={({match}) => <AdminRadiatorGroupsList radiatorData={getRadiator(match.params.id)}/>}/>
+        <Route exact path={"/admin/radiator/:id/groups/edit"} render={({match}) => <AdminRadiatorGroupsEditor radiatorData={getRadiator(match.params.id)}/>}/>
+        <Route exact path={"/admin/group/:id/"} render={({match}) => <AdminGroupEditor groupData={getGroup(match.params.id)}/>}/>
       </div>
     </div>
   );

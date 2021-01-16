@@ -1,5 +1,4 @@
 const mongo = require('mongoose');
-const autoIncrementModelID = require("./counterModel")
 const uniqueValidator = require('mongoose-unique-validator');
 
 mongo.set('useNewUrlParser', true);
@@ -14,15 +13,6 @@ const jobSchema = new mongo.Schema({
 });
 
 jobSchema.plugin(uniqueValidator);
-
-jobSchema.pre("save", (next) => {
-  if(!this.isNew){
-    next();
-    return
-  }
-
-  autoIncrementModelID("jobs", this, next)
-})
 
 jobSchema.set('toJSON', {
   transform: (document, returnedObject) => {

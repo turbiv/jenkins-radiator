@@ -1,7 +1,7 @@
 {
   "mongo_radiator_id": "102378712",
   "id": "1",
-  "categories": [{
+  "groups": [{
     "title": "test title 1",
     "jobs": [[
       {

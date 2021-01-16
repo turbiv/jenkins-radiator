@@ -1,5 +1,5 @@
 import React from 'react'
-import Radiator from "./Radiator"
+import Radiator from "../common/Radiator"
 import {getAll} from "../services/radiator"
 import {Link} from 'react-router-dom'
 

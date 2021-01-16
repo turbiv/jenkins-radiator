@@ -1,0 +1,32 @@
+table th,
+table td{
+    font-family: 'Roboto', sans-serif;
+    text-align: left;
+}
+
+.layout{
+    border-collapse: collapse;
+}
+.display{
+    margin: 1em 0;
+}
+.display th,
+.display td{
+    border: 1px solid #B3BFAA;
+    padding: .5em 1em;
+}
+
+.display th{ background: #457B9D; }
+.display td{ background: #fff; }
+
+.responsive-table{
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+}
+
+.check-box-col{
+
+}
+
+.title-col{
+
+}

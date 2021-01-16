@@ -24,21 +24,27 @@ export const putRadiator = async (radiatorJson) => {
     .catch(error => Promise.reject(error.response.status))
 }
 
-export const putCategory = async (categoryJson) => {
-  const request = axios.put("http://localhost:3001/categories/" + categoryJson.id, categoryJson, headers)
+export const putGroup = async (categoryJson) => {
+  const request = axios.put("http://localhost:3001/groups/" + categoryJson.id, categoryJson, headers)
   return request.then(() => Promise.resolve())
     .catch(error => Promise.reject(error.response.status))
 }
 
-export const getCategoryById = async (id) => {
-  const request = axios.get("http://localhost:3001/categories/" + id)
+export const getGroupById = async (id) => {
+  const request = axios.get("http://localhost:3001/groups/" + id)
   return request.then(response => response.data)
     .catch(error => Promise.reject(error.response.status))
 }
 
-export const getAllCategories = async () => {
-  const request = axios.get("http://localhost:3001/categories/")
+export const getAllGroups = async () => {
+  const request = axios.get("http://localhost:3001/groups/")
   return request.then(response => response.data)
+    .catch(error => Promise.reject(error.response.status))
+}
+
+export const postNewJob = async (payload)  => {
+  const request = axios.post("http://localhost:3003/api/radiator/job/", payload, headers)
+  return request.then(() => Promise.resolve())
     .catch(error => Promise.reject(error.response.status))
 }
 
@@ -49,9 +55,9 @@ export const postNewGroup = async (payload) => {
 }
 
 export const postNewRadiator = async (payload)  => {
-  const request = axios.post("http://localhost:3003/api/radiator/job/", payload, headers)
+  const request = axios.post("http://localhost:3003/api/radiator/", payload, headers)
   return request.then(() => Promise.resolve())
     .catch(error => Promise.reject(error.response.status))
 }
 
-export default { getAll, getRadiatorById, getCategoryById, getAllCategories, postNewRadiator, postNewGroup }
+export default { getAll, getRadiatorById, getGroupById, getAllGroups, putGroup, postNewRadiator, postNewGroup, postNewJob }

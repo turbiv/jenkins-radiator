@@ -1,6 +1,6 @@
 import React from 'react'
 import Job from "./Job"
-import Category from "./Category";
+import Group from "./Group";
 import "../css/radiator.css";
 
 const Radiator = ({radiatorData}) => {
@@ -8,7 +8,7 @@ const Radiator = ({radiatorData}) => {
     <div>
       {radiatorData.categories.map((category) =>{
         return(
-          <Category title={category.title}>
+          <Group title={category.title}>
             {category.jobs.map((row)=>{
               return(
                 <div className={"container"}>
@@ -16,7 +16,7 @@ const Radiator = ({radiatorData}) => {
                 </div>
               );
             })}
-          </Category>
+          </Group>
         );
       })}
     </div>

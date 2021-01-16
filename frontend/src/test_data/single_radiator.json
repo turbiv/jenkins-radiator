@@ -3,7 +3,7 @@
   "id": 1,
   "owner": "dummy",
   "name": "test1",
-  "categories": [{
+  "groups": [{
     "title": "test title 1",
     "id": 1,
     "jobs": [[

@@ -1,17 +1,17 @@
 import React, {useEffect, useState} from "react"
 import "../css/admin-home.css"
-import Category from "./Category"
-import Job from "./Job"
+import Group from "../common/Group"
+import Job from "../common/Job"
 import {DragDropContext, Draggable, Droppable} from 'react-beautiful-dnd'
-import {putCategory} from "../services/radiator"
+import {putGroup} from "../services/radiator"
 
-const AdminGroupEditor = ({categoryData}) => {
+const AdminGroupEditor = ({groupData}) => {
   const [items, setItems] = useState([]);
   const [radiatorStatus, setRadiatorStatus] = useState(null)
   const [responseData, setResponseData] = useState({title: "loading", id: null})
 
   useEffect(async () => {
-    categoryData.then((response) => {
+    groupData.then((response) => {
       setResponseData(response)
       setItems(response.jobs)
     }).catch((error) => {
@@ -34,8 +34,8 @@ const AdminGroupEditor = ({categoryData}) => {
 
     const formattedData = {...responseData, jobs: copyItems}
 
-    await putCategory(formattedData).catch(() => {
-        console.error("Was not able to post radiator categories")
+    await putGroup(formattedData).catch(() => {
+        console.error("Was not able to post radiator groups")
       }
     )
   }
@@ -49,7 +49,7 @@ const AdminGroupEditor = ({categoryData}) => {
   }
 
   return (
-    <Category id={1} title={responseData.title}>
+    <Group id={1} title={responseData.title}>
       <DragDropContext onDragEnd={onDragEnd}>
         { items.map((row, droppableIndex) => {
           return(
@@ -74,7 +74,7 @@ const AdminGroupEditor = ({categoryData}) => {
         })}
       </DragDropContext>
       <button id={"placeboButton"} style={{visibility: "hidden"}}>Save</button>
-    </Category>
+    </Group>
   );
 }
 

@@ -2,7 +2,7 @@ import React from "react";
 import {getAll} from "../services/radiator"
 import "../css/admin-home.css"
 import {Link} from "react-router-dom"
-import DropdownButton from "./DropdownButton"
+import DropdownButton from "../common/DropdownButton"
 
 const AdminHome = () => {
 
@@ -38,14 +38,14 @@ const AdminHome = () => {
               <div className={"radiator-list-box-div"} style={{flexGrow: 1}}>
                 <DropdownButton title={"Options"}>
                   <Link to={`/admin/radiator/${radiator.id}`}>Edit radiator</Link>
-                  <Link to={`/admin/radiator/${radiator.id}/categories`}>Edit radiator groups</Link>
+                  <Link to={`/admin/radiator/${radiator.id}/groups`}>Edit radiator groups</Link>
                   <Link to={`/admin/radiator/${radiator.id}`}>Edit radiator jobs</Link>
                 </DropdownButton>
               </div>
             </div>
           );
         })}
-
+        <Link to={"/admin/radiators/new"}><button>New radiator</button></Link>
         </div>
         <div className={"history-column"}>
           <div>

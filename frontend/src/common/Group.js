@@ -1,7 +1,7 @@
 import React from 'react'
 import "../css/category.css";
 
-const Category = ({title, children}) => {
+const Group = ({title, children}) => {
   return(
     <div style={{}}>
       <p className={"category-text"}>{title}</p>
@@ -10,4 +10,4 @@ const Category = ({title, children}) => {
   )
 }
 
-export default Category;
+export default Group;

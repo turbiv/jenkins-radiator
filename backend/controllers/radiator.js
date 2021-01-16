@@ -20,16 +20,16 @@ expressRouter.get("/", async (request, response) => {
 expressRouter.post("/", async (request, response) => {
   const body = request.body;
 
-  if(body.owner === undefined){
+  /*if(body.owner === undefined){
     response.status(config.response.badrequest).send({error: "Radiator owner is missing."})
-  }
+  }*/
 
   if(body.name === undefined){
     response.status(config.response.badrequest).send({error: "Radiator name is missing."})
   }
 
   const newRadiatorData = {
-    owner: body.owner,
+   // owner: body.owner,
     name: body.name,
     groups: body.groups
   }

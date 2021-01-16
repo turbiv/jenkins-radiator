@@ -6,7 +6,7 @@ import {
 import Menu from "./components/Menu";
 import {connect} from "react-redux"
 import {initializeRadiators} from "./reducers/radiatorReducer"
-import Radiator from "./components/Radiator";
+import Radiator from "./common/Radiator";
 import {getRadiatorById} from "./services/radiator"
 import MainPage from "./components/MainPage"
 import AdminRouter from "./components/AdminRouter"

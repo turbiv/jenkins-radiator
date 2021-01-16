@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react"
 import "../css/admin-home.css"
-import Category from "./Category"
-import Job from "./Job"
+import Group from "../common/Group"
+import Job from "../common/Job"
 import {putRadiator} from "../services/radiator"
 import {DragDropContext, Draggable, Droppable} from 'react-beautiful-dnd'
 
@@ -12,7 +12,7 @@ const AdminRadiatorEditor = ({radiatorData}) => {
 
   useEffect(async () => {
     radiatorData.then((response) => {
-      setItems(response.categories)
+      setItems(response.groups)
       setResponseData(response)
     }).catch((error) => {
       setRadiatorStatus(error)
@@ -31,10 +31,10 @@ const AdminRadiatorEditor = ({radiatorData}) => {
     copyItems.splice(destination.index, 0, removed)
     setItems(copyItems)
 
-    const formattedData = {...responseData, categories: copyItems}
+    const formattedData = {...responseData, groups: copyItems}
 
     await putRadiator(formattedData).catch(() => {
-      console.error("Was not able to post radiator categories")
+      console.error("Was not able to post radiator groups")
       // TODO: Add notification here
     })
   }
@@ -54,22 +54,22 @@ const AdminRadiatorEditor = ({radiatorData}) => {
           {(provided) => (
           <div ref={provided.innerRef}
                {...provided.droppableProps}>
-            {items.map((category, draggableIndex) => {
+            {items.map((group, draggableIndex) => {
               return (
                 <Draggable draggableId={"draggable-" + draggableIndex} key={draggableIndex} index={draggableIndex}>
                   {(provided) => (
                     <div ref={provided.innerRef}
                          {...provided.draggableProps}
                          {...provided.dragHandleProps}>
-                      <Category id={draggableIndex} title={category.title}>
-                        {category.jobs.map((row) => {
+                      <Group id={draggableIndex} title={group.title}>
+                        {group.jobs.map((row) => {
                           return (
                             <div className={"container"}>
                               {row.map((job) => <Job grow={job.grow} order={job.order} text={job.text}/>)}
                             </div>
                           );
                         })}
-                      </Category>
+                      </Group>
                     </div>)}
                 </Draggable>
               )

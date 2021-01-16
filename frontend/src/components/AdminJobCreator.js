@@ -1,22 +1,22 @@
 import React, {useState} from "react"
-import {postNewRadiator} from "../services/radiator"
+import {postNewJob} from "../services/radiator"
 
 const AdminJobCreator = () => {
 
-  const [radiatorName, setRadiatorName] = useState("")
+  const [jobName, setJobName] = useState("")
 
-  const handleRadiatorNameChange = (event) => {
-    setRadiatorName(event.target.value)
+  const handleJobNameChange = (event) => {
+    setJobName(event.target.value)
   }
 
   const handleSubmit = async (event) => {
     event.preventDefault()
 
     const generatedPayload = {
-      text: radiatorName
+      text: jobName
     }
 
-    await postNewRadiator(generatedPayload)
+    await postNewJob(generatedPayload)
   }
 
   return(
@@ -24,7 +24,7 @@ const AdminJobCreator = () => {
       <h2>Job creation page</h2>
       <form onSubmit={handleSubmit}>
         <label>Job name:</label><br/>
-        <input type={"text"} name={"name"} value={radiatorName} onChange={handleRadiatorNameChange}/><br/>
+        <input type={"text"} name={"name"} value={jobName} onChange={handleJobNameChange}/><br/>
         <input type={"submit"} value={"Submit"}/>
       </form>
     </div>
