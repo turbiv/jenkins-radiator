@@ -6,7 +6,7 @@ import {putRadiator} from "../services/radiator"
 import {DragDropContext, Draggable, Droppable} from 'react-beautiful-dnd'
 
 const AdminRadiatorEditor = ({radiatorData}) => {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState([])
   const [radiatorStatus, setRadiatorStatus] = useState(null)
   const [responseData, setResponseData] = useState({name: "loading", owner: "loading", id: null})
 
@@ -21,17 +21,37 @@ const AdminRadiatorEditor = ({radiatorData}) => {
 
   const onDragEnd = async (result) => {
     const { source, destination } = result
-
     if(!destination){
       return
     }
-
     const copyItems = [...items]
-    const [removed] = copyItems.splice(source.index, 1);
-    copyItems.splice(destination.index, 0, removed)
-    setItems(copyItems)
 
+    switch (result.type) {
+      case "droppableJobs": {
+        const srouceCoords = source.droppableId.split("-")
+        const destCoords = destination.droppableId.split("-")
+
+        const sourceGroup = copyItems[Number(srouceCoords[0])]
+        const sourceJobRow = sourceGroup.jobs[Number(srouceCoords[1])]
+
+        const destGroup = copyItems[Number(destCoords[0])]
+        const destJobRow = destGroup.jobs[Number(destCoords[1])]
+        const [removed] = sourceJobRow.splice(source.index, 1)
+        destJobRow.splice(destination.index, 0, removed)
+        break
+      }
+      case "droppableGroups":{
+        const [removed] = copyItems.splice(source.index, 1);
+        copyItems.splice(destination.index, 0, removed)
+        break
+      }
+      default:
+        return
+    }
+
+    setItems(copyItems)
     const formattedData = {...responseData, groups: copyItems}
+    console.log(formattedData)
 
     await putRadiator(formattedData).catch(() => {
       console.error("Was not able to post radiator groups")
@@ -50,7 +70,7 @@ const AdminRadiatorEditor = ({radiatorData}) => {
   return (
     <div>
       <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="droppable-1">
+        <Droppable droppableId="droppable-1" type={"droppableGroups"}>
           {(provided) => (
           <div ref={provided.innerRef}
                {...provided.droppableProps}>
@@ -62,12 +82,26 @@ const AdminRadiatorEditor = ({radiatorData}) => {
                          {...provided.draggableProps}
                          {...provided.dragHandleProps}>
                       <Group id={draggableIndex} title={group.title}>
-                        {group.jobs.map((row) => {
-                          return (
-                            <div className={"container"}>
-                              {row.map((job) => <Job grow={job.grow} order={job.order} text={job.text}/>)}
-                            </div>
-                          );
+                        { group.jobs.map((row, droppableIndex) => {
+                          return(
+                            <Droppable droppableId={draggableIndex + "-" + droppableIndex} key={droppableIndex} direction="horizontal" type={"droppableJobs"}>
+                              {(provided) => (
+                                <div ref={provided.innerRef}
+                                     {...provided.droppableProps} className={"container"}>
+                                  {row.map((job, rowIndex) => {
+                                    return (
+                                      <Draggable key={rowIndex} draggableId={draggableIndex + "-" + droppableIndex + "-" + rowIndex} index={rowIndex}>
+                                        {(provided) => (
+                                          <Job draggable={provided} grow={job.grow} order={job.order} text={job.text}/>
+                                        )}
+                                      </Draggable>
+                                    )
+                                  })}
+                                  {provided.placeholder}
+                                </div>
+                              )}
+                            </Droppable>
+                          )
                         })}
                       </Group>
                     </div>)}

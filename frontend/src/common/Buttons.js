@@ -32,5 +32,3 @@ export const Button = ({buttonText, onClick}) => {
     </div>
   )
 }
-
-export default {SaveButton, Button}

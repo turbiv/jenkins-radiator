@@ -48,9 +48,9 @@ const AdminRadiatorGroupsList = ({radiatorData}) => {
   }
 
   return(
-    <div>
+    <div style={{margin: "auto", width: "50%", textAlign: "center"}}>
       <form onSubmit={handleAdditionOfGroups}>
-        <table className="layout display responsive-table">
+        <table style={{marginLeft: "auto", marginRight: "auto"}} className="layout display responsive-table">
           <thead>
           <tr>
             <th/>
@@ -78,9 +78,8 @@ const AdminRadiatorGroupsList = ({radiatorData}) => {
           }
           </tbody>
         </table>
-        <input type={"submit"} value={"Add selected items"} />
       </form>
-
+      <SaveButton saveHandle={getAllGroups} />
     </div>
   );
 }
