@@ -9,35 +9,49 @@ const headers = {
 }
 
 export const getAll = () => {
-  return data
+  const request = axios.get("http://localhost:3003/api/radiator/")
+  return request.then(response => response.data)
+    .catch(error => Promise.reject(error.response.status))
 };
 
 export const getRadiatorById = (id) =>{
-  const request = axios.get("http://localhost:3001/singleRad/" + id)
+  const request = axios.get("http://localhost:3003/api/radiator/" + id)
   return request.then(response => response.data)
     .catch(error => Promise.reject(error.response.status))
 }
 
 export const putRadiator = async (radiatorJson) => {
-  const request = axios.put("http://localhost:3001/singleRad/" + radiatorJson.id, radiatorJson, headers)
+  const request = axios.put("http://localhost:3003/api/radiator/", radiatorJson, headers)
   return request.then(() => Promise.resolve())
     .catch(error => Promise.reject(error.response.status))
 }
 
 export const putGroup = async (categoryJson) => {
-  const request = axios.put("http://localhost:3001/groups/" + categoryJson.id, categoryJson, headers)
+  const request = axios.put("http://localhost:3003/api/radiator/group/", categoryJson, headers)
+  return request.then(() => Promise.resolve())
+    .catch(error => Promise.reject(error.response.status))
+}
+
+export const putJob = async (jobJson) => {
+  const request = axios.put("http://localhost:3003/api/radiator/job/", jobJson, headers)
   return request.then(() => Promise.resolve())
     .catch(error => Promise.reject(error.response.status))
 }
 
 export const getGroupById = async (id) => {
-  const request = axios.get("http://localhost:3001/groups/" + id)
+  const request = axios.get("http://localhost:3003/api/radiator/group/" + id)
   return request.then(response => response.data)
     .catch(error => Promise.reject(error.response.status))
 }
 
 export const getAllGroups = async () => {
-  const request = axios.get("http://localhost:3001/groups/")
+  const request = axios.get("http://localhost:3003/api/radiator/group/")
+  return request.then(response => response.data)
+    .catch(error => Promise.reject(error.response.status))
+}
+
+export const getAllJobs = async () => {
+  const request = axios.get("http://localhost:3003/api/radiator/job/")
   return request.then(response => response.data)
     .catch(error => Promise.reject(error.response.status))
 }
@@ -60,4 +74,4 @@ export const postNewRadiator = async (payload)  => {
     .catch(error => Promise.reject(error.response.status))
 }
 
-export default { getAll, getRadiatorById, getGroupById, getAllGroups, putGroup, postNewRadiator, postNewGroup, postNewJob }
+export default { getAll, getRadiatorById, getGroupById, getAllGroups, putGroup, postNewRadiator, postNewGroup, postNewJob, getAllJobs, putJob }

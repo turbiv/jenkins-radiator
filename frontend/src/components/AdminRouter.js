@@ -5,13 +5,13 @@ import AdminHome from "./AdminHome"
 import AdminRadiatorEditor from "./AdminRadiatorEditor"
 import {getRadiatorById, getGroupById} from "../services/radiator"
 import AdminGroupEditor from "./AdminGroupEditor"
-import AdminRadiatorGroupsList from "./AdminRadiatorGroupsList"
+import AdminRadiatorSettings from "./AdminRadiatorSettings"
 import AdminGroupsList from "./AdminGroupsList"
 import AdminJobsList from "./AdminJobsList"
 import AdminJobCreator from "./AdminJobCreator"
 import AdminGroupCreator from "./AdminGroupCreator"
 import AdminRadiatorCreator from "./AdminRadiatorCreator"
-import AdminRadiatorGroupsEditor from "./AdminRadiatorGroupsEditor"
+import AdminGroupSettings from "./AdminGroupSettings"
 
 
 const AdminRouter = () => {
@@ -38,9 +38,9 @@ const AdminRouter = () => {
         <Route exact path={"/admin/jobs/new"} render={() => <AdminJobCreator/>}/>
         <Route exact path={"/admin/radiators/new"} render={() => <AdminRadiatorCreator/>}/>
         <Route exact path={"/admin/radiator/:id"} render={({match}) => <AdminRadiatorEditor radiatorData={getRadiator(match.params.id)}/>}/>
-        <Route exact path={"/admin/radiator/:id/groups"} render={({match}) => <AdminRadiatorGroupsList radiatorData={getRadiator(match.params.id)}/>}/>
-        <Route exact path={"/admin/radiator/:id/groups/edit"} render={({match}) => <AdminRadiatorGroupsEditor radiatorData={getRadiator(match.params.id)}/>}/>
+        <Route exact path={"/admin/radiator/:id/settings"} render={({match}) => <AdminRadiatorSettings radiatorData={getRadiator(match.params.id)}/>}/>
         <Route exact path={"/admin/group/:id/"} render={({match}) => <AdminGroupEditor groupData={getGroup(match.params.id)}/>}/>
+        <Route exact path={"/admin/group/:id/settings"} render={({match}) => <AdminGroupSettings groupData={getGroup(match.params.id)}/>}/>
       </div>
     </div>
   );

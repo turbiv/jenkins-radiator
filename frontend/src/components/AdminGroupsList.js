@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react"
 import {Link} from "react-router-dom"
+import "../css/admin-home.css"
 import {getAllGroups} from "../services/radiator"
+import DropdownButton from "../common/DropdownButton"
 
 const AdminGroupsList = () => {
 
@@ -25,10 +27,33 @@ const AdminGroupsList = () => {
   }
 
   return(
-    <div>
+    <div style={{width: "65%", fontFamily: "'Roboto', sans-serif"}}>
       <Link to={"/admin/groups/new"}><button>New group</button></Link>
-      <h2>Groups:</h2>
-      {groups.map((group, index) => <Link key={index} to={`/admin/group/${group.id}`}>{group.title}<br/></Link>)}
+      <div>
+        <div className={"radiator-list-header"}>
+          <p style={{flexGrow: 3}}>
+            Group name
+          </p>
+          <p style={{flexGrow: 1,  borderLeftStyle: "dashed"}}>
+            Options
+          </p>
+        </div>
+        {groups.map((group, index)=>{
+          return(
+            <div key={index} className={"radiator-list-box"} id={index}>
+              <div className={"radiator-list-box-div"} style={{flexGrow: 3}}>
+                <Link to={"/admin/group/" + group.id}>{group.title}<br/></Link>
+              </div>
+              <div className={"radiator-list-box-div"} style={{flexGrow: 1, borderLeftStyle: "dashed"}}>
+                <DropdownButton title={"Options"}>
+                  <Link to={`/admin/group/${group.id}`}>Edit group</Link>
+                  <Link to={`/admin/group/${group.id}/settings`}>Group settings</Link>
+                </DropdownButton>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

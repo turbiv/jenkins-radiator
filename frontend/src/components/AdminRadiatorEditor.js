@@ -36,6 +36,7 @@ const AdminRadiatorEditor = ({radiatorData}) => {
 
         const destGroup = copyItems[Number(destCoords[0])]
         const destJobRow = destGroup.jobs[Number(destCoords[1])]
+
         const [removed] = sourceJobRow.splice(source.index, 1)
         destJobRow.splice(destination.index, 0, removed)
         break

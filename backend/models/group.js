@@ -8,10 +8,11 @@ mongo.set('useUnifiedTopology', true);
 
 const groupSchema = new mongo.Schema({
   title: {type: String},
-  jobs: [mongo.Schema.Types.ObjectId],
+  jobs: [{type: mongo.Schema.Types.Mixed, ref: "jobs"}],
 });
 
 groupSchema.plugin(uniqueValidator);
+groupSchema.set('validateBeforeSave', false) // TODO: validate 2d jobs array
 
 groupSchema.set('toJSON', {
   transform: (document, returnedObject) => {

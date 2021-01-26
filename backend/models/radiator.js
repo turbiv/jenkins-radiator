@@ -9,7 +9,7 @@ mongo.set('useUnifiedTopology', true);
 const radiatorSchema = new mongo.Schema({
   owner: {type: mongo.Schema.Types.ObjectId},
   name: {type: String},
-  groups: [mongo.Schema.Types.ObjectId]
+  groups: [{type: mongo.Schema.Types.ObjectId, ref: "groups"}]
 });
 
 radiatorSchema.plugin(uniqueValidator);

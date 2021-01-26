@@ -28,7 +28,7 @@ export const SaveButton = ({buttonText, saveHandle}) => {
 export const Button = ({buttonText, onClick}) => {
   return(
     <div>
-      <button onClick={onClick}>{buttonText || "Save"}</button>
+      <button onClick={onClick}>{buttonText}</button>
     </div>
   )
 }

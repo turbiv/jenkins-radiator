@@ -4,16 +4,18 @@ import "../css/table.css"
 import {getAllGroups, putRadiator} from "../services/radiator"
 import {SaveButton} from "../common/Buttons"
 
-const AdminRadiatorGroupsList = ({radiatorData}) => {
+const AdminRadiatorSettings = ({radiatorData}) => {
 
   const [allRadiatorGroups, setAllRadiatorGroups] = useState([])
   const [groupsToAdd, setGroupsToAdd] = useState([])
+  const [radiatorJson, setRadiatorJson] = useState(null)
 
   const [radiatorStatus, setRadiatorStatus] = useState(null)
 
   useEffect(async () => {
     radiatorData.then((response) => {
       console.log(response)
+      setRadiatorJson(response)
       setGroupsToAdd(response.groups.map((group) => group.id))
     }).catch((error) => {
       setRadiatorStatus(error)
@@ -25,17 +27,16 @@ const AdminRadiatorGroupsList = ({radiatorData}) => {
 
   }, [])
 
-  const handleAdditionOfGroups = (event) => {
-    event.preventDefault()
-    console.log(groupsToAdd)
+  const handleAdditionOfGroups = async () => {
+    await putRadiator({...radiatorJson, groups: groupsToAdd})
   }
 
   const handleCheckboxChange = (event) => {
     const target = event.target
     if(target.checked){
-      setGroupsToAdd([...groupsToAdd, Number(target.value)]) //TODO: remove number when using objectid
+      setGroupsToAdd([...groupsToAdd, target.value])
     }else{
-      setGroupsToAdd(groupsToAdd.filter((id) => id !== Number(target.value)))
+      setGroupsToAdd(groupsToAdd.filter((id) => id !== target.value))
     }
   }
 
@@ -79,9 +80,9 @@ const AdminRadiatorGroupsList = ({radiatorData}) => {
           </tbody>
         </table>
       </form>
-      <SaveButton saveHandle={getAllGroups} />
+      <SaveButton saveHandle={handleAdditionOfGroups} />
     </div>
   );
 }
 
-export default AdminRadiatorGroupsList;
+export default AdminRadiatorSettings;
