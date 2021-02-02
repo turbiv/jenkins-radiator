@@ -1,6 +1,7 @@
 const express = require("express");
 const expressRouter = express.Router();
 const mongoRadiator = require("../models/radiator");
+const mongoGroup = require("../models/group");
 const mongoose = require("mongoose");
 const config = require("../config.json");
 
@@ -60,9 +61,30 @@ expressRouter.put("/", async (request, response) => {
     response.status(config.response.badrequest).send({error: "Radiator name is missing."})
   }
 
+  const groupsId = body.groups.map(group => group.id)
+  const formattedRadiatorGroups = {...body, groups: groupsId}
+  await mongoRadiator.findByIdAndUpdate(body.id, formattedRadiatorGroups)
+
+  const fromattedGroupsJobs = body.groups.map(group => {return {id: group.id, jobs: group.jobs.map(jobRow => jobRow.map(job => job.id))}})
+
+  for(const formattedGroup of fromattedGroupsJobs){
+    await mongoGroup.findByIdAndUpdate(formattedGroup.id, formattedGroup)
+  }
+
+  response.status(config.response.ok).send().end()
+})
+
+expressRouter.put("/settings", async (request, response) => {
+  const body = request.body
+
+  if(body.name === undefined){
+    response.status(config.response.badrequest).send({error: "Radiator name is missing."})
+  }
+
   await mongoRadiator.findByIdAndUpdate(body.id, body)
 
   response.status(config.response.ok).send().end()
 })
+
 
 module.exports = expressRouter;

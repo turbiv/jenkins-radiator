@@ -5,10 +5,12 @@ import App from "./App";
 import thunk from 'redux-thunk';
 import {combineReducers, createStore, applyMiddleware} from "redux";
 import { Provider } from 'react-redux'
-import radiatorReducer from "./reducers/radiatorReducer"
+import notificationReducer from "./reducers/notificationReducer"
+import loginReducer from "./reducers/loginReducer"
 
 const reducers = combineReducers({
-  radiator: radiatorReducer
+  notification: notificationReducer,
+  login: loginReducer
 })
 
 const store = createStore(reducers, applyMiddleware(thunk))

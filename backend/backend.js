@@ -10,6 +10,7 @@ const middleware = require("./utils/middleware");
 const groupController = require("./controllers/group")
 const jobController = require("./controllers/job")
 const radiatorController = require("./controllers/radiator")
+const authenticationController = require("./controllers/authentication")
 
 const mongoUrl = "mongodb+srv://turbiv:test123.@cluster01.pzhm6.mongodb.net/radiator?retryWrites=true&w=majority";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -23,6 +24,7 @@ app.use(middleware.getToken);
 app.use("/api/radiator/group", groupController)
 app.use("/api/radiator/job", jobController)
 app.use("/api/radiator", radiatorController)
+app.use("/api/auth", authenticationController)
 
 //TODO: Error handlers
 app.use(middleware.errorHandler);

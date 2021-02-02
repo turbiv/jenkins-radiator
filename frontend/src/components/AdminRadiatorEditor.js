@@ -41,7 +41,7 @@ const AdminRadiatorEditor = ({radiatorData}) => {
         destJobRow.splice(destination.index, 0, removed)
         break
       }
-      case "droppableGroups":{
+      case "droppableGroups": {
         const [removed] = copyItems.splice(source.index, 1);
         copyItems.splice(destination.index, 0, removed)
         break

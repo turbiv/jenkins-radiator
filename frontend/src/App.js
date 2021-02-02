@@ -4,16 +4,12 @@ import {
   Route, Switch
 } from 'react-router-dom'
 import Menu from "./components/Menu";
-import {connect} from "react-redux"
-import {initializeRadiators} from "./reducers/radiatorReducer"
 import Radiator from "./common/Radiator";
 import {getRadiatorById} from "./services/radiator"
 import MainPage from "./components/MainPage"
 import AdminRouter from "./components/AdminRouter"
-import Test from "./components/Test"
 
-
-const App = (props) => {
+const App = () => {
 
   const getRadiator = (id) =>{
     //props.radiator.radiators.find(rad => rad.id === id)
@@ -32,15 +28,4 @@ const App = (props) => {
   )
 }
 
-const mapDispatchToProps = {
-  initializeRadiators
-}
-
-const mapStateToProps = (state) =>{
-  return{
-    radiator: state.radiator
-  }
-}
-
-const connectedApp = connect(mapStateToProps, mapDispatchToProps)(App)
-export default connectedApp;
+export default App;

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react"
 import {Link} from "react-router-dom"
 import "../css/table.css"
-import {getAllGroups, putRadiator} from "../services/radiator"
+import {getAllGroups, putRadiatorSettings} from "../services/radiator"
 import {SaveButton} from "../common/Buttons"
 
 const AdminRadiatorSettings = ({radiatorData}) => {
@@ -28,7 +28,7 @@ const AdminRadiatorSettings = ({radiatorData}) => {
   }, [])
 
   const handleAdditionOfGroups = async () => {
-    await putRadiator({...radiatorJson, groups: groupsToAdd})
+    await putRadiatorSettings({...radiatorJson, groups: groupsToAdd})
   }
 
   const handleCheckboxChange = (event) => {

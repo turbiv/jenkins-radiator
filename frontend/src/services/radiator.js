@@ -1,6 +1,10 @@
-import data from "../test_data/radiators.json"
-import singleRad from "../test_data/single_radiator.json"
 import axios from "axios"
+
+let token = null
+
+export const setToken = newToken => {
+  token = "bearer " + newToken
+};
 
 const headers = {
   headers: {
@@ -22,6 +26,12 @@ export const getRadiatorById = (id) =>{
 
 export const putRadiator = async (radiatorJson) => {
   const request = axios.put("http://localhost:3003/api/radiator/", radiatorJson, headers)
+  return request.then(() => Promise.resolve())
+    .catch(error => Promise.reject(error.response.status))
+}
+
+export const putRadiatorSettings = async (radiatorJson) => {
+  const request = axios.put("http://localhost:3003/api/radiator/settings", radiatorJson, headers)
   return request.then(() => Promise.resolve())
     .catch(error => Promise.reject(error.response.status))
 }
@@ -74,4 +84,4 @@ export const postNewRadiator = async (payload)  => {
     .catch(error => Promise.reject(error.response.status))
 }
 
-export default { getAll, getRadiatorById, getGroupById, getAllGroups, putGroup, postNewRadiator, postNewGroup, postNewJob, getAllJobs, putJob }
+export default { getAll, getRadiatorById, getGroupById, getAllGroups, putGroup, postNewRadiator, postNewGroup, postNewJob, getAllJobs, putJob, setToken }
