@@ -36,12 +36,12 @@ const Login = (props) => {
   const handleLogin = async (event) =>{
     event.preventDefault();
     if(!confirmUserDetails()) return
-    return
-    const loginuser = await postLogin();
-    if(loginuser === null){
+    const loginuser = await postLogin({username, password});
+    if(!loginuser){
       props.createNotification("Failed to login");
       return
     }
+    console.log(loginuser)
     window.localStorage.setItem("loggedUser", JSON.stringify(loginuser));
     props.setUser(loginuser);
     setToken(loginuser.token);
@@ -49,15 +49,15 @@ const Login = (props) => {
 
   const handleRegister = async (event) =>{
     event.preventDefault();
+    console.log("submit")
     if(!confirmUserDetails()) return
     if(password !== confirmPassword){
       console.log("password match error")
       props.createNotification("Passwords do not match, please double check.")
       return
     }
-    return
-    const loginuser = await postRegister();
-    if(loginuser === null){
+    const loginuser = await postRegister({username, password, name});
+    if(!loginuser){
       props.createNotification("Failed to register");
       return
     }

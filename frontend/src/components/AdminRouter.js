@@ -1,10 +1,11 @@
-import React, {useState} from "react"
+import React, {useState, useEffect} from "react"
 import {connect} from "react-redux"
 import {Route} from 'react-router-dom'
 import Sidebar from "../common/Sidebar"
 import AdminHome from "./AdminHome"
 import AdminRadiatorEditor from "./AdminRadiatorEditor"
 import {getRadiatorById, getGroupById} from "../services/radiator"
+import {getUser} from "../services/login"
 import AdminGroupEditor from "./AdminGroupEditor"
 import AdminRadiatorSettings from "./AdminRadiatorSettings"
 import AdminGroupsList from "./AdminGroupsList"
@@ -21,8 +22,18 @@ import {createNotification} from "../reducers/notificationReducer";
 const AdminRouter = (props) => {
   const [registerPage, setRegisterPage] = useState(false)
 
+  useEffect(async () => {
+    const loggedUser = window.localStorage.getItem("loggedUser");
+    if(loggedUser){
+      const user = JSON.parse(loggedUser);
+
+      const latestUser = await getUser(user.id) // Get user for latest permissions
+
+      props.setUser({...user, permissions: latestUser.permissions})
+    }
+  },[]);
+
   const getRadiator = async (id) => {
-    //props.radiator.radiators.find(rad => rad.id === id)
     return await getRadiatorById(id) // Get single radiator straight from backend (less data to check by just asking for 1 radiator)
   }
 
@@ -62,6 +73,10 @@ const AdminRouter = (props) => {
   );
 }
 
+const mapDispatchToProps = {
+  setUser
+}
+
 
 const mapStateToProps = (state) =>{
   return{
@@ -70,5 +85,5 @@ const mapStateToProps = (state) =>{
   }
 };
 
-const connectedAdminRouter = connect(mapStateToProps)(AdminRouter);
+const connectedAdminRouter = connect(mapStateToProps, mapDispatchToProps)(AdminRouter);
 export default connectedAdminRouter;

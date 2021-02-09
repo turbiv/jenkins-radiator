@@ -1,62 +1,65 @@
 import React from 'react';
+import {connect} from "react-redux"
 import { Link } from 'react-router-dom';
 import '../css/sidebar.css';
 import { IconContext } from 'react-icons';
 import { MdAccountCircle } from 'react-icons/md'
 import { IoIosPower, IoMdHelpCircle, IoIosSettings, IoMdPeople, IoIosBriefcase, IoLogoBuffer  } from 'react-icons/io'
 import { AiFillHome } from 'react-icons/ai'
+import {removeUser} from "../reducers/loginReducer";
 
 
-const Sidebar = () => {
+const Sidebar = (props) => {
 
   const SidebarData = [
     {
       title: 'Home',
       path: '/admin/home',
       icon: <AiFillHome />,
-      cName: 'nav-text'
+      cName: 'nav-text',
+      permission: "read_radiators"
     },
     {
       title: 'Groups',
       path: '/admin/groups',
       icon: <IoLogoBuffer />,
-      cName: 'nav-text'
+      cName: 'nav-text',
+      permission: "read_groups"
     },
     {
       title: 'Jobs',
       path: '/admin/jobs',
       icon: <IoIosBriefcase />,
-      cName: 'nav-text'
+      cName: 'nav-text',
+      permission: "read_jobs"
     },
     {
       title: 'Owners',
       path: '/admin/owners',
       icon: <IoMdPeople />,
-      cName: 'nav-text'
+      cName: 'nav-text',
+      permission: null
     },
     {
       title: 'Options',
       path: '/admin/options',
       icon: <IoIosSettings />,
-      cName: 'nav-text'
+      cName: 'nav-text',
+      permission: "administrator"
     },
     {
-      title: 'Account',
+      title: 'Accounts',
       path: '/admin/account',
       icon: <MdAccountCircle />,
-      cName: 'nav-text'
+      cName: 'nav-text',
+      permission: "modify_users"
     },
     {
       title: 'Support',
       path: '/admin/support',
       icon: <IoMdHelpCircle />,
-      cName: 'nav-text'
-    },
-    {
-      title: 'Exit',
-      path: '/',
-      icon: <IoIosPower />,
-      cName: 'nav-text'
+      cName: 'nav-text',
+      permission: null
     }
   ];
 
@@ -66,6 +69,10 @@ const Sidebar = () => {
         <div className={'nav-menu'}>
           <div className='nav-menu-items'>
             {SidebarData.map((item, index) => {
+              if(0 >= props.login.permissions[item.permission] && props.login[item.permission] !== null){
+                return null
+              }
+
               return (
                 <div key={index} className={item.cName}>
                   <Link to={item.path}>
@@ -75,6 +82,12 @@ const Sidebar = () => {
                 </div>
               );
             })}
+            <div className={'nav-text'}>
+              <Link to={"/"} onClick={() => props.removeUser()}>
+                <IoIosPower />
+                <span>Log out</span>
+              </Link>
+            </div>
           </div>
         </div>
       </IconContext.Provider>
@@ -82,4 +95,16 @@ const Sidebar = () => {
   );
 }
 
-export default Sidebar;
+const mapDispatchToProps = {
+  removeUser
+}
+
+
+const mapStateToProps = (state) =>{
+  return{
+    login: state.login,
+  }
+};
+
+const connectedSidebar = connect(mapStateToProps, mapDispatchToProps)(Sidebar);
+export default connectedSidebar;

@@ -4,6 +4,7 @@ const mongoRadiator = require("../models/radiator");
 const mongoGroup = require("../models/group");
 const mongoose = require("mongoose");
 const config = require("../config.json");
+const jwt = require("jsonwebtoken");
 
 // Get all radiators
 expressRouter.get("/", async (request, response) => {
@@ -33,12 +34,17 @@ expressRouter.get("/:id", async (request, response) => {
 // Create new radiator
 expressRouter.post("/", async (request, response) => {
   const body = request.body;
+  const decodedToken = jwt.decode(request.token, "test");
+
+  if(!decodedToken.username){
+    return response.status(config.response.badrequest).send({error: "missing or invalid token"})
+  }
 
   /*if(body.owner === undefined){
     response.status(config.response.badrequest).send({error: "Radiator owner is missing."})
   }*/
 
-  if(body.name === undefined){
+  if(!body.name){
     response.status(config.response.badrequest).send({error: "Radiator name is missing."})
   }
 
@@ -57,7 +63,7 @@ expressRouter.post("/", async (request, response) => {
 expressRouter.put("/", async (request, response) => {
   const body = request.body
 
-  if(body.name === undefined){
+  if(!body.name){
     response.status(config.response.badrequest).send({error: "Radiator name is missing."})
   }
 
@@ -77,7 +83,7 @@ expressRouter.put("/", async (request, response) => {
 expressRouter.put("/settings", async (request, response) => {
   const body = request.body
 
-  if(body.name === undefined){
+  if(!body.name){
     response.status(config.response.badrequest).send({error: "Radiator name is missing."})
   }
 

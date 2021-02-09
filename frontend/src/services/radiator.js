@@ -12,6 +12,13 @@ const headers = {
   }
 }
 
+const tokenHeaders = {
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": token
+  }
+}
+
 export const getAll = () => {
   const request = axios.get("http://localhost:3003/api/radiator/")
   return request.then(response => response.data)
@@ -25,25 +32,25 @@ export const getRadiatorById = (id) =>{
 }
 
 export const putRadiator = async (radiatorJson) => {
-  const request = axios.put("http://localhost:3003/api/radiator/", radiatorJson, headers)
+  const request = axios.put("http://localhost:3003/api/radiator/", radiatorJson, tokenHeaders)
   return request.then(() => Promise.resolve())
     .catch(error => Promise.reject(error.response.status))
 }
 
 export const putRadiatorSettings = async (radiatorJson) => {
-  const request = axios.put("http://localhost:3003/api/radiator/settings", radiatorJson, headers)
+  const request = axios.put("http://localhost:3003/api/radiator/settings", radiatorJson, tokenHeaders)
   return request.then(() => Promise.resolve())
     .catch(error => Promise.reject(error.response.status))
 }
 
 export const putGroup = async (categoryJson) => {
-  const request = axios.put("http://localhost:3003/api/radiator/group/", categoryJson, headers)
+  const request = axios.put("http://localhost:3003/api/radiator/group/", categoryJson, tokenHeaders)
   return request.then(() => Promise.resolve())
     .catch(error => Promise.reject(error.response.status))
 }
 
 export const putJob = async (jobJson) => {
-  const request = axios.put("http://localhost:3003/api/radiator/job/", jobJson, headers)
+  const request = axios.put("http://localhost:3003/api/radiator/job/", jobJson, tokenHeaders)
   return request.then(() => Promise.resolve())
     .catch(error => Promise.reject(error.response.status))
 }
@@ -67,19 +74,19 @@ export const getAllJobs = async () => {
 }
 
 export const postNewJob = async (payload)  => {
-  const request = axios.post("http://localhost:3003/api/radiator/job/", payload, headers)
+  const request = axios.post("http://localhost:3003/api/radiator/job/", payload, tokenHeaders)
   return request.then(() => Promise.resolve())
     .catch(error => Promise.reject(error.response.status))
 }
 
 export const postNewGroup = async (payload) => {
-  const request = axios.post("http://localhost:3003/api/radiator/group/", payload, headers)
+  const request = axios.post("http://localhost:3003/api/radiator/group/", payload, tokenHeaders)
   return request.then(() => Promise.resolve())
     .catch(error => Promise.reject(error.response.status))
 }
 
 export const postNewRadiator = async (payload)  => {
-  const request = axios.post("http://localhost:3003/api/radiator/", payload, headers)
+  const request = axios.post("http://localhost:3003/api/radiator/", payload, tokenHeaders)
   return request.then(() => Promise.resolve())
     .catch(error => Promise.reject(error.response.status))
 }
