@@ -1,7 +1,7 @@
 import React from "react"
-const initalState = "";
+const initalState = [];
 
-export const createNotification = (notification, timeout) => {
+export const createNotification = (notification, timeout = 7) => {
   return async dispatch => {
     dispatch({
       type: "SET_NOTIFICATION",
@@ -25,9 +25,9 @@ const reducer = (state = initalState, action) =>{
 
   switch (action.type) {
     case "SET_NOTIFICATION":
-      return <div>{action.data.notification}</div>;
+      return [...state, <div>{action.data.notification}</div>];
     case "REMOVE_NOTIFICATION":
-      return "";
+      return state.slice(1);
     default:
 
   }

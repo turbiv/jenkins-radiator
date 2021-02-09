@@ -1,4 +1,5 @@
-import React from "react"
+import React, {useState} from "react"
+import {connect} from "react-redux"
 import {Route} from 'react-router-dom'
 import Sidebar from "../common/Sidebar"
 import AdminHome from "./AdminHome"
@@ -12,9 +13,13 @@ import AdminJobCreator from "./AdminJobCreator"
 import AdminGroupCreator from "./AdminGroupCreator"
 import AdminRadiatorCreator from "./AdminRadiatorCreator"
 import AdminGroupSettings from "./AdminGroupSettings"
+import Login from "./Login"
+import {setUser} from "../reducers/loginReducer";
+import {createNotification} from "../reducers/notificationReducer";
 
 
-const AdminRouter = () => {
+const AdminRouter = (props) => {
+  const [registerPage, setRegisterPage] = useState(false)
 
   const getRadiator = async (id) => {
     //props.radiator.radiators.find(rad => rad.id === id)
@@ -25,11 +30,22 @@ const AdminRouter = () => {
     return await getGroupById(id)
   }
 
+  if(!props.login){
+    return(
+      <div>
+        {props.notification}
+        <Login register={registerPage}/>
+        <button onClick={() => setRegisterPage(!registerPage)}>{registerPage ? "Login as existing user" : "Register new user"}</button>
+      </div>
+    )
+  }
+
 
   return (
     <div >
       <Sidebar/>
       <div style={{marginLeft: 170}}>
+        {props.notification}
         <Route exact path={"/admin/"} render={() => <AdminHome/>}/>
         <Route exact path={"/admin/home"} render={() => <AdminHome/>}/>
         <Route exact path={"/admin/groups"} render={() => <AdminGroupsList/>}/>
@@ -46,4 +62,13 @@ const AdminRouter = () => {
   );
 }
 
-export default AdminRouter;
+
+const mapStateToProps = (state) =>{
+  return{
+    login: state.login,
+    notification: state.notification
+  }
+};
+
+const connectedAdminRouter = connect(mapStateToProps)(AdminRouter);
+export default connectedAdminRouter;

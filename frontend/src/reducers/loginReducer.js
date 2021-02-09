@@ -16,7 +16,7 @@ export const removeUser = () =>{
     window.localStorage.removeItem("loggedUser");
     dispatch({
       type: "REMOVE_USER",
-      data: ""
+      data: null
     })
   }
 };
