@@ -65,17 +65,5 @@ expressRouter.post('/register', async (request, response) =>{
   response.json({token, username: savedUser.username, name: savedUser.name, permissions: savedUser.permissions, id: savedUser._id})
 });
 
-expressRouter.get('/', async (request, response) =>{
-  const users = await mongoUsers.find({});
-
-  response.json(users.map(user => user))
-});
-
-expressRouter.get('/:id', async (request, response) =>{
-  const user = await mongoUsers.findById(request.params.id);
-  response.status(config.response.ok).send(user).end()
-});
-
-
 
 module.exports = expressRouter;

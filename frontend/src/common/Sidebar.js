@@ -49,7 +49,7 @@ const Sidebar = (props) => {
     },
     {
       title: 'Accounts',
-      path: '/admin/account',
+      path: '/admin/accounts',
       icon: <MdAccountCircle />,
       cName: 'nav-text',
       permission: "modify_users"
@@ -69,7 +69,7 @@ const Sidebar = (props) => {
         <div className={'nav-menu'}>
           <div className='nav-menu-items'>
             {SidebarData.map((item, index) => {
-              if(0 >= props.login.permissions[item.permission] && props.login[item.permission] !== null){
+              if(0 >= props.login.permissions[item.permission] && props.login[item.permission] !== null && 0 >= props.login.permissions.administrator){
                 return null
               }
 

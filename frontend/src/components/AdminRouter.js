@@ -5,7 +5,7 @@ import Sidebar from "../common/Sidebar"
 import AdminHome from "./AdminHome"
 import AdminRadiatorEditor from "./AdminRadiatorEditor"
 import {getRadiatorById, getGroupById} from "../services/radiator"
-import {getUser} from "../services/login"
+import {getUser} from "../services/users"
 import AdminGroupEditor from "./AdminGroupEditor"
 import AdminRadiatorSettings from "./AdminRadiatorSettings"
 import AdminGroupsList from "./AdminGroupsList"
@@ -17,6 +17,8 @@ import AdminGroupSettings from "./AdminGroupSettings"
 import Login from "./Login"
 import {setUser} from "../reducers/loginReducer";
 import {createNotification} from "../reducers/notificationReducer";
+import AdminAccountsList from "./AdminAccountsList"
+import AdminAccountSettings from "./AdminAccountSettings"
 
 
 const AdminRouter = (props) => {
@@ -51,7 +53,7 @@ const AdminRouter = (props) => {
     )
   }
 
-
+// TODO: move getting group into the component it self
   return (
     <div >
       <Sidebar/>
@@ -68,6 +70,8 @@ const AdminRouter = (props) => {
         <Route exact path={"/admin/radiator/:id/settings"} render={({match}) => <AdminRadiatorSettings radiatorData={getRadiator(match.params.id)}/>}/>
         <Route exact path={"/admin/group/:id/"} render={({match}) => <AdminGroupEditor groupData={getGroup(match.params.id)}/>}/>
         <Route exact path={"/admin/group/:id/settings"} render={({match}) => <AdminGroupSettings groupData={getGroup(match.params.id)}/>}/>
+        <Route exact path={"/admin/accounts"} render={() => <AdminAccountsList/>}/>
+        <Route exact path={"/admin/accounts/:id"} render={({match}) => <AdminAccountSettings accountId={match.params.id}/>}/>
       </div>
     </div>
   );
