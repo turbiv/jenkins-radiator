@@ -24,4 +24,10 @@ export const deleteUser = async (id)  => {
     .catch(error => Promise.reject(error.response.status))
 }
 
-export default { getUser, getAllUsers, deleteUser }
+export const putUser = async (payload) => {
+  const request = axios.put("http://localhost:3003/api/users/", payload, headers)
+  return request.then(() => Promise.resolve())
+    .catch(error => Promise.reject(error.response.status))
+}
+
+export default { getUser, getAllUsers, deleteUser, putUser }

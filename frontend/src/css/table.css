@@ -7,27 +7,45 @@ table td{
 .layout{
     border-collapse: collapse;
 }
-.display{
 
+.display{
     margin: 1em 0;
 }
+
 .display th,
 .display td{
     border: 1px solid #B3BFAA;
     padding: .5em 1em;
 }
 
-.display th{ background: #457B9D; }
+.display caption{
+    border-left: 1px solid #B3BFAA;
+    border-bottom: 1px solid #B3BFAA;
+    border-right: 1px solid #B3BFAA;
+    padding: .5em 1em;
+    background: #fff;
+    font-family: 'Roboto', sans-serif;
+}
+
+
+.display th{
+    background: #457B9D;
+    text-align: center;
+    vertical-align: middle;
+}
 .display td{ background: #fff; }
 
 .responsive-table{
     box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+    flex-grow: 1;
 }
 
 .check-box-col{
-
+    text-align: center;
+    vertical-align: middle;
 }
 
 .title-col{
-
+    text-align: center;
+    vertical-align: middle;
 }
