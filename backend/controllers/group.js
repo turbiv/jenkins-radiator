@@ -13,8 +13,9 @@ expressRouter.get("/", async (request, response) => {
 })
 
 expressRouter.get("/:id", async (request, response) => {
-  const groups = await mongoGroup.findById(request.params.id).catch(() => response.status(config.response.notfound).send({error: "Groups not found"}).end())
-  await groups.populate("jobs")
+  const groups = await mongoGroup.findById(request.params.id)
+    .populate("jobs")
+    .catch(() => response.status(config.response.notfound).send({error: "Groups not found"}).end())
   response.status(config.response.ok).send(groups).end()
 })
 

@@ -12,6 +12,7 @@ const AdminGroupEditor = ({groupData}) => {
 
   useEffect(async () => {
     groupData.then((response) => {
+      console.log("response", response)
       setResponseData(response)
       setItems(response.jobs)
     }).catch((error) => {
