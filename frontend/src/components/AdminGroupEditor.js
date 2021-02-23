@@ -62,7 +62,7 @@ const AdminGroupEditor = ({groupData}) => {
                       return (
                         <Draggable id={"droppable-" + droppableIndex} key={rowIndex} draggableId={"draggable-" + droppableIndex + "" + rowIndex} index={rowIndex}>
                         {(provided) => (
-                          <Job draggable={provided} grow={job.grow} order={job.order} text={job.text}/>
+                          <Job draggable={provided} grow={job.grow} order={job.order} name={job.name}/>
                         )}
                         </Draggable>
                       )

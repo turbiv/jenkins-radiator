@@ -41,7 +41,7 @@ const AdminJobsList = () => {
           return(
             <div key={index} className={"radiator-list-box"} id={index}>
               <div className={"radiator-list-box-div"} style={{flexGrow: 3}}>
-                <Link to={"/admin/group/" + job.id}>{job.text}<br/></Link>
+                <Link to={"/admin/group/" + job.id}>{job.name}<br/></Link>
               </div>
               <div className={"radiator-list-box-div"} style={{flexGrow: 1, borderLeftStyle: "dashed"}}>
                 <Link to={`/admin/job/${job.id}/settings`}>Job settings</Link>

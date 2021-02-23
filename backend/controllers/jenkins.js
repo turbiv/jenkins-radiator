@@ -29,7 +29,8 @@ expressRouter.post("/", async (request, response) => {
 
   const newJenkinsData = {
     url: body.url,
-    name: body.name
+    name: body.name,
+    token: body.token
   }
 
   const newJenkins = new mongoJenkins(newJenkinsData)

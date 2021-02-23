@@ -8,7 +8,7 @@ const headers = {
   }
 }
 
-export const getBuilds = (jenkinsUrl, buildAmount) => {
+export const getBuilds = (jenkinsUrl, buildAmount, token) => {
   const request = axios.get( `${jenkinsUrl}/api/json?tree=allBuilds[url,result,id]{0,${buildAmount}}`, headers)
   return request.then(response => response.data)
     .catch(error => Promise.reject(error.response.status))

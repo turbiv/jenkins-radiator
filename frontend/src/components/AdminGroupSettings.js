@@ -71,11 +71,11 @@ const AdminGroupSettings = ({groupData}) => {
                   <td className="check-box-col"><input
                     type={"checkbox"}
                     onChange={handleCheckboxChange}
-                    name={job.text}
+                    name={job.name}
                     value={job.id}
                     checked={jobsToAdd.includes(job.id)}
                   /></td>
-                  <td className="title-col">{job.text}</td>
+                  <td className="title-col">{job.name}</td>
                   <td className="title-col"><Link key={index} to={`/admin/job/${job.id}`}>Edit</Link></td>
                 </tr>
               )}

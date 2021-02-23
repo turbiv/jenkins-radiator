@@ -12,7 +12,7 @@ const Radiator = ({radiatorData}) => {
             {category.jobs.map((row)=>{
               return(
                 <div className={"container"}>
-                  {row.map((job) => <Job grow={job.grow} order={job.order} text={job.text}/>)}
+                  {row.map((job) => <Job grow={job.grow} order={job.order} text={job.name}/>)}
                 </div>
               );
             })}

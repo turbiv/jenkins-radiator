@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react"
-import {Link} from "react-router-dom"
 import "../css/table.css"
 import {getUser, putUser} from "../services/users"
 import {SaveButton} from "../common/Buttons"

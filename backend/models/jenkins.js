@@ -3,7 +3,8 @@ const uniqueValidator = require('mongoose-unique-validator');
 
 const jenkinsSchema = mongo.Schema({
   name: {type: String, unique: true},
-  url: {type: String, unique: true}
+  url: {type: String, unique: true},
+  token: {type: String}
 });
 
 jenkinsSchema.plugin(uniqueValidator);
@@ -16,5 +17,5 @@ jenkinsSchema.set('toJSON', {
   }
 });
 
-const jenkins = mongo.model('Jenkins', jenkinsSchema);
+const jenkins = mongo.model('jenkins', jenkinsSchema);
 module.exports = jenkins;

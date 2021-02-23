@@ -1,40 +1,96 @@
-import React, {useState} from "react"
+import React, {useState, useEffect} from "react"
 import {postNewJob} from "../services/radiator"
-import {postNewJenkins} from "../services/jenkins"
+import {postNewJenkins, getAllJenkins} from "../services/jenkins"
 import {SaveButton} from "../common/Buttons"
+import "../css/table.css"
+import {createNotification} from "../reducers/notificationReducer";
+import {connect} from "react-redux"
 
-const AdminJobCreator = () => {
+const AdminJobCreator = (props) => {
 
-  const [jobName, setJobName] = useState("")
-  const [jenkinsUrl, setJenkinsUrl] = useState("")
-  const [newJenkinsData, setNewJenkinsData] = useState({name: "", url: ""})
+  const [newJob, setNewJob] = useState({name: "", path: "", jenkins: ""})
+  const [newJenkinsData, setNewJenkinsData] = useState({name: "", url: "", token: ""})
+  const [allJenkinses, setAllJenkinses] = useState([])
+  const [jenkinsOptions, setJenkinsOptions] = useState([])
+
+  useEffect(() => {
+    getAllJenkins().then((response) => {
+      console.log(response)
+      setAllJenkinses(response)
+      setJenkinsOptions(response)
+    })
+  }, [])
 
   const handleJobNameChange = (event) => {
-    setJobName(event.target.value)
+    switch (event.target.name) {
+      case "name":{
+        setNewJob({...newJob, name: event.target.value})
+        break;
+      }
+      case "path":{
+        setNewJob({...newJob, path: event.target.value})
+        break;
+      }
+      default:
+        break;
+    }
   }
 
   const handleJobSubmit = async () => {
-    const generatedPayload = {
-      text: jobName
+
+    if(newJob.name === "" || newJob.path === "" || newJob.jenkins === ""){
+      props.createNotification("Please check job details.")
+      return
     }
 
-    await postNewJob(generatedPayload)
+    const formattedJob = {
+      ...newJob,
+      owner: props.login.name,
+    }
+
+    await postNewJob(formattedJob)
   }
 
-  const handleJenkinsUrlChange = () => {
+  const handleJenkinsSelectionChange = (event) => {
+    setNewJob({...newJob, jenkins: event.target.value})
+  }
 
+  const findJenkinsUrl = (event) => {
+    event.preventDefault()
+    const filtered = allJenkinses.filter(jenkins => jenkins.name.includes(event.target.value))
+    setJenkinsOptions(filtered)
   }
 
   const handleJenkinsSubmit = async () => {
+    setJenkinsOptions([...allJenkinses, newJenkinsData])
+
+    if(newJenkinsData.name === "" || newJenkinsData.url === "" || newJenkinsData.token === ""){
+      props.createNotification("Please check jenkins details.")
+      return
+    }
+
     await postNewJenkins(newJenkinsData)
   }
 
   const handleNewJenkinsData = (event) => {
-    if(event.target.name === "name"){
-      setNewJenkinsData({...newJenkinsData, name: event.target.value})
-    }else{
-      setNewJenkinsData({...newJenkinsData, url: event.target.value})
+    switch (event.target.name) {
+      case "name":{
+        setNewJenkinsData({...newJenkinsData, name: event.target.value})
+        break;
+      }
+      case "url":{
+        setNewJenkinsData({...newJenkinsData, url: event.target.value})
+        break;
+      }
+      case "token":{
+        setNewJenkinsData({...newJenkinsData, token: event.target.value})
+        break;
+      }
+      default:
+        break;
     }
+
+
   }
 
   return(
@@ -43,15 +99,43 @@ const AdminJobCreator = () => {
         <h2>Create a job</h2>
         <form>
           <label>Job name:</label><br/>
-          <input type={"text"} name={"name"} value={jobName} onChange={handleJobNameChange}/><br/><br/>
+          <input type={"text"} name={"name"} value={newJob.name} onChange={handleJobNameChange}/><br/><br/>
+          <label>Job path (in jenkins):</label><br/>
+          <input type={"text"} name={"path"} value={newJob.url} onChange={handleJobNameChange}/><br/><br/>
 
           <label>Search for jenkins:</label><br/>
-          <input type={"text"} name={"jenkins"} value={jenkinsUrl} onChange={handleJenkinsUrlChange} /><br/>
-          <select value={"localhost2"} id={"select-jenkins"} >
-            <option value={"localhost1"}>LocalHost1</option>
-            <option value={"localhost2"}>LocalHost2</option>
-            <option value={"localhost3"}>LocalHost3</option>
-          </select>
+          <input type={"text"} name={"jenkins"} onChange={findJenkinsUrl} /><br/>
+
+          <table className="layout display responsive-table">
+            <thead>
+              <tr>
+                <th colSpan={2}>Name</th>
+                <th>URL</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {
+                jenkinsOptions.map((jenkins, index) => {
+                  return(
+                    <tr key={index}>
+                    <td className="check-box-col">
+                      <input
+                        type={"radio"}
+                        onChange={handleJenkinsSelectionChange}
+                        value={jenkins.id}
+                        name={"jenkins"}
+                        checked={jenkins.id === newJob.jenkins}
+                      />
+                    </td>
+                      <td className="title-col">{jenkins.name}</td>
+                      <td className="title-col">{jenkins.url}</td>
+                    </tr>
+                  )
+                })
+              }
+            </tbody>
+          </table>
 
           <br/>
         </form>
@@ -63,7 +147,9 @@ const AdminJobCreator = () => {
           <label>Jenkins name</label><br/>
           <input type={"text"} name={"name"} value={newJenkinsData.name} onChange={handleNewJenkinsData}/><br/>
           <label>Jenkins URL </label><br/>
-          <input type={"text"} name={"url"} value={newJenkinsData.url} onChange={handleNewJenkinsData}/>
+          <input type={"text"} name={"url"} value={newJenkinsData.url} onChange={handleNewJenkinsData}/><br/>
+          <label>Jenkins API token</label><br/>
+          <input type={"text"} name={"token"} value={newJenkinsData.token} onChange={handleNewJenkinsData}/>
         </form>
         <SaveButton saveHandle={handleJenkinsSubmit}/>
       </div>
@@ -71,4 +157,17 @@ const AdminJobCreator = () => {
   );
 }
 
-export default AdminJobCreator;
+const mapDispatchToProps = {
+  createNotification
+}
+
+
+const mapStateToProps = (state) =>{
+  return{
+    login: state.login,
+    notification: state.notification
+  }
+};
+
+const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(AdminJobCreator);
+export default connectedComponent;

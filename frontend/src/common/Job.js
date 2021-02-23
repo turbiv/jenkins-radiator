@@ -22,7 +22,7 @@ const Job = (props) => {
 
   useEffect(() => {
     if(amountOfSquares !== 0){
-      getBuilds("http://localhost:8080/job/test_job2", amountOfSquares)
+      getBuilds(props.jenkinsUrl, amountOfSquares, props.token)
         .then((response) => {
           setJenkinsBuilds(response.allBuilds)
         })
@@ -79,7 +79,7 @@ const Job = (props) => {
   if(props.draggable === undefined){
     return(
       <div className={"cell"} style={{background: latestStatusColor, margin: 5, flexGrow: props.grow || 1}}>
-        <h2 className={"title"}>{props.text}</h2>
+        <h2 className={"title"}>{props.name}</h2>
         <div className={"status-box-container"} ref={refCellWidth}>
           {boxes}
         </div>
@@ -94,7 +94,7 @@ const Job = (props) => {
          className={"cell"}
          style={{background: latestStatusColor, margin: 5, flexGrow: props.grow || 1, ...props.draggable.draggableProps.style}}
     >
-      <h2 className={"title"}>{props.text}</h2>
+      <h2 className={"title"}>{props.name}</h2>
       <div className={"status-box-container"} ref={refCellWidth}>
         {boxes}
       </div>

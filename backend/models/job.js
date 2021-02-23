@@ -7,9 +7,11 @@ mongo.set('useCreateIndex', true);
 mongo.set('useUnifiedTopology', true);
 
 const jobSchema = new mongo.Schema({
-  text: {type: String},
+  name: {type: String},
   order: {type: String, default: "1"},
-  grow: {type: String, default: "1"}
+  grow: {type: String, default: "1"},
+  owner: {type: String},
+  jenkins: {type: mongo.Schema.Types.ObjectId, ref: "jenkins"}
 });
 
 jobSchema.plugin(uniqueValidator);
