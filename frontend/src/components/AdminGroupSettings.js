@@ -14,7 +14,7 @@ const AdminGroupSettings = ({groupData}) => {
   useEffect(async () => {
     groupData.then((response) => {
       setGroupJson(response)
-      setJobsToAdd([].concat(...response.jobs)) // [["1", "2", "3"], ["4","5"]]
+      setJobsToAdd([].concat(...response.jobs.map((row) => row.map(job => job.id)))) // [["1", "2", "3"], ["4","5"]]
     }).catch((error) => {
       setRadiatorStatus(error)
     })

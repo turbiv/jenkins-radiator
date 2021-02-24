@@ -33,10 +33,10 @@ const Sidebar = (props) => {
       cName: 'nav-text',
       permission: "read_jobs"
     },
-    {
+    /*{
       title: 'Owners',
       path: '/admin/owners',
-      icon: <IoMdPeople />,
+      icon: <IoMdPeople/>,
       cName: 'nav-text',
       permission: null
     },
@@ -46,7 +46,7 @@ const Sidebar = (props) => {
       icon: <IoIosSettings />,
       cName: 'nav-text',
       permission: "administrator"
-    },
+    }, */
     {
       title: 'Accounts',
       path: '/admin/accounts',
@@ -54,13 +54,13 @@ const Sidebar = (props) => {
       cName: 'nav-text',
       permission: "modify_users"
     },
-    {
+    /*{
       title: 'Support',
       path: '/admin/support',
       icon: <IoMdHelpCircle />,
       cName: 'nav-text',
       permission: null
-    }
+    }*/
   ];
 
   return (

@@ -93,7 +93,7 @@ const AdminRadiatorEditor = ({radiatorData}) => {
                                     return (
                                       <Draggable key={rowIndex} draggableId={draggableIndex + "-" + droppableIndex + "-" + rowIndex} index={rowIndex}>
                                         {(provided) => (
-                                          <Job jenkinsUrl={job.jenkins.jenkinsUrl} token={job.jenkins.token} draggable={provided} grow={job.grow} order={job.order} name={job.name}/>
+                                          <Job jenkinsUrl={job.jenkins.url + job.path} token={job.jenkins.token} draggable={provided} grow={job.grow} order={job.order} name={job.name}/>
                                         )}
                                       </Draggable>
                                     )

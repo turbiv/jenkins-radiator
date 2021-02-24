@@ -8,5 +8,6 @@
     "ok": 200,
     "created": 201,
     "no_content": 204
-  }
+  },
+  "jwt_signature": "test"
 }

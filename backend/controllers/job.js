@@ -9,7 +9,6 @@ expressRouter.get("/", async (request, response) => {
   const jobs = await mongoJob.find({})
     .populate("jenkins")
     .catch(() => response.status(config.response.notfound).send({error: "Jobs not found"}).end())
-  console.log(jobs)
   response.status(config.response.ok).send(jobs).end()
 })
 
@@ -29,13 +28,19 @@ expressRouter.post("/", async (request, response) => {
     response.status(config.response.badrequest).send({error: "Job owner missing."}).end()
   }
 
+  if(body.path === undefined){
+    response.status(config.response.badrequest).send({error: "Job path missing."}).end()
+  }
+
+
 
   const newJobData = {
     name: body.name,
     owner: body.owner,
     order: body.order,
     grow: body.grow,
-    jenkins: body.jenkins
+    jenkins: body.jenkins,
+    path: body.path
   }
 
   const newJob = new mongoJob(newJobData)

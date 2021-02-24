@@ -24,7 +24,9 @@ const Job = (props) => {
     if(amountOfSquares !== 0){
       getBuilds(props.jenkinsUrl, amountOfSquares, props.token)
         .then((response) => {
-          setJenkinsBuilds(response.allBuilds)
+          if(response.allBuilds){
+            setJenkinsBuilds(response.allBuilds)
+          }
         })
     }
   },[amountOfSquares])

@@ -12,7 +12,10 @@ expressRouter.get("/", async (request, response) => {
     .populate({
       path: "groups",
       populate: {
-        path: "jobs"
+        path: "jobs",
+        populate: {
+          path: "jenkins"
+        }
       }
     })
     .catch(() => response.status(config.response.notfound).send({error: "Radiators not found"}).end())
@@ -24,7 +27,10 @@ expressRouter.get("/:id", async (request, response) => {
     .populate({
       path: "groups",
       populate: {
-        path: "jobs"
+        path: "jobs",
+        populate: {
+          path: "jenkins"
+        }
       }
     })
     .catch(() => response.status(config.response.notfound).send({error: "Radiators not found"}).end())
@@ -34,12 +40,12 @@ expressRouter.get("/:id", async (request, response) => {
 // Create new radiator
 expressRouter.post("/", async (request, response) => {
   const body = request.body;
-  const decodedToken = jwt.decode(request.token, "test");
+
+  const decodedToken = jwt.decode(request.token, config.jwt_signature);
 
   if(!decodedToken.username){
     return response.status(config.response.badrequest).send({error: "missing or invalid token"})
   }
-
   /*if(body.owner === undefined){
     response.status(config.response.badrequest).send({error: "Radiator owner is missing."})
   }*/
@@ -51,7 +57,8 @@ expressRouter.post("/", async (request, response) => {
   const newRadiatorData = {
    // owner: body.owner,
     name: body.name,
-    groups: body.groups
+    groups: body.groups,
+    owner: body.owner
   }
 
   const newRadiator = new mongoRadiator(newRadiatorData)

@@ -7,14 +7,24 @@ const config = require("../config.json");
 // Get all groups
 expressRouter.get("/", async (request, response) => {
   const groups = await mongoGroup.find({})
-    .populate("jobs")
+    .populate({
+      path: "jobs",
+      populate: {
+        path: "jenkins"
+      }
+    })
     .catch(() => response.status(config.response.notfound).send({error: "Groups not found"}).end())
   response.status(config.response.ok).send(groups).end()
 })
 
 expressRouter.get("/:id", async (request, response) => {
   const groups = await mongoGroup.findById(request.params.id)
-    .populate("jobs")
+    .populate({
+      path: "jobs",
+      populate: {
+        path: "jenkins"
+      }
+    })
     .catch(() => response.status(config.response.notfound).send({error: "Groups not found"}).end())
   response.status(config.response.ok).send(groups).end()
 })

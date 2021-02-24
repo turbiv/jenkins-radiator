@@ -11,7 +11,8 @@ const jobSchema = new mongo.Schema({
   order: {type: String, default: "1"},
   grow: {type: String, default: "1"},
   owner: {type: String},
-  jenkins: {type: mongo.Schema.Types.ObjectId, ref: "jenkins"}
+  jenkins: {type: mongo.Schema.Types.ObjectId, ref: "jenkins"},
+  path: {type: String}
 });
 
 jobSchema.plugin(uniqueValidator);

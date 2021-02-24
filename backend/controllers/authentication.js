@@ -19,10 +19,11 @@ expressRouter.post('/login', async (request, response) =>{
 
   const userForToken = {
     username: user.username,
-    id: user._id
+    id: user._id,
+    permissions: user.permissions
   };
 
-  const token = jwt.sign(userForToken, "test");
+  const token = jwt.sign(userForToken, config.jwt_signature);
   console.log({token, username: user.username, name: user.name})
 
   response.status(200).send({token, username: user.username, name: user.name, permissions: user.permissions, id: user._id})
@@ -60,7 +61,7 @@ expressRouter.post('/register', async (request, response) =>{
     id: savedUser._id
   };
 
-  const token = jwt.sign(userForToken, "test");
+  const token = jwt.sign(userForToken, config.jwt_signature);
 
   response.json({token, username: savedUser.username, name: savedUser.name, permissions: savedUser.permissions, id: savedUser._id})
 });
