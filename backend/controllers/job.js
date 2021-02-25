@@ -3,11 +3,32 @@ const expressRouter = express.Router();
 const mongoJob = require("../models/job");
 const mongoose = require("mongoose");
 const config = require("../config.json");
+const jwt = require("jsonwebtoken")
+
+expressRouter.use((request, response, next) => {
+  if(!request.decodedToken){
+    response.status(config.response.unauthorized).send({error: "Missing token"}).end()
+  }
+  next()
+})
 
 // Get all jobs
 expressRouter.get("/", async (request, response) => {
-  const jobs = await mongoJob.find({})
+  const decodedToken = jwt.decode(request.token, config.jwt_signature);
+
+  let query = {}
+
+  if(decodedToken.permissions.read_jobs === 0 && decodedToken.permissions.administrator === 0){
+    response.status(config.response.unauthorized).send({error: "Request doesnt not meet the permission level."}).end()
+  }
+
+  if(decodedToken.permissions.read_jobs === 1 && decodedToken.permissions.administrator === 0){
+    query = {owner: decodedToken.id}
+  }
+
+  const jobs = await mongoJob.find(query)
     .populate("jenkins")
+    .populate("owner")
     .catch(() => response.status(config.response.notfound).send({error: "Jobs not found"}).end())
   response.status(config.response.ok).send(jobs).end()
 })
@@ -47,6 +68,23 @@ expressRouter.post("/", async (request, response) => {
   await newJob.save();
 
   response.status(config.response.ok).send().end()
+})
+
+expressRouter.put("/:id", async (request, response) => {
+
+  const decodedToken = jwt.decode(request.token, config.jwt_signature);
+
+  let job = await mongoJob.findById(body.id)
+
+  if(decodedToken.permissions.write_jobs === 1 && job.owner !== decodedToken.id && decodedToken.permissions.administrator === 0){
+    response.status(config.response.unauthorized).send({error: "Request doesnt not meet the permission level."}).end()
+  }
+  if(decodedToken.permissions.write_jobs === 0 && decodedToken.permissions.administrator === 0){
+    response.status(config.response.unauthorized).send({error: "Request doesnt not meet the permission level."}).end()
+  }
+
+  job = body
+  await job.save()
 })
 
 module.exports = expressRouter;

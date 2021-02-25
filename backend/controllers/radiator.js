@@ -4,11 +4,28 @@ const mongoRadiator = require("../models/radiator");
 const mongoGroup = require("../models/group");
 const mongoose = require("mongoose");
 const config = require("../config.json");
-const jwt = require("jsonwebtoken");
+
+expressRouter.use((request, response, next) => {
+  if(!request.decodedToken){
+    response.status(config.response.unauthorized).send({error: "Missing token"}).end()
+  }
+  next()
+})
 
 // Get all radiators
 expressRouter.get("/", async (request, response) => {
-  const radiators = await mongoRadiator.find({})
+  let query = {}
+
+  if(request.decodedToken.permissions.read_radiators === 0 && request.decodedToken.permissions.administrator === 0){
+    response.status(config.response.unauthorized).send({error: "Request doesnt not meet the permission level."}).end()
+  }
+
+  if(request.decodedToken.permissions.read_radiators === 1 && request.decodedToken.permissions.administrator === 0){
+    query = {owner: request.decodedToken.id}
+  }
+
+
+  const radiators = await mongoRadiator.find(query)
     .populate({
       path: "groups",
       populate: {
@@ -18,32 +35,44 @@ expressRouter.get("/", async (request, response) => {
         }
       }
     })
+    .populate("owner")
     .catch(() => response.status(config.response.notfound).send({error: "Radiators not found"}).end())
   response.status(config.response.ok).send(radiators).end()
 })
 
 expressRouter.get("/:id", async (request, response) => {
-  const radiators = await mongoRadiator.findById(request.params.id)
-    .populate({
-      path: "groups",
-      populate: {
-        path: "jobs",
-        populate: {
-          path: "jenkins"
-        }
-      }
-    })
+
+  if(request.decodedToken.permissions.read_radiators === 0 && request.decodedToken.permissions.administrator === 0){
+    response.status(config.response.unauthorized).send({error: "Request doesnt not meet the permission level."}).end()
+  }
+
+  const radiator = await mongoRadiator.findById(request.params.id)
     .catch(() => response.status(config.response.notfound).send({error: "Radiators not found"}).end())
-  response.status(config.response.ok).send(radiators).end()
+
+  if(request.decodedToken.permissions.read_radiators === 1 && radiator.owner !== request.decodedToken.id && request.decodedToken.permissions.administrator === 0){
+    response.status(config.response.unauthorized).send({error: "Request doesnt not meet the permission level."}).end()
+  }
+
+
+  await radiator.populate({
+        path: "groups",
+        populate: {
+          path: "jobs",
+          populate: {
+            path: "jenkins"
+          }
+        }
+      })
+    .populate("owner")
+    .execPopulate()
+  response.status(config.response.ok).send(radiator).end()
 })
 
 // Create new radiator
 expressRouter.post("/", async (request, response) => {
   const body = request.body;
 
-  const decodedToken = jwt.decode(request.token, config.jwt_signature);
-
-  if(decodedToken.permissions.write_radiators === 0){
+  if(request.decodedToken.permissions.write_radiators === 0 && request.decodedToken.permissions.administrator === 0){
     response.status(config.response.unauthorized).send({error: "Request doesnt not meet the permission level."}).end()
   }
 
@@ -56,7 +85,6 @@ expressRouter.post("/", async (request, response) => {
   }
 
   const newRadiatorData = {
-   // owner: body.owner,
     name: body.name,
     groups: body.groups,
     owner: body.owner
@@ -70,14 +98,13 @@ expressRouter.post("/", async (request, response) => {
 
 expressRouter.put("/", async (request, response) => {
   const body = request.body
-  const decodedToken = jwt.decode(request.token, config.jwt_signature);
 
   let radiator = await mongoRadiator.findById(body.id)
 
-  if(decodedToken.permissions.write_radiators === 1 && radiator.owner !== decodedToken.id){
+  if(request.decodedToken.permissions.write_radiators === 1 && radiator.owner !== request.decodedToken.id  && request.decodedToken.permissions.administrator === 0){
     response.status(config.response.unauthorized).send({error: "Request doesnt not meet the permission level."}).end()
   }
-  if(decodedToken.permissions.write_radiators === 0){
+  if(request.decodedToken.permissions.write_radiators === 0 && request.decodedToken.permissions.administrator === 0){
     response.status(config.response.unauthorized).send({error: "Request doesnt not meet the permission level."}).end()
   }
 
@@ -91,7 +118,7 @@ expressRouter.put("/", async (request, response) => {
   radiator = formattedRadiatorGroups
   await radiator.save()
 
-  if(decodedToken.permissions.write_groups === 0){
+  if(request.decodedToken.permissions.write_groups === 0 && request.decodedToken.permissions.administrator === 0){
     response.status(config.response.unauthorized).send({error: "Request doesnt not meet the permission level."}).end()
   }
 
@@ -101,7 +128,7 @@ expressRouter.put("/", async (request, response) => {
 
     let group = await mongoGroup.findById(formattedGroup.id)
 
-    if(decodedToken.permissions.write_groups === 1 && group.owner !== decodedToken.id){
+    if(request.decodedToken.permissions.write_groups === 1 && group.owner !== request.decodedToken.id && request.decodedToken.permissions.administrator === 0){
       response.status(config.response.unauthorized).send({error: "Request doesnt not meet the permission level."}).end()
     }
 
@@ -114,14 +141,13 @@ expressRouter.put("/", async (request, response) => {
 
 expressRouter.put("/settings", async (request, response) => {
   const body = request.body
-  const decodedToken = jwt.decode(request.token, config.jwt_signature);
 
   let radiator = await mongoRadiator.findById(body.id)
 
-  if(decodedToken.permissions.write_radiators === 1 && radiator.owner !== decodedToken.id){
+  if(request.decodedToken.permissions.write_radiators === 1 && radiator.owner !== request.decodedToken.id && request.decodedToken.permissions.administrator === 0){
     response.status(config.response.unauthorized).send({error: "Request doesnt not meet the permission level."}).end()
   }
-  if(decodedToken.permissions.write_radiators === 0){
+  if(request.decodedToken.permissions.write_radiators === 0 && request.decodedToken.permissions.administrator === 0){
     response.status(config.response.unauthorized).send({error: "Request doesnt not meet the permission level."}).end()
   }
 

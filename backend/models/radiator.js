@@ -7,7 +7,7 @@ mongo.set('useCreateIndex', true);
 mongo.set('useUnifiedTopology', true);
 
 const radiatorSchema = new mongo.Schema({
-  owner: {type: mongo.Schema.Types.ObjectId},
+  owner: {type: mongo.Schema.Types.ObjectId, ref: "user"},
   name: {type: String},
   groups: [{type: mongo.Schema.Types.Mixed, ref: "groups"}]
 });

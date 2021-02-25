@@ -31,5 +31,5 @@ userSchema.set('toJSON', {
   }
 });
 
-const User = mongo.model('User', userSchema);
+const User = mongo.model('user', userSchema);
 module.exports = User;
