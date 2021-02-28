@@ -9,7 +9,7 @@ mongo.set('useUnifiedTopology', true);
 const groupSchema = new mongo.Schema({
   title: {type: String},
   jobs: [{type: mongo.Schema.Types.Mixed, ref: "jobs"}],
-  owner: {type: mongo.Schema.Types.ObjectId, ref: "users"}
+  owner: {type: mongo.Schema.Types.ObjectId, ref: "user"}
 });
 
 groupSchema.plugin(uniqueValidator);

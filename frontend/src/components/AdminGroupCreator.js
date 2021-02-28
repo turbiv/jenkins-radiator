@@ -1,7 +1,9 @@
 import React, {useState} from "react"
 import {postNewGroup} from "../services/radiator"
+import {createNotification} from "../reducers/notificationReducer"
+import {connect} from "react-redux"
 
-const AdminGroupCreator = () => {
+const AdminGroupCreator = (props) => {
 
   const [groupTitle, setGroupTitle] = useState("")
 
@@ -13,7 +15,8 @@ const AdminGroupCreator = () => {
     event.preventDefault()
 
     const generatedPayload = {
-      title: groupTitle
+      title: groupTitle,
+      owner: props.login.id
     }
 
     await postNewGroup(generatedPayload)
@@ -32,4 +35,17 @@ const AdminGroupCreator = () => {
   );
 }
 
-export default AdminGroupCreator;
+const mapDispatchToProps = {
+  createNotification
+}
+
+
+const mapStateToProps = (state) =>{
+  return{
+    login: state.login,
+    notification: state.notification
+  }
+};
+
+const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(AdminGroupCreator);
+export default connectedComponent;

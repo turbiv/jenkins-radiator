@@ -1,25 +1,23 @@
 import React, {useState} from "react"
 import {postNewRadiator} from "../services/radiator"
+import {createNotification} from "../reducers/notificationReducer"
+import {connect} from "react-redux"
 
-const AdminRadiatorCreator = () => {
+const AdminRadiatorCreator = (props) => {
 
   const [radiatorName, setRadiatorName] = useState("")
-  const [radiatorOwner, setRadiatorOwner] = useState("")
 
   const handleRadiatorNameChange = (event) => {
     setRadiatorName(event.target.value)
   }
 
-  const handleOwnerNameChange = (event) => {
-    setRadiatorOwner(event.target.value)
-  }
 
   const handleSubmit = async (event) => {
     event.preventDefault()
 
     const generatedPayload = {
       name: radiatorName,
-      owner: radiatorOwner
+      owner: props.login.id
     }
 
     await postNewRadiator(generatedPayload)
@@ -31,12 +29,23 @@ const AdminRadiatorCreator = () => {
       <form onSubmit={handleSubmit}>
         <label>Radiator name:</label><br/>
         <input type={"text"} name={"name"} value={radiatorName} onChange={handleRadiatorNameChange}/><br/>
-        <label>Owner:</label><br/>
-        <input type={"text"} name={"name"} value={radiatorOwner} onChange={handleOwnerNameChange}/><br/>
         <input type={"submit"} value={"Submit"}/>
       </form>
     </div>
   );
 }
 
-export default AdminRadiatorCreator;
+const mapDispatchToProps = {
+  createNotification
+}
+
+
+const mapStateToProps = (state) =>{
+  return{
+    login: state.login,
+    notification: state.notification
+  }
+};
+
+const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(AdminRadiatorCreator);
+export default connectedComponent;

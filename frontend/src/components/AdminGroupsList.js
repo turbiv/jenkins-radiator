@@ -31,8 +31,11 @@ const AdminGroupsList = () => {
       <Link to={"/admin/groups/new"}><button>New group</button></Link>
       <div>
         <div className={"radiator-list-header"}>
-          <p style={{flexGrow: 3}}>
+          <p style={{flexGrow: 2}}>
             Group name
+          </p>
+          <p style={{flexGrow: 1, borderLeftStyle: "dashed"}}>
+            Owner
           </p>
           <p style={{flexGrow: 1,  borderLeftStyle: "dashed"}}>
             Options
@@ -41,8 +44,11 @@ const AdminGroupsList = () => {
         {groups.map((group, index)=>{
           return(
             <div key={index} className={"radiator-list-box"} id={index}>
-              <div className={"radiator-list-box-div"} style={{flexGrow: 3}}>
+              <div className={"radiator-list-box-div"} style={{flexGrow: 2}}>
                 <Link to={"/admin/group/" + group.id}>{group.title}<br/></Link>
+              </div>
+              <div className={"radiator-list-box-div"} style={{flexGrow: 1, borderLeftStyle: "dashed"}}>
+                {group.owner.name}
               </div>
               <div className={"radiator-list-box-div"} style={{flexGrow: 1, borderLeftStyle: "dashed"}}>
                 <DropdownButton title={"Options"}>

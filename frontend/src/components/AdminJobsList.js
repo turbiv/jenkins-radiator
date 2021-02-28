@@ -30,18 +30,24 @@ const AdminJobsList = () => {
       <Link to={"/admin/jobs/new"}><button>New job</button></Link>
       <div>
         <div className={"radiator-list-header"}>
-          <p style={{flexGrow: 3}}>
+          <p style={{flexGrow: 2}}>
             Job name
           </p>
-          <p style={{flexGrow: 1,  borderLeftStyle: "dashed"}}>
+          <p style={{flexGrow: 1, borderLeftStyle: "dashed"}}>
+            Owner
+          </p>
+          <p style={{flexGrow: 1, borderLeftStyle: "dashed"}}>
             Options
           </p>
         </div>
         {jobs.map((job, index)=>{
           return(
             <div key={index} className={"radiator-list-box"} id={index}>
-              <div className={"radiator-list-box-div"} style={{flexGrow: 3}}>
+              <div className={"radiator-list-box-div"} style={{flexGrow: 2}}>
                 <Link to={"/admin/group/" + job.id}>{job.name}<br/></Link>
+              </div>
+              <div className={"radiator-list-box-div"} style={{flexGrow: 1, borderLeftStyle: "dashed"}}>
+                {job.owner.name}
               </div>
               <div className={"radiator-list-box-div"} style={{flexGrow: 1, borderLeftStyle: "dashed"}}>
                 <Link to={`/admin/job/${job.id}/settings`}>Job settings</Link>

@@ -45,7 +45,7 @@ const AdminJobCreator = (props) => {
 
     const formattedJob = {
       ...newJob,
-      owner: props.login.name,
+      owner: props.login.id,
     }
 
     await postNewJob(formattedJob)

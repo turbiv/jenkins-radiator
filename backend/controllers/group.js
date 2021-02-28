@@ -22,10 +22,10 @@ expressRouter.get("/", async (request, response) => {
     response.status(config.response.unauthorized).send({error: "Request doesnt not meet the permission level."}).end()
   }
 
+
   if(decodedToken.permissions.read_groups === 1 && decodedToken.permissions.administrator === 0){
     query = {owner: decodedToken.id}
   }
-
   const groups = await mongoGroup.find(query)
     .populate({
       path: "jobs",
@@ -33,7 +33,15 @@ expressRouter.get("/", async (request, response) => {
         path: "jenkins"
       }
     })
-    .populate("owner")
+    .populate({
+      path: "owner",
+    })
+    .populate({
+      path: "jobs",
+      populate: {
+        path: "owner"
+      }
+    })
     .catch(() => response.status(config.response.notfound).send({error: "Groups not found"}).end())
   response.status(config.response.ok).send(groups).end()
 })
@@ -78,9 +86,14 @@ expressRouter.post("/", async (request, response) => {
     response.status(config.response.badrequest).send({error: "Group title missing."})
   }
 
+  if(body.owner === undefined){
+    response.status(config.response.badrequest).send({error: "Group owner missing."})
+  }
+
   const newGroupData = {
     title: body.title,
-    jobs: body.jobs
+    jobs: body.jobs,
+    owner: body.owner
   }
 
   const newGroup = new mongoGroup(newGroupData)
@@ -105,6 +118,10 @@ expressRouter.put("/", async (request, response) => {
 
   if(body.title === undefined){
     response.status(config.response.badrequest).send({error: "Group title missing."})
+  }
+
+  if(body.owner === undefined){
+    response.status(config.response.badrequest).send({error: "Group owner missing."})
   }
 
   group = body

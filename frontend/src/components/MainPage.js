@@ -6,6 +6,7 @@ const MainPage = () => {
     <div>
       <h2>Welcome</h2>
       <Link to={"/radiator"}>View radiators</Link>
+      <Link to={"/admin/"}>Admin panel</Link>
     </div>
   )
 }

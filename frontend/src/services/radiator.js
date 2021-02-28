@@ -22,13 +22,13 @@ const tokenHeaders = (token) => {
 }
 
 export const getAll = () => {
-  const request = axios.get("http://localhost:3003/api/radiator/")
+  const request = axios.get("http://localhost:3003/api/radiator/", tokenHeaders(token))
   return request.then(response => response.data)
     .catch(error => Promise.reject(error.response.status))
 };
 
 export const getRadiatorById = (id) =>{
-  const request = axios.get("http://localhost:3003/api/radiator/" + id)
+  const request = axios.get("http://localhost:3003/api/radiator/" + id, tokenHeaders(token))
   return request.then(response => response.data)
     .catch(error => Promise.reject(error.response.status))
 }
@@ -58,19 +58,19 @@ export const putJob = async (jobJson) => {
 }
 
 export const getGroupById = async (id) => {
-  const request = axios.get("http://localhost:3003/api/radiator/group/" + id)
+  const request = axios.get("http://localhost:3003/api/radiator/group/" + id, tokenHeaders(token))
   return request.then(response => response.data)
     .catch(error => Promise.reject(error.response.status))
 }
 
 export const getAllGroups = async () => {
-  const request = axios.get("http://localhost:3003/api/radiator/group/")
+  const request = axios.get("http://localhost:3003/api/radiator/group/", tokenHeaders(token))
   return request.then(response => response.data)
     .catch(error => Promise.reject(error.response.status))
 }
 
 export const getAllJobs = async () => {
-  const request = axios.get("http://localhost:3003/api/radiator/job/")
+  const request = axios.get("http://localhost:3003/api/radiator/job/", tokenHeaders(token))
   return request.then(response => response.data)
     .catch(error => Promise.reject(error.response.status))
 }

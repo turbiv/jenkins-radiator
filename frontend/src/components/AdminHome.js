@@ -33,6 +33,7 @@ const AdminHome = () => {
           </p>
         </div>
         {radiatorData.map((radiator, index)=>{
+          console.log(radiator)
           return(
             <div key={index} className={"radiator-list-box"} id={index}>
               <div className={"radiator-list-box-div"} style={{flexGrow: 3}}>
@@ -40,7 +41,7 @@ const AdminHome = () => {
               </div>
 
               <div className={"radiator-list-box-div"} style={{flexGrow: 1, borderLeftStyle: "dashed", borderRightStyle: "dashed"}}>
-                {radiator.owner || "no owner"}
+                {radiator.owner.name || "no owner"}
               </div>
 
               <div className={"radiator-list-box-div"} style={{flexGrow: 1}}>

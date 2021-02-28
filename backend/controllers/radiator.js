@@ -35,7 +35,24 @@ expressRouter.get("/", async (request, response) => {
         }
       }
     })
-    .populate("owner")
+    .populate({
+      path: "owner"
+    })
+    .populate({
+      path: "groups",
+      populate: {
+        path: "owner"
+      }
+    })
+    .populate({
+      path: "groups",
+      populate: {
+        path: "jobs",
+        populate: {
+          path: "owner"
+        }
+      }
+    })
     .catch(() => response.status(config.response.notfound).send({error: "Radiators not found"}).end())
   response.status(config.response.ok).send(radiators).end()
 })
