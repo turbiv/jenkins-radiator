@@ -2,8 +2,9 @@ import React, {useEffect, useState} from "react"
 import {Link} from "react-router-dom"
 import "../css/admin-home.css"
 import {getAllUsers, deleteUser} from "../services/users"
+import {connect} from "react-redux"
 
-const AdminAccountsList = () => {
+const AdminAccountsList = (props) => {
 
   const [users, setUsers] = useState([])
   const [radiatorStatus, setRadiatorStatus] = useState(null)
@@ -31,6 +32,7 @@ const AdminAccountsList = () => {
     setUsers(reformattedUsers)
   }
 
+
   return(
     <div style={{width: "65%", fontFamily: "'Roboto', sans-serif"}}>
       <div>
@@ -41,9 +43,7 @@ const AdminAccountsList = () => {
           <p style={{flexGrow: 3, borderLeftStyle: "dashed"}}>
             Name
           </p>
-          <p style={{flexGrow: 2,  borderLeftStyle: "dashed"}}>
-            Options
-          </p>
+          {props.login.permissions.administrator >= 1 || props.login.permissions.administrator.modify_users >= 1 ? <p style={{flexGrow: 2, borderLeftStyle: "dashed"}}>Options</p> : null}
         </div>
         {users.map((user, index)=>{
           return(
@@ -54,12 +54,12 @@ const AdminAccountsList = () => {
               <div className={"radiator-list-box-div"} style={{flexGrow: 3, borderLeftStyle: "dashed"}}>
                 {user.name}
               </div>
-              <div className={"radiator-list-box-div"} style={{flexGrow: 1, borderLeftStyle: "dashed"}}>
-                <button value={user.id} onClick={handleDeleteUser}>Delete user</button>
-              </div>
-              <div className={"radiator-list-box-div"} style={{flexGrow: 1, borderLeftStyle: "dashed"}}>
-                <Link to={`/admin/accounts/${user.id}/`}>Settings</Link>
-              </div>
+              {props.login.permissions.administrator >= 1 || props.login.permissions.administrator.modify_users >= 1 ?
+                <div className={"radiator-list-box-div"} style={{flexGrow: 1, borderLeftStyle: "dashed"}}><button value={user.id} onClick={handleDeleteUser}>Delete user</button></div> : null}
+
+              {props.login.permissions.administrator >= 1 || props.login.permissions.administrator.modify_users === 2 ?
+                <div className={"radiator-list-box-div"} style={{flexGrow: 1, borderLeftStyle: "dashed"}}><Link to={`/admin/accounts/${user.id}/`}>Settings</Link></div> : null}
+
             </div>
           );
         })}
@@ -68,4 +68,12 @@ const AdminAccountsList = () => {
   );
 }
 
-export default AdminAccountsList;
+const mapStateToProps = (state) =>{
+  return{
+    login: state.login,
+    notification: state.notification
+  }
+};
+
+const connectedComponent = connect(mapStateToProps, null)(AdminAccountsList);
+export default connectedComponent;

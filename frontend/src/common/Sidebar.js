@@ -52,7 +52,7 @@ const Sidebar = (props) => {
       path: '/admin/accounts',
       icon: <MdAccountCircle />,
       cName: 'nav-text',
-      permission: "modify_users"
+      permission: null
     },
     /*{
       title: 'Support',
