@@ -1,18 +1,35 @@
-import React from 'react'
-import Job from "./Job"
-import Group from "./Group";
+import React, {useEffect, useState} from 'react'
+import Job from "../common/Job"
+import Group from "../common/Group";
 import "../css/radiator.css";
+import {getRadiatorById} from "../services/public"
 
-const Radiator = ({radiatorData}) => {
+const RadiatorView = ({radiatorId}) => {
+
+  const [radiator, setRadiator] = useState(null)
+
+  useEffect(() => {
+    getRadiatorById(radiatorId).then((response) => setRadiator(response))
+      .catch((error) => console.debug(error))
+  }, [])
+
+  if(!radiator){
+    return(
+      <div>
+        Loading radiator...
+      </div>
+    )
+  }
+
   return(
     <div>
-      {radiatorData.categories.map((category) =>{
+      {radiator.groups.map((category, index) =>{
         return(
-          <Group title={category.title}>
-            {category.jobs.map((row)=>{
+          <Group key={index} title={category.title}>
+            {category.jobs.map((row, index)=>{
               return(
-                <div className={"container"}>
-                  {row.map((job) => <Job grow={job.grow} order={job.order} text={job.name}/>)}
+                <div key={index} className={"container"}>
+                  {row.map((job, index) => <Job key={index} jenkinsUrl={job.jenkins.url + job.path} token={job.jenkins.token} grow={job.grow} order={job.order} name={job.name}/>)}
                 </div>
               );
             })}
@@ -23,7 +40,7 @@ const Radiator = ({radiatorData}) => {
   )
 }
 
-export default Radiator;
+export default RadiatorView;
 
 /*
       without loops how it should look like:

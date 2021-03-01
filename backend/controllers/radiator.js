@@ -24,7 +24,6 @@ expressRouter.get("/", async (request, response) => {
     query = {owner: request.decodedToken.id}
   }
 
-
   const radiators = await mongoRadiator.find(query)
     .populate({
       path: "groups",
