@@ -36,7 +36,7 @@ app.use("/api/public", publicController)
 app.use(middleware.errorHandler);
 
 
-const PORT = 3003;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
+const listenPort = process.env.PORT || 3003;
+app.listen(listenPort, () => {
+  console.log(`Server running on port ${listenPort}`)
 });
