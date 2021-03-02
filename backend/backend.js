@@ -15,7 +15,7 @@ const usersController = require("./controllers/users")
 const jenkinsController = require("./controllers/jenkins")
 const publicController = require("./controllers/public")
 
-const mongoUrl = "mongodb+srv://turbiv:test123.@cluster01.pzhm6.mongodb.net/radiator?retryWrites=true&w=majority";
+const mongoUrl = process.env.MONGOURL;
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use(cors());

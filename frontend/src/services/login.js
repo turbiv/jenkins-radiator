@@ -6,14 +6,16 @@ const headers = {
   }
 }
 
+const baseurl = !process.env.NODE_ENV || process.env.NODE_ENV === 'development' ? "http://localhost:3003/api" : "https://radiator-backend.herokuapp.com/api"
+
 export const postLogin = async (payload)  => {
-  const request = axios.post("http://localhost:3003/api/auth/login/", payload, headers)
+  const request = axios.post(`${baseurl}/auth/login/`, payload, headers)
   return request.then((response) => response.data)
     .catch(error => Promise.reject(error.response.status))
 }
 
 export const postRegister = async (payload)  => {
-  const request = axios.post("http://localhost:3003/api/auth/register/", payload, headers)
+  const request = axios.post(`${baseurl}/auth/register/`, payload, headers)
   return request.then((response) => response.data)
     .catch(error => Promise.reject(error.response.status))
 }

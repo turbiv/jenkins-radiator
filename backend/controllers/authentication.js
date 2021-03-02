@@ -6,6 +6,8 @@ const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const config = require("../config.json");
 
+const jwtSignature =  process.env.JWT_SIGN ? process.env.JWT_SIGN : config.jwt_signature
+
 expressRouter.post('/login', async (request, response) =>{
   const body = request.body;
 
@@ -23,7 +25,7 @@ expressRouter.post('/login', async (request, response) =>{
     permissions: user.permissions
   };
 
-  const token = jwt.sign(userForToken, config.jwt_signature);
+  const token = jwt.sign(userForToken, jwtSignature);
   console.log({token, username: user.username, name: user.name})
 
   response.status(200).send({token, username: user.username, name: user.name, permissions: user.permissions, id: user._id})
@@ -61,7 +63,7 @@ expressRouter.post('/register', async (request, response) =>{
     id: savedUser._id
   };
 
-  const token = jwt.sign(userForToken, config.jwt_signature);
+  const token = jwt.sign(userForToken, jwtSignature);
 
   response.json({token, username: savedUser.username, name: savedUser.name, permissions: savedUser.permissions, id: savedUser._id})
 });
