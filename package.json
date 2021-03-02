@@ -1,0 +1,13 @@
+{
+  "name": "jenkins-radiator",
+  "license": "MIT",
+  "engines": {
+    "node": "^14.8.0",
+    "yarn": "^1.22.4"
+  },
+  "scripts": {
+    "build": "yarn --cwd frontend install && yarn --cwd frontend build",
+    "deploy": "cp -a frontend/build/. public/",
+    "heroku-postbuild": "yarn build && yarn deploy"
+  }
+}
