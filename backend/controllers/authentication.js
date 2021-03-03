@@ -28,7 +28,7 @@ expressRouter.post('/login', async (request, response) =>{
   const token = jwt.sign(userForToken, jwtSignature);
   console.log({token, username: user.username, name: user.name})
 
-  response.status(200).send({token, username: user.username, name: user.name, permissions: user.permissions, id: user._id})
+  return response.status(200).send({token, username: user.username, name: user.name, permissions: user.permissions, id: user._id})
 
 });
 
@@ -65,7 +65,7 @@ expressRouter.post('/register', async (request, response) =>{
 
   const token = jwt.sign(userForToken, jwtSignature);
 
-  response.json({token, username: savedUser.username, name: savedUser.name, permissions: savedUser.permissions, id: savedUser._id})
+  return response.json({token, username: savedUser.username, name: savedUser.name, permissions: savedUser.permissions, id: savedUser._id})
 });
 
 

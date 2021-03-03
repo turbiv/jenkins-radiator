@@ -35,7 +35,7 @@ expressRouter.get("/radiator", async (request, response) => {
       }
     })
     .catch(() => response.status(config.response.notfound).send({error: "Radiators not found"}).end())
-  response.status(config.response.ok).send(radiators).end()
+  return response.status(config.response.ok).send(radiators).end()
 })
 
 expressRouter.get("/radiator/:id", async (request, response) => {
@@ -52,7 +52,7 @@ expressRouter.get("/radiator/:id", async (request, response) => {
     .populate("owner")
     .catch(() => response.status(config.response.notfound).send({error: "Radiators not found"}).end())
 
-  response.status(config.response.ok).send(radiator).end()
+  return response.status(config.response.ok).send(radiator).end()
 })
 
 module.exports = expressRouter;

@@ -7,26 +7,26 @@ const config = require("../config.json");
 expressRouter.get("/", async (request, response) =>{
   const users = await mongoUsers.find({});
 
-  response.json(users.map(user => user))
+  return response.json(users.map(user => user))
 });
 
 expressRouter.get("/:id", async (request, response) =>{
   const user = await mongoUsers.findById(request.params.id);
-  response.status(config.response.ok).send(user).end()
+  return response.status(config.response.ok).send(user).end()
 });
 
 expressRouter.put("/", async (request, response) =>{
   const body = request.body
   await mongoUsers.findByIdAndUpdate(body.id, body)
-  response.status(config.response.ok).send().end()
+  return response.status(config.response.ok).send().end()
 })
 
 expressRouter.delete("/:id", async (request, response) =>{
   const deletedUser = await mongoUsers.findByIdAndDelete(request.params.id);
   if(!deletedUser){
-    response.status(config.response.no_content).end()
+    return response.status(config.response.no_content).end()
   }
-  response.status(config.response.ok).end()
+  return response.status(config.response.ok).end()
 });
 
 
