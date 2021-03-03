@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react"
 import {Link} from "react-router-dom"
 import "../css/admin-home.css"
 import {getAllJobs} from "../services/radiator"
+import {Button} from "../common/Buttons"
 
 const AdminJobsList = () => {
 
@@ -27,7 +28,6 @@ const AdminJobsList = () => {
 
   return(
     <div style={{width: "65%", fontFamily: "'Roboto', sans-serif"}}>
-      <Link to={"/admin/jobs/new"}><button>New job</button></Link>
       <div>
         <div className={"radiator-list-header"}>
           <p style={{flexGrow: 2}}>
@@ -56,6 +56,7 @@ const AdminJobsList = () => {
           );
         })}
       </div>
+      <Link to={"/admin/jobs/new"}><Button buttonText={"New Job"}/></Link>
     </div>
   );
 }

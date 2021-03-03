@@ -43,12 +43,24 @@ const AdminJobCreator = (props) => {
       return
     }
 
+    let path = newJob.path
+
+    if(path.slice(0) === "/"){
+      path = url.substring(1, path.length)
+    }
+
     const formattedJob = {
       ...newJob,
+      path,
       owner: props.login.id,
     }
 
     await postNewJob(formattedJob)
+      .then(() => {
+        props.createNotification(`Job ${newJob.name} successfully created`)
+        history.push("/admin/jobs")
+      })
+      .catch(() => props.createNotification("Unable to create job"))
   }
 
   const handleJenkinsSelectionChange = (event) => {
@@ -64,12 +76,20 @@ const AdminJobCreator = (props) => {
   const handleJenkinsSubmit = async () => {
     setJenkinsOptions([...allJenkinses, newJenkinsData])
 
-    if(newJenkinsData.name === "" || newJenkinsData.url === "" || newJenkinsData.token === ""){
+    if(newJenkinsData.name === "" || newJenkinsData.url === ""){
       props.createNotification("Please check jenkins details.")
       return
     }
 
-    await postNewJenkins(newJenkinsData)
+    let url = newJenkinsData.url
+
+    if(url.slice(url.length - 1) === "/"){
+      url = url.substring(0, url.length - 1)
+    }
+
+    await postNewJenkins({...newJenkinsData, url})
+      .then(() =>  props.createNotification(`Jenkins ${newJenkinsData.name} successfully created`))
+      .catch(() => props.createNotification("Unable to add jenkins"))
   }
 
   const handleNewJenkinsData = (event) => {
@@ -148,7 +168,10 @@ const AdminJobCreator = (props) => {
           <input type={"text"} name={"name"} value={newJenkinsData.name} onChange={handleNewJenkinsData}/><br/>
           <label>Jenkins URL </label><br/>
           <input type={"text"} name={"url"} value={newJenkinsData.url} onChange={handleNewJenkinsData}/><br/>
-          <label>Jenkins API token</label><br/>
+          <label>
+            Jenkins API token (username:token)<br/>
+            Leave empty if public jenkins
+          </label><br/>
           <input type={"text"} name={"token"} value={newJenkinsData.token} onChange={handleNewJenkinsData}/>
         </form>
         <SaveButton saveHandle={handleJenkinsSubmit}/>

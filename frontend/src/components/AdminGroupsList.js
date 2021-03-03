@@ -3,6 +3,7 @@ import {Link} from "react-router-dom"
 import "../css/admin-home.css"
 import {getAllGroups} from "../services/radiator"
 import DropdownButton from "../common/DropdownButton"
+import {Button} from "../common/Buttons"
 
 const AdminGroupsList = () => {
 
@@ -28,7 +29,6 @@ const AdminGroupsList = () => {
 
   return(
     <div style={{width: "65%", fontFamily: "'Roboto', sans-serif"}}>
-      <Link to={"/admin/groups/new"}><button>New group</button></Link>
       <div>
         <div className={"radiator-list-header"}>
           <p style={{flexGrow: 2}}>
@@ -60,6 +60,7 @@ const AdminGroupsList = () => {
           );
         })}
       </div>
+      <Link to={"/admin/groups/new"}><Button buttonText={"New Group"}/></Link>
     </div>
   );
 }

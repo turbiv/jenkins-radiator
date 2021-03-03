@@ -33,7 +33,6 @@ const AdminHome = () => {
           </p>
         </div>
         {radiatorData.map((radiator, index)=>{
-          console.log(radiator)
           return(
             <div key={index} className={"radiator-list-box"} id={index}>
               <div className={"radiator-list-box-div"} style={{flexGrow: 3}}>
@@ -56,9 +55,7 @@ const AdminHome = () => {
         <Link to={"/admin/radiators/new"}><button>New radiator</button></Link>
         </div>
         <div className={"history-column"}>
-          <div>
-            History item
-          </div>
+
         </div>
       </div>
   );

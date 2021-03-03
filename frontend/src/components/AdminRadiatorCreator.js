@@ -2,10 +2,12 @@ import React, {useState} from "react"
 import {postNewRadiator} from "../services/radiator"
 import {createNotification} from "../reducers/notificationReducer"
 import {connect} from "react-redux"
+import {useHistory} from "react-router-dom"
 
 const AdminRadiatorCreator = (props) => {
 
   const [radiatorName, setRadiatorName] = useState("")
+  const history = useHistory()
 
   const handleRadiatorNameChange = (event) => {
     setRadiatorName(event.target.value)
@@ -21,6 +23,12 @@ const AdminRadiatorCreator = (props) => {
     }
 
     await postNewRadiator(generatedPayload)
+      .then(() => {
+        props.createNotification(`Radiator ${radiatorName} successfully created`)
+        history.push("/admin/home")
+      })
+      .catch(() => props.createNotification("Unable to create radiator"))
+
   }
 
   return(

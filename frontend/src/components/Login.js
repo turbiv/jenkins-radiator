@@ -36,7 +36,9 @@ const Login = (props) => {
   const handleLogin = async (event) =>{
     event.preventDefault();
     if(!confirmUserDetails()) return
+
     const loginuser = await postLogin({username, password});
+
     if(!loginuser){
       props.createNotification("Failed to login");
       return

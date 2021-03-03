@@ -2,10 +2,12 @@ import React, {useState} from "react"
 import {postNewGroup} from "../services/radiator"
 import {createNotification} from "../reducers/notificationReducer"
 import {connect} from "react-redux"
+import {useHistory} from "react-router-dom"
 
 const AdminGroupCreator = (props) => {
 
   const [groupTitle, setGroupTitle] = useState("")
+  const history = useHistory()
 
   const handleGroupTitleChange = (event) => {
     setGroupTitle(event.target.value)
@@ -20,7 +22,11 @@ const AdminGroupCreator = (props) => {
     }
 
     await postNewGroup(generatedPayload)
-
+      .then(() => {
+        props.createNotification(`Group ${groupTitle} successfully created`)
+        history.push("/admin/groups")
+      })
+      .catch(() => props.createNotification("Unable to create group"))
   }
 
   return(
