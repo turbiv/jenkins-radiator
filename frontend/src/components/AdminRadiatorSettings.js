@@ -30,7 +30,7 @@ const AdminRadiatorSettings = ({radiatorData}) => {
   }, [])
 
   const handleAdditionOfGroups = async () => {
-    await putRadiatorSettings({...radiatorJson, groups: groupsToAdd})
+    await putRadiatorSettings({...radiatorJson, owner: radiatorJson.owner.id, groups: groupsToAdd})
   }
 
   const handleCheckboxChange = (event) => {

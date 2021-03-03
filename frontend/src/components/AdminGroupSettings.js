@@ -33,7 +33,7 @@ const AdminGroupSettings = ({groupData}) => {
     while(copyJobs.length) formattedJobs.push(copyJobs.splice(0, 6))
     console.log({...groupJson, jobs: formattedJobs})
 
-    await putGroup({...groupJson, jobs: formattedJobs})
+    await putGroup({...groupJson, owner: groupJson.owner.id, jobs: formattedJobs})
 
   }
 

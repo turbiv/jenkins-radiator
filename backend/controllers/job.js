@@ -78,8 +78,7 @@ expressRouter.put("/:id", async (request, response) => {
     return response.status(config.response.unauthorized).send({error: "Request doesnt not meet the permission level."}).end()
   }
 
-  job = body
-  await job.save()
+  await job.updateOne(body)
 })
 
 module.exports = expressRouter;

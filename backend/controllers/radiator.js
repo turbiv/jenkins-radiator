@@ -132,8 +132,7 @@ expressRouter.put("/", async (request, response) => {
   const groupsId = body.groups.map(group => group.id)
   const formattedRadiatorGroups = {...body, groups: groupsId}
 
-  radiator = formattedRadiatorGroups
-  await radiator.save()
+  await radiator.updateOne(formattedRadiatorGroups)
 
   if(request.decodedToken.permissions.write_groups === 0 && request.decodedToken.permissions.administrator === 0){
     return response.status(config.response.unauthorized).send({error: "Request doesnt not meet the permission level."}).end()
@@ -149,8 +148,7 @@ expressRouter.put("/", async (request, response) => {
       return response.status(config.response.unauthorized).send({error: "Request doesnt not meet the permission level."}).end()
     }
 
-    group = formattedGroup
-    await group.save()
+    await group.updateOne(formattedGroup)
   }
 
   return response.status(config.response.ok).send().end()
@@ -172,8 +170,7 @@ expressRouter.put("/settings", async (request, response) => {
     return response.status(config.response.badrequest).send({error: "Radiator name is missing."})
   }
 
-  radiator = body
-  await radiator.save()
+  await radiator.updateOne(body)
 
   return response.status(config.response.ok).send().end()
 })
