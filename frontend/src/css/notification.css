@@ -1,0 +1,18 @@
+.notification-placement {
+    position: absolute;
+    right: 30px;
+    top: 20px;
+}
+
+.notification-placement div {
+    margin-bottom: 5px;
+}
+
+.notification-content {
+    font-family: 'Roboto', sans-serif;
+    width: 200px;
+    word-wrap: break-word;
+    border-radius: 7px;
+    padding: 10px;
+    border: 2px solid black;
+}
