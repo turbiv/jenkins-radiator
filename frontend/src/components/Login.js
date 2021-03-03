@@ -14,19 +14,19 @@ const Login = (props) => {
   const confirmUserDetails = () => {
     let formattedNotification = true
     if(!username){
-      props.createNotification("Username is missing.")
+      props.createNotification("Username is missing.", "fail")
       formattedNotification = false
     }
     if(!password){
-      props.createNotification("Password is missing.")
+      props.createNotification("Password is missing.", "fail")
       formattedNotification = false
     }
     if(!confirmPassword && props.register){
-      props.createNotification("Confirmed password is missing.")
+      props.createNotification("Confirmed password is missing.", "fail")
       formattedNotification = false
     }
     if(!name && props.register){
-      props.createNotification("Name is missing.")
+      props.createNotification("Name is missing.", "fail")
       formattedNotification = false
     }
 
@@ -40,7 +40,7 @@ const Login = (props) => {
     const loginuser = await postLogin({username, password});
 
     if(!loginuser){
-      props.createNotification("Failed to login");
+      props.createNotification("Failed to login", "fail");
       return
     }
     console.log(loginuser)
@@ -55,12 +55,12 @@ const Login = (props) => {
     if(!confirmUserDetails()) return
     if(password !== confirmPassword){
       console.log("password match error")
-      props.createNotification("Passwords do not match, please double check.")
+      props.createNotification("Passwords do not match, please double check.", "fail")
       return
     }
     const loginuser = await postRegister({username, password, name});
     if(!loginuser){
-      props.createNotification("Failed to register");
+      props.createNotification("Failed to register", "fail");
       return
     }
     window.localStorage.setItem("loggedUser", JSON.stringify(loginuser));

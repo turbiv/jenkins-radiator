@@ -24,10 +24,10 @@ const AdminRadiatorCreator = (props) => {
 
     await postNewRadiator(generatedPayload)
       .then(() => {
-        props.createNotification(`Radiator ${radiatorName} successfully created`)
+        props.createNotification(`Radiator ${radiatorName} successfully created`, "success")
         history.push("/admin/home")
       })
-      .catch(() => props.createNotification("Unable to create radiator"))
+      .catch(() => props.createNotification("Unable to create radiator", "fail"))
 
   }
 

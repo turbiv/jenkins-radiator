@@ -8,6 +8,7 @@ const AdminGroupSettings = ({groupData}) => {
   const [allJobs, setAllJobs] = useState([])
   const [jobsToAdd, setJobsToAdd] = useState([])
   const [groupJson, setGroupJson] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   const [radiatorStatus, setRadiatorStatus] = useState(null)
 
@@ -19,10 +20,11 @@ const AdminGroupSettings = ({groupData}) => {
       setRadiatorStatus(error)
     })
 
-    getAllJobs()
+    await getAllJobs()
       .then(response => setAllJobs(response))
       .catch(() => setAllJobs([]))
 
+    setLoading(false)
   }, [])
 
   const handleAdditionOfJobs = async () => {
@@ -50,6 +52,14 @@ const AdminGroupSettings = ({groupData}) => {
         <img style={{display: "block", marginLeft: "auto", marginRight: "auto", width: "50%"}} src={"https://http.cat/" + radiatorStatus} alt={"http error"}/>
       </div>
     );
+  }
+
+  if(loading){
+    return(
+      <div>
+        Loading...
+      </div>
+    )
   }
 
   return(

@@ -9,6 +9,7 @@ const AdminRadiatorSettings = ({radiatorData}) => {
   const [allRadiatorGroups, setAllRadiatorGroups] = useState([])
   const [groupsToAdd, setGroupsToAdd] = useState([])
   const [radiatorJson, setRadiatorJson] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   const [radiatorStatus, setRadiatorStatus] = useState(null)
 
@@ -21,10 +22,11 @@ const AdminRadiatorSettings = ({radiatorData}) => {
       setRadiatorStatus(error)
     })
 
-    getAllGroups()
+    await getAllGroups()
       .then(response => setAllRadiatorGroups(response))
       .catch(() => setAllRadiatorGroups([]))
 
+    setLoading(false)
   }, [])
 
   const handleAdditionOfGroups = async () => {
@@ -46,6 +48,14 @@ const AdminRadiatorSettings = ({radiatorData}) => {
         <img style={{display: "block", marginLeft: "auto", marginRight: "auto", width: "50%"}} src={"https://http.cat/" + radiatorStatus} alt={"http error"}/>
       </div>
     );
+  }
+
+  if(loading){
+    return(
+    <div>
+      Loading...
+    </div>
+    )
   }
 
   return(

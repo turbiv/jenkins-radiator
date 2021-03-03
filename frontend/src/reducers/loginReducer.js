@@ -22,10 +22,6 @@ export const removeUser = () =>{
 };
 
 const reducer = (state = null, action) =>{
-  console.log("action test_data: " , action.data);
-  console.log("action type:" , action.type);
-  console.log("state test_data before: ", state);
-
   switch (action.type) {
     case "SET_USER":
       return action.data;

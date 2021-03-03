@@ -7,16 +7,27 @@ import DropdownButton from "../common/DropdownButton"
 const AdminHome = () => {
 
   const [radiatorData, setRadiatorData] = useState([])
-  const [radiatorStastus, setRadiatorStatus] = useState(null)
+  const [radiatorStatus, setRadiatorStatus] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     getAll().then((response) => {
       console.log(response)
       setRadiatorData(response)
+      setLoading(false)
     }).catch((error) => {
       setRadiatorStatus(error)
+      setLoading(false)
     })
   }, [])
+
+  if(radiatorStatus){
+    return(
+      <div>
+        <img style={{display: "block", marginLeft: "auto", marginRight: "auto", width: "50%"}} src={"https://http.cat/" + radiatorStatus} alt={"http error"}/>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -32,7 +43,7 @@ const AdminHome = () => {
             Options
           </p>
         </div>
-        {radiatorData.map((radiator, index)=>{
+        {loading ? <div>Loading...</div> : radiatorData.map((radiator, index)=>{
           return(
             <div key={index} className={"radiator-list-box"} id={index}>
               <div className={"radiator-list-box-div"} style={{flexGrow: 3}}>

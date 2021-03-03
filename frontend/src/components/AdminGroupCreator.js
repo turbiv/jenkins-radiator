@@ -23,10 +23,10 @@ const AdminGroupCreator = (props) => {
 
     await postNewGroup(generatedPayload)
       .then(() => {
-        props.createNotification(`Group ${groupTitle} successfully created`)
+        props.createNotification(`Group ${groupTitle} successfully created`, "success")
         history.push("/admin/groups")
       })
-      .catch(() => props.createNotification("Unable to create group"))
+      .catch(() => props.createNotification("Unable to create group", "fail"))
   }
 
   return(

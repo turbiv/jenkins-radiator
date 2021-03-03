@@ -19,10 +19,12 @@ import {setUser} from "../reducers/loginReducer";
 import {createNotification} from "../reducers/notificationReducer";
 import AdminAccountsList from "./AdminAccountsList"
 import AdminAccountSettings from "./AdminAccountSettings"
+import "../css/notification.css"
 
 
 const AdminRouter = (props) => {
   const [registerPage, setRegisterPage] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   useEffect(async () => {
     const loggedUser = window.localStorage.getItem("loggedUser");
@@ -33,6 +35,7 @@ const AdminRouter = (props) => {
 
       props.setUser({...user, permissions: latestUser.permissions})
     }
+    setLoading(false)
   },[]);
 
   const getRadiator = async (id) => {
@@ -43,10 +46,18 @@ const AdminRouter = (props) => {
     return await getGroupById(id)
   }
 
+  if(loading){
+    return(
+      <div>
+        Checking credentials...
+      </div>
+    )
+  }
+
   if(!props.login){
     return(
       <div>
-        {props.notification}
+        <div className={"notification-placement"}>{props.notification}</div>
         <Login register={registerPage}/>
         <button onClick={() => setRegisterPage(!registerPage)}>{registerPage ? "Login as existing user" : "Register new user"}</button>
       </div>
@@ -58,7 +69,7 @@ const AdminRouter = (props) => {
     <div >
       <Sidebar/>
       <div style={{marginLeft: 170}}>
-        {props.notification}
+        <div className={"notification-placement"}>{props.notification}</div>
         <Route exact path={"/admin/"} render={() => <AdminHome/>}/>
         <Route exact path={"/admin/home"} render={() => <AdminHome/>}/>
         <Route exact path={"/admin/groups"} render={() => <AdminGroupsList/>}/>

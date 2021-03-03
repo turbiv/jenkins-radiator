@@ -66,7 +66,7 @@ expressRouter.get("/:id", async (request, response) => {
     })
     .populate("owner")
     .execPopulate()
-  return response.status(config.response.ok).send(groups).end()
+  return response.status(config.response.ok).send(group).end()
 })
 
 // Create new group

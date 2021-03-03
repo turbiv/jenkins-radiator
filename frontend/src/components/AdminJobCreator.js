@@ -39,7 +39,7 @@ const AdminJobCreator = (props) => {
   const handleJobSubmit = async () => {
 
     if(newJob.name === "" || newJob.path === "" || newJob.jenkins === ""){
-      props.createNotification("Please check job details.")
+      props.createNotification("Please check job details.", "fail")
       return
     }
 
@@ -57,10 +57,10 @@ const AdminJobCreator = (props) => {
 
     await postNewJob(formattedJob)
       .then(() => {
-        props.createNotification(`Job ${newJob.name} successfully created`)
+        props.createNotification(`Job ${newJob.name} successfully created`, "success")
         history.push("/admin/jobs")
       })
-      .catch(() => props.createNotification("Unable to create job"))
+      .catch(() => props.createNotification("Unable to create job", "fail"))
   }
 
   const handleJenkinsSelectionChange = (event) => {
@@ -77,7 +77,7 @@ const AdminJobCreator = (props) => {
     setJenkinsOptions([...allJenkinses, newJenkinsData])
 
     if(newJenkinsData.name === "" || newJenkinsData.url === ""){
-      props.createNotification("Please check jenkins details.")
+      props.createNotification("Please check jenkins details.", "fail")
       return
     }
 
@@ -88,8 +88,8 @@ const AdminJobCreator = (props) => {
     }
 
     await postNewJenkins({...newJenkinsData, url})
-      .then(() =>  props.createNotification(`Jenkins ${newJenkinsData.name} successfully created`))
-      .catch(() => props.createNotification("Unable to add jenkins"))
+      .then(() =>  props.createNotification(`Jenkins ${newJenkinsData.name} successfully created`, "success"))
+      .catch(() => props.createNotification("Unable to add jenkins", "fail"))
   }
 
   const handleNewJenkinsData = (event) => {
