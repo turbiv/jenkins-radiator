@@ -3,6 +3,7 @@ backend/node_modules/
 
 frontend/build/*
 !frontend/build/_redirects
+!frontend/build/_headers
 backend/build/*
 
 # Logs
