@@ -2,16 +2,17 @@ import axios from "axios"
 
 const headers = (url, token) => {
   return {
+    mode: 'no-cors',
     headers:{
-      "Access-Control-Allow-Origin": url,
       "Access-Control-Allow-Credentials": "true",
-      "Authorization": "Basic " + btoa(token) // Local host token
     }
   }
 }
 
+
+
 export const getBuilds = (jenkinsUrl, buildAmount, token) => {
-  const request = axios.get( `${jenkinsUrl}/api/json?tree=allBuilds[url,result,id]{0,${buildAmount}}`, headers(jenkinsUrl, token))
+  const request = axios.get( `${jenkinsUrl}/api/json?tree=allBuilds[url,result,id]{0,${buildAmount}}`)
   return request.then(response => response.data)
     .catch(error => Promise.reject(error.response.status))
 };
