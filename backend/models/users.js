@@ -6,13 +6,13 @@ const userSchema = mongo.Schema({
   name: String,
   passwordHash: String,
   permissions: {
-    write_jobs: {type: Number, default: 1}, // 0 = None, 1 = Own, 2 = All
-    write_groups: {type: Number, default: 1},
-    write_radiators: {type: Number, default: 1},
+    write_jobs: {type: Number, default: 2}, // 0 = None, 1 = Own, 2 = All
+    write_groups: {type: Number, default: 2},
+    write_radiators: {type: Number, default: 2},
 
-    read_jobs: {type: Number, default: 1}, // 0 = None, 1 = Own, 2 = All
-    read_groups: {type: Number, default: 1},
-    read_radiators: {type: Number, default: 1},
+    read_jobs: {type: Number, default: 2}, // 0 = None, 1 = Own, 2 = All
+    read_groups: {type: Number, default: 2},
+    read_radiators: {type: Number, default: 2},
 
     modify_users: {type: Number, default: 0}, // 0 = None, 1 = Delete, 2 = Change details
     administrator: {type: Number, default: 0}, // 0 = None, 1 = Administrator (All rights), 2 = System account (Cant be deleted or changed)
