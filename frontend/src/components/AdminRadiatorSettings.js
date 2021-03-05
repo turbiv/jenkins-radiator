@@ -3,6 +3,7 @@ import {Link} from "react-router-dom"
 import "../css/table.css"
 import {getAllGroups, putRadiatorSettings} from "../services/radiator"
 import {SaveButton} from "../common/Buttons"
+import {useHistory} from "react-router-dom"
 
 const AdminRadiatorSettings = ({radiatorData}) => {
 
@@ -10,8 +11,8 @@ const AdminRadiatorSettings = ({radiatorData}) => {
   const [groupsToAdd, setGroupsToAdd] = useState([])
   const [radiatorJson, setRadiatorJson] = useState(null)
   const [loading, setLoading] = useState(true)
-
   const [radiatorStatus, setRadiatorStatus] = useState(null)
+  const history = useHistory()
 
   useEffect(async () => {
     radiatorData.then((response) => {
@@ -31,6 +32,7 @@ const AdminRadiatorSettings = ({radiatorData}) => {
 
   const handleAdditionOfGroups = async () => {
     await putRadiatorSettings({...radiatorJson, owner: radiatorJson.owner.id, groups: groupsToAdd})
+    history.push("/admin/home/")
   }
 
   const handleCheckboxChange = (event) => {

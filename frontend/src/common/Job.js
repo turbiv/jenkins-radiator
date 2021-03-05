@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import jenkins, {getBuilds} from "../services/jenkins"
+import {getBuilds} from "../services/jenkinsProxy"
 import "../css/radiator-cell.css"
 
 const Job = (props) => {
@@ -22,7 +22,7 @@ const Job = (props) => {
 
   useEffect(() => {
     if(amountOfSquares !== 0){
-      getBuilds(props.jenkinsUrl, amountOfSquares, props.token)
+      getBuilds(props.jenkinsHost, props.jenkinsPort, `${props.jenkinsPath}/api/json?tree=allBuilds[url,result,id]{0,${amountOfSquares}}`, props.token)
         .then((response) => {
           if(response.allBuilds){
             setJenkinsBuilds(response.allBuilds)

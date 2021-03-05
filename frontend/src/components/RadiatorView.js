@@ -29,7 +29,7 @@ const RadiatorView = ({radiatorId}) => {
             {category.jobs.map((row, index)=>{
               return(
                 <div key={index} className={"container"}>
-                  {row.map((job, index) => <Job key={index} jenkinsUrl={job.jenkins.url + job.path} token={job.jenkins.token} grow={job.grow} order={job.order} name={job.name}/>)}
+                  {row.map((job, index) => <Job key={index} jenkinsHost={job.jenkins.hostname} jenkinsPort={job.jenkins.port} jenkinsPath={job.path} token={job.jenkins.token} grow={job.grow} order={job.order} name={job.name}/>)}
                 </div>
               );
             })}

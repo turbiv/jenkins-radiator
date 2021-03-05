@@ -23,12 +23,17 @@ expressRouter.post("/", async (request, response) => {
     return response.status(config.response.badrequest).send({error: "Jenkins name missing."})
   }
 
-  if(body.url === undefined){
+  if(body.hostname === undefined){
     return response.status(config.response.badrequest).send({error: "Jenkins url missing."})
   }
 
+  if(body.port === undefined){
+    return response.status(config.response.badrequest).send({error: "Jenkins port missing."})
+  }
+
   const newJenkinsData = {
-    url: body.url,
+    hostname: body.hostname,
+    port: body.port,
     name: body.name,
     token: body.token
   }

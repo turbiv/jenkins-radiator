@@ -5,13 +5,15 @@ import {SaveButton} from "../common/Buttons"
 import "../css/table.css"
 import {createNotification} from "../reducers/notificationReducer";
 import {connect} from "react-redux"
+import {useHistory} from "react-router-dom"
 
 const AdminJobCreator = (props) => {
 
   const [newJob, setNewJob] = useState({name: "", path: "", jenkins: ""})
-  const [newJenkinsData, setNewJenkinsData] = useState({name: "", url: "", token: ""})
+  const [newJenkinsData, setNewJenkinsData] = useState({name: "", hostname: "", port: "80", token: ""})
   const [allJenkinses, setAllJenkinses] = useState([])
   const [jenkinsOptions, setJenkinsOptions] = useState([])
+  const history = useHistory()
 
   useEffect(() => {
     getAllJenkins().then((response) => {
@@ -45,8 +47,12 @@ const AdminJobCreator = (props) => {
 
     let path = newJob.path
 
-    if(path.slice(0) === "/"){
-      path = url.substring(1, path.length)
+    if(!path.startsWith("/")){
+      path = "/" + path
+    }
+
+    if(path.endsWith("/")){
+      path = path.substring(0, path.length - 1)
     }
 
     const formattedJob = {
@@ -67,7 +73,7 @@ const AdminJobCreator = (props) => {
     setNewJob({...newJob, jenkins: event.target.value})
   }
 
-  const findJenkinsUrl = (event) => {
+  const findJenkinsHostname = (event) => {
     event.preventDefault()
     const filtered = allJenkinses.filter(jenkins => jenkins.name.includes(event.target.value))
     setJenkinsOptions(filtered)
@@ -76,18 +82,18 @@ const AdminJobCreator = (props) => {
   const handleJenkinsSubmit = async () => {
     setJenkinsOptions([...allJenkinses, newJenkinsData])
 
-    if(newJenkinsData.name === "" || newJenkinsData.url === ""){
+    if(newJenkinsData.name === "" || newJenkinsData.hostname === "" || newJenkinsData.port === ""){
       props.createNotification("Please check jenkins details.", "fail")
       return
     }
 
-    let url = newJenkinsData.url
+    let hostname = newJenkinsData.hostname
 
-    if(url.slice(url.length - 1) === "/"){
-      url = url.substring(0, url.length - 1)
+    if(hostname.endsWith("/")){
+      hostname = hostname.substring(0, hostname.length - 1)
     }
 
-    await postNewJenkins({...newJenkinsData, url})
+    await postNewJenkins({...newJenkinsData, hostname})
       .then(() =>  props.createNotification(`Jenkins ${newJenkinsData.name} successfully created`, "success"))
       .catch(() => props.createNotification("Unable to add jenkins", "fail"))
   }
@@ -98,12 +104,16 @@ const AdminJobCreator = (props) => {
         setNewJenkinsData({...newJenkinsData, name: event.target.value})
         break;
       }
-      case "url":{
-        setNewJenkinsData({...newJenkinsData, url: event.target.value})
+      case "hostname":{
+        setNewJenkinsData({...newJenkinsData, hostname: event.target.value})
         break;
       }
       case "token":{
         setNewJenkinsData({...newJenkinsData, token: event.target.value})
+        break;
+      }
+      case "port":{
+        setNewJenkinsData({...newJenkinsData, port: event.target.value})
         break;
       }
       default:
@@ -121,16 +131,16 @@ const AdminJobCreator = (props) => {
           <label>Job name:</label><br/>
           <input type={"text"} name={"name"} value={newJob.name} onChange={handleJobNameChange}/><br/><br/>
           <label>Job path (in jenkins):</label><br/>
-          <input type={"text"} name={"path"} value={newJob.url} onChange={handleJobNameChange}/><br/><br/>
+          <input type={"text"} name={"path"} value={newJob.path} onChange={handleJobNameChange}/><br/><br/>
 
           <label>Search for jenkins:</label><br/>
-          <input type={"text"} name={"jenkins"} onChange={findJenkinsUrl} /><br/>
+          <input type={"text"} name={"jenkins"} onChange={findJenkinsHostname} /><br/>
 
           <table className="layout display responsive-table">
             <thead>
               <tr>
                 <th colSpan={2}>Name</th>
-                <th>URL</th>
+                <th>Hostname</th>
               </tr>
             </thead>
 
@@ -149,7 +159,7 @@ const AdminJobCreator = (props) => {
                       />
                     </td>
                       <td className="title-col">{jenkins.name}</td>
-                      <td className="title-col">{jenkins.url}</td>
+                      <td className="title-col">{jenkins.hostname + ":" + jenkins.port}</td>
                     </tr>
                   )
                 })
@@ -166,8 +176,11 @@ const AdminJobCreator = (props) => {
         <form onSubmit={handleJenkinsSubmit}>
           <label>Jenkins name</label><br/>
           <input type={"text"} name={"name"} value={newJenkinsData.name} onChange={handleNewJenkinsData}/><br/>
-          <label>Jenkins URL </label><br/>
-          <input type={"text"} name={"url"} value={newJenkinsData.url} onChange={handleNewJenkinsData}/><br/>
+          <label>Jenkins hostname </label><br/>
+          <input type={"text"} name={"hostname"} value={newJenkinsData.hostname} onChange={handleNewJenkinsData}/><br/>
+          <label>Jenkins Port </label><br/>
+          <input type={"text"} name={"port"}  value={newJenkinsData.port} onChange={handleNewJenkinsData}/><br/>
+
           <label>
             Jenkins API token (username:token)<br/>
             Leave empty if public jenkins

@@ -2,12 +2,11 @@ const mongo = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 
 const jenkinsSchema = mongo.Schema({
-  name: {type: String, unique: true},
-  url: {type: String, unique: true},
+  name: {type: String},
+  hostname: {type: String, unique: true},
+  port: {type: String},
   token: {type: String}
 });
-
-jenkinsSchema.plugin(uniqueValidator);
 
 jenkinsSchema.set('toJSON', {
   transform: (document, returnedObject) => {

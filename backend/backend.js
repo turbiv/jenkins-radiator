@@ -14,6 +14,7 @@ const authenticationController = require("./controllers/authentication")
 const usersController = require("./controllers/users")
 const jenkinsController = require("./controllers/jenkins")
 const publicController = require("./controllers/public")
+const jenkinsProxy = require("./controllers/jenkinsProxy")
 
 const mongoUrl = process.env.MONGOURL;
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -31,6 +32,7 @@ app.use("/api/auth", authenticationController)
 app.use("/api/users", usersController)
 app.use("/api/jenkins", jenkinsController)
 app.use("/api/public", publicController)
+app.use("/api/proxy", jenkinsProxy)
 
 //TODO: Error handlers
 app.use(middleware.errorHandler);

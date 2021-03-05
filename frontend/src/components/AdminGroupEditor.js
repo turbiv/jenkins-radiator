@@ -62,7 +62,7 @@ const AdminGroupEditor = ({groupData}) => {
                       return (
                         <Draggable id={"droppable-" + droppableIndex} key={rowIndex} draggableId={"draggable-" + droppableIndex + "" + rowIndex} index={rowIndex}>
                         {(provided) => (
-                          <Job jenkinsUrl={job.jenkins.url + job.path} token={job.jenkins.token} draggable={provided} grow={job.grow} order={job.order} name={job.name}/>
+                          <Job jenkinsHost={job.jenkins.hostname} jenkinsPort={job.jenkins.port} enkinsPath={job.path} token={job.jenkins.token} draggable={provided} grow={job.grow} order={job.order} name={job.name}/>
                         )}
                         </Draggable>
                       )

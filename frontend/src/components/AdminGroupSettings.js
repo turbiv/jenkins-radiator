@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react"
 import {putGroup, getAllJobs} from "../services/radiator"
 import {Link} from "react-router-dom"
 import {SaveButton} from "../common/Buttons"
+import {useHistory} from "react-router-dom"
 
 const AdminGroupSettings = ({groupData}) => {
 
@@ -9,8 +10,8 @@ const AdminGroupSettings = ({groupData}) => {
   const [jobsToAdd, setJobsToAdd] = useState([])
   const [groupJson, setGroupJson] = useState(null)
   const [loading, setLoading] = useState(true)
-
   const [radiatorStatus, setRadiatorStatus] = useState(null)
+  const history = useHistory()
 
   useEffect(async () => {
     groupData.then((response) => {
@@ -35,6 +36,7 @@ const AdminGroupSettings = ({groupData}) => {
 
     await putGroup({...groupJson, owner: groupJson.owner.id, jobs: formattedJobs})
 
+    history.push("/admin/groups")
   }
 
   const handleCheckboxChange = (event) => {
