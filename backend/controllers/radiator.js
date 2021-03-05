@@ -138,7 +138,7 @@ expressRouter.put("/", async (request, response) => {
     return response.status(config.response.unauthorized).send({error: "Request doesnt not meet the permission level."}).end()
   }
 
-  const fromattedGroupsJobs = body.groups.map(group => {return {id: group.id, owner: group.owner.id, jobs: group.jobs.map(jobRow => jobRow.map(job => job.id))}})
+  const fromattedGroupsJobs = body.groups.map(group => {return {id: group.id, owner: body.owner.id, jobs: group.jobs.map(jobRow => jobRow.map(job => job.id))}})
 
   for(const formattedGroup of fromattedGroupsJobs){
 
