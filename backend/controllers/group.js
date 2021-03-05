@@ -117,7 +117,7 @@ expressRouter.put("/", async (request, response) => {
     return response.status(config.response.badrequest).send({error: "Group owner missing."})
   }
 
-  await group.updateOne(body)
+  await group.updateOne({...body, owner: body.owner.id})
 
   return response.status(config.response.ok).send().end()
 })
