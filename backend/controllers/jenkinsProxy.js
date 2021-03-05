@@ -21,8 +21,6 @@ expressRouter.get("/", async (request, response) => {
     }
   }
 
-  response.set('Access-Control-Allow-Origin', '*');
-
   new Promise((resolve, reject) => {
     const httpreq = http.request(options, (proxyResponse) => {
       var result = ""
