@@ -22,25 +22,29 @@ expressRouter.get("/", async (request, response) => {
   }
 
   new Promise((resolve, reject) => {
-    const httpreq = http.request(options, (proxyResponse) => {
-      var result = ""
-      proxyResponse.on("data", chunk => {
-        result += chunk
-      });
+    try{
+      const httpreq = http.request(options, (proxyResponse) => {
+        var result = ""
+        proxyResponse.on("data", chunk => {
+          result += chunk
+        });
 
-      proxyResponse.on("end", () => {
-        resolve(result)
+        proxyResponse.on("end", () => {
+          resolve(result)
+        })
+
+        proxyResponse.on("error", error => {
+          reject(error)
+        });
+
+        proxyResponse.on("uncaughtException", error => {
+          reject(error)
+        });
       })
-
-      proxyResponse.on("error", error => {
-        reject(error)
-      });
-
-      proxyResponse.on("uncaughtException", error => {
-        reject(error)
-      });
-    })
-    httpreq.end()
+      httpreq.end()
+    }catch (e) {
+      reject(e)
+    }
   })
     .then((result) => response.status(config.response.ok).send(JSON.parse(result)).end())
     .catch((error) => response.status(config.response.notfound).send({error: error}).end())
