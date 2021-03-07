@@ -1,8 +1,6 @@
 const express = require("express");
 const expressRouter = express.Router();
 const mongoRadiator = require("../models/radiator");
-const mongoGroup = require("../models/group");
-const mongoose = require("mongoose");
 const config = require("../config.json");
 
 expressRouter.get("/radiator", async (request, response) => {

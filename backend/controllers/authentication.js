@@ -3,7 +3,6 @@ const expressRouter = express.Router();
 const bcrypt = require('bcryptjs');
 const mongoUsers = require("../models/users");
 const jwt = require("jsonwebtoken");
-const mongoose = require("mongoose");
 const config = require("../config.json");
 
 const jwtSignature =  process.env.JWT_SIGN ? process.env.JWT_SIGN : config.jwt_signature

@@ -1,7 +1,7 @@
 import React from 'react'
 import {
   BrowserRouter as Router,
-  Route, Switch
+  Route
 } from 'react-router-dom'
 import Menu from "./components/Menu";
 import RadiatorView from "./components/RadiatorView";

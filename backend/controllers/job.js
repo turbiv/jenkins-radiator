@@ -1,9 +1,7 @@
 const express = require("express");
 const expressRouter = express.Router();
 const mongoJob = require("../models/job");
-const mongoose = require("mongoose");
 const config = require("../config.json");
-const jwt = require("jsonwebtoken")
 
 expressRouter.use((request, response, next) => {
   if(!request.decodedToken){

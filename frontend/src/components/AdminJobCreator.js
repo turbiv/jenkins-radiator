@@ -40,7 +40,7 @@ const AdminJobCreator = (props) => {
 
   const handleJobSubmit = async () => {
 
-    if(newJob.name === "" || newJob.path === "" || newJob.jenkins === ""){
+    if(!newJob.name || !newJob.path || !newJob.jenkins){
       props.createNotification("Please check job details.", "fail")
       return
     }
@@ -82,7 +82,7 @@ const AdminJobCreator = (props) => {
   const handleJenkinsSubmit = async () => {
     setJenkinsOptions([...allJenkinses, newJenkinsData])
 
-    if(newJenkinsData.name === "" || newJenkinsData.hostname === "" || newJenkinsData.port === ""){
+    if(!newJenkinsData.name || !newJenkinsData.hostname || newJenkinsData.port === ""){
       props.createNotification("Please check jenkins details.", "fail")
       return
     }

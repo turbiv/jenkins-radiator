@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import '../css/sidebar.css';
 import { IconContext } from 'react-icons';
 import { MdAccountCircle } from 'react-icons/md'
-import { IoIosPower, IoMdHelpCircle, IoIosSettings, IoMdPeople, IoIosBriefcase, IoLogoBuffer  } from 'react-icons/io'
+import { IoIosPower, IoIosBriefcase, IoLogoBuffer  } from 'react-icons/io'
 import { AiFillHome } from 'react-icons/ai'
 import {removeUser} from "../reducers/loginReducer";
 
@@ -33,20 +33,6 @@ const Sidebar = (props) => {
       cName: 'nav-text',
       permission: "read_jobs"
     },
-    /*{
-      title: 'Owners',
-      path: '/admin/owners',
-      icon: <IoMdPeople/>,
-      cName: 'nav-text',
-      permission: null
-    },
-    {
-      title: 'Options',
-      path: '/admin/options',
-      icon: <IoIosSettings />,
-      cName: 'nav-text',
-      permission: "administrator"
-    }, */
     {
       title: 'Accounts',
       path: '/admin/accounts',
@@ -54,13 +40,7 @@ const Sidebar = (props) => {
       cName: 'nav-text',
       permission: null
     },
-    /*{
-      title: 'Support',
-      path: '/admin/support',
-      icon: <IoMdHelpCircle />,
-      cName: 'nav-text',
-      permission: null
-    }*/
+
   ];
 
   return (

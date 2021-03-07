@@ -6,12 +6,6 @@ export const setToken = newToken => {
   token = "bearer " + newToken
 };
 
-const headers = {
-  headers: {
-    "Content-Type": "application/json"
-  }
-}
-
 const tokenHeaders = (token) => {
   return {
     headers: {

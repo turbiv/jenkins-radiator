@@ -1,7 +1,6 @@
 const express = require("express");
 const expressRouter = express.Router();
 const mongoUsers = require("../models/users");
-const mongoose = require("mongoose");
 const config = require("../config.json");
 
 expressRouter.get("/", async (request, response) =>{

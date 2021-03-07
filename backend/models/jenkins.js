@@ -8,6 +8,8 @@ const jenkinsSchema = mongo.Schema({
   token: {type: String}
 });
 
+jenkinsSchema.plugin(uniqueValidator);
+
 jenkinsSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString();
