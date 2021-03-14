@@ -11,13 +11,13 @@ const baseurl = !process.env.NODE_ENV || process.env.NODE_ENV === 'development' 
 export const postLogin = async (payload)  => {
   const request = axios.post(`${baseurl}/auth/login/`, payload, headers)
   return request.then((response) => response.data)
-    .catch(error => Promise.reject(error.response.status))
+    .catch(error => null)
 }
 
 export const postRegister = async (payload)  => {
   const request = axios.post(`${baseurl}/auth/register/`, payload, headers)
   return request.then((response) => response.data)
-    .catch(error => Promise.reject(error.response.status))
+    .catch(error => null)
 }
 
 export default { postRegister, postLogin}
