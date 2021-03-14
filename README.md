@@ -10,6 +10,12 @@ Radiator features:
 For demo purposes you can either install your own Jenkins to localhost:8080 or use the existing one that has been deployed to Google Kubernetes.  
 This project does not use any external css libraries, all css is handmade.
 
+## Purpose
+The main purpose of this project is to be a type of a "jenkins extension".  
+The idea is to see multiple jobs at once with their status across multiple jenkins platforms, this will give alot more visibility on job failures or just in general to see what the build status of multiple jobs is.  
+
+One good scenario would be testautomation, you would be able to see if you tests are passing or failing from a single page view.
+
 ## Main radiator view
 ![Radiator main view](https://i.gyazo.com/8c961c2a9175c35c8189f814d2c3b19b.png)
 
@@ -47,6 +53,12 @@ The drag and drop functionality used in editor is from atlassian (https://github
 ![Group drag](https://i.gyazo.com/13a3db75fe06aad26ad864db2d5289dd.gif)  
 This same drag and drop logic applies also to groups, you can sort entire groups by just dragging it to the place you want it and it will automatically save it in backend.  
 To access this drag and drop feature you must be in the editor mode of the radiator, that is accomplished by pressing "Options" -> "Edit radiator". In the list of groups and radiators is a link as a name that will let you access the regular radiator view.
+
+## Job creation
+![Job creation](https://i.gyazo.com/bc7fc5f622384ab8aee91104af7cce2a.png)  
+In the job creation panel you can add a jenkins, if your jenkins is using a token it can also be added. In my case the jenkins is avalible for public use on read mode.
+
+As you can also see you can see there is also a selection on what jenkins instance to use, the radiator does not have to be dependent on only one jenkins.  
 
 ## Login
 Authentication is done using jsonwebtoken, the token contains user permissions, id and username.  
