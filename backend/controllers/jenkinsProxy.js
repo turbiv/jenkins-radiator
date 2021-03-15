@@ -32,15 +32,14 @@ expressRouter.get("/", async (request, response) => {
         proxyResponse.on("end", () => {
           resolve(result)
         })
-
-        proxyResponse.on("error", error => {
-          reject(error)
-        });
-
-        proxyResponse.on("uncaughtException", error => {
-          reject(error)
-        });
       })
+      httpreq.on("error", () => {
+        reject("unable to access jenkins")
+      });
+
+      httpreq.on("uncaughtException", () => {
+        reject("unable to access jenkins")
+      });
       httpreq.end()
     }catch (e) {
       reject(e)
