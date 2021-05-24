@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react"
 import "../css/table.css"
 import {getUser, putUser} from "../services/users"
 import {SaveButton} from "../common/Buttons"
+import {useTranslation} from "react-i18next"
 
 const Setting = ({settingName, permission, handleOnChange, currentLevel, permissionLevels = [0, 1, 2],}) => {
 
@@ -35,6 +36,7 @@ const AdminAccountSettings = ({accountId}) => {
   const [userPermissions, setUserPermissions] = useState(null)
 
   const [radiatorStatus, setRadiatorStatus] = useState(null)
+  const { t, i18n } = useTranslation();
 
   useEffect( () => {
     getUser(accountId).then((response) => {
@@ -71,7 +73,7 @@ const AdminAccountSettings = ({accountId}) => {
   if(!userPermissions || !user){
     return(
       <div>
-        Loading user settings...
+        {t("loadingUserSettings")}
       </div>
     )
   }
@@ -83,20 +85,20 @@ const AdminAccountSettings = ({accountId}) => {
         <table className="layout display responsive-table">
           <thead>
             <tr>
-              <th colSpan={2}>Write permission</th>
+              <th colSpan={2}>{t("writePermission")}</th>
             </tr>
-            <Setting settingName={"Write jobs"} permission={"write_jobs"} handleOnChange={handleSettingChange} currentLevel={userPermissions.write_jobs} />
-            <Setting settingName={"Write groups"} permission={"write_groups"} handleOnChange={handleSettingChange} currentLevel={userPermissions.write_groups} />
-            <Setting settingName={"Write radiators"} permission={"write_radiators"} handleOnChange={handleSettingChange} currentLevel={userPermissions.write_radiators} />
+            <Setting settingName={t("writeJobs")} permission={"write_jobs"} handleOnChange={handleSettingChange} currentLevel={userPermissions.write_jobs} />
+            <Setting settingName={t("writeGroups")} permission={"write_groups"} handleOnChange={handleSettingChange} currentLevel={userPermissions.write_groups} />
+            <Setting settingName={t("writeRadiators")} permission={"write_radiators"} handleOnChange={handleSettingChange} currentLevel={userPermissions.write_radiators} />
           </thead>
 
           <thead style={{marginTop: "10px"}}>
           <tr>
-            <th colSpan={2}>Read permission</th>
+            <th colSpan={2}>{t("readPermission")}</th>
           </tr>
-            <Setting settingName={"Read jobs"} permission={"read_jobs"} handleOnChange={handleSettingChange} currentLevel={userPermissions.read_jobs} />
-            <Setting settingName={"Read groups"} permission={"read_groups"} handleOnChange={handleSettingChange} currentLevel={userPermissions.read_groups} />
-            <Setting settingName={"Read radiators"} permission={"read_radiators"} handleOnChange={handleSettingChange} currentLevel={userPermissions.read_radiators} />
+            <Setting settingName={t("readJobs")} permission={"read_jobs"} handleOnChange={handleSettingChange} currentLevel={userPermissions.read_jobs} />
+            <Setting settingName={t("readGroups")} permission={"read_groups"} handleOnChange={handleSettingChange} currentLevel={userPermissions.read_groups} />
+            <Setting settingName={t("readRadiators")} permission={"read_radiators"} handleOnChange={handleSettingChange} currentLevel={userPermissions.read_radiators} />
           </thead>
           <caption style={{captionSide: "bottom"}}>Definitions to be added</caption>
         </table>
@@ -104,12 +106,12 @@ const AdminAccountSettings = ({accountId}) => {
         <table style={{marginLeft: "10px"}} className="layout display responsive-table">
           <thead>
           <tr>
-            <th colSpan={2}>Other permissions</th>
+            <th colSpan={2}>{t("otherPermissions")}</th>
           </tr>
-            <Setting settingName={"Modify users"} permission={"modify_users"} handleOnChange={handleSettingChange} currentLevel={userPermissions.modify_users} />
-            <Setting settingName={"Administrator"} permission={"administrator"} handleOnChange={handleSettingChange} currentLevel={userPermissions.administrator} />
+            <Setting settingName={t("modifyUsers")} permission={"modify_users"} handleOnChange={handleSettingChange} currentLevel={userPermissions.modify_users} />
+            <Setting settingName={t("administrator")} permission={"administrator"} handleOnChange={handleSettingChange} currentLevel={userPermissions.administrator} />
           </thead>
-          <caption style={{captionSide: "bottom"}}>Definitions to be added</caption>
+          <caption style={{captionSide: "bottom"}}>{t("descriptions")}</caption>
         </table>
       </form>
       <SaveButton saveHandle={handleUserSettingSave}/>

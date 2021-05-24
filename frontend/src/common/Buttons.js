@@ -1,7 +1,8 @@
 import React, {useState} from "react"
+import {useTranslation} from "react-i18next"
 
 export const SaveButton = ({buttonText, saveHandle}) => {
-
+  const { t, i18n } = useTranslation();
   const [isLoading, setIsLoading] = useState(false)
 
   const handleSave = (event) => {
@@ -13,14 +14,14 @@ export const SaveButton = ({buttonText, saveHandle}) => {
   if(isLoading){
     return(
       <div>
-        <p>Loading...</p>
+        <p>{t("loading")}</p>
       </div>
     )
   }
 
   return(
     <div>
-      <button onClick={handleSave}>{buttonText || "Save"}</button>
+      <button onClick={handleSave}>{buttonText || t("save")}</button>
     </div>
   )
 }

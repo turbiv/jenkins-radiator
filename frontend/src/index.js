@@ -7,6 +7,7 @@ import {combineReducers, createStore, applyMiddleware} from "redux";
 import { Provider } from 'react-redux'
 import notificationReducer from "./reducers/notificationReducer"
 import loginReducer from "./reducers/loginReducer"
+import './i18n';
 
 const reducers = combineReducers({
   notification: notificationReducer,

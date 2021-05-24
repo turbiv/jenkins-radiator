@@ -3,11 +3,13 @@ import {Link} from "react-router-dom"
 import "../css/admin-home.css"
 import {getAllUsers, deleteUser} from "../services/users"
 import {connect} from "react-redux"
+import {useTranslation} from "react-i18next"
 
 const AdminAccountsList = (props) => {
 
   const [users, setUsers] = useState([])
   const [radiatorStatus, setRadiatorStatus] = useState(null)
+  const { t, i18n } = useTranslation();
 
   useEffect(async () => {
     getAllUsers().then((response) => {
@@ -38,12 +40,12 @@ const AdminAccountsList = (props) => {
       <div>
         <div className={"radiator-list-header"}>
           <p style={{flexGrow: 3}}>
-            Username
+            {t("username")}
           </p>
           <p style={{flexGrow: 3, borderLeftStyle: "dashed"}}>
-            Name
+            {t("name")}
           </p>
-          {props.login.permissions.administrator >= 1 || props.login.permissions.administrator.modify_users >= 1 ? <p style={{flexGrow: 2, borderLeftStyle: "dashed"}}>Options</p> : null}
+          {props.login.permissions.administrator >= 1 || props.login.permissions.administrator.modify_users >= 1 ? <p style={{flexGrow: 2, borderLeftStyle: "dashed"}}>{t("options")}</p> : null}
         </div>
         {users.map((user, index)=>{
           return(
@@ -55,10 +57,10 @@ const AdminAccountsList = (props) => {
                 {user.name}
               </div>
               {props.login.permissions.administrator >= 1 || props.login.permissions.administrator.modify_users >= 1 ?
-                <div className={"radiator-list-box-div"} style={{flexGrow: 1, borderLeftStyle: "dashed"}}><button value={user.id} onClick={handleDeleteUser}>Delete user</button></div> : null}
+                <div className={"radiator-list-box-div"} style={{flexGrow: 1, borderLeftStyle: "dashed"}}><button value={user.id} onClick={handleDeleteUser}>{t("deleteUser")}</button></div> : null}
 
               {props.login.permissions.administrator >= 1 || props.login.permissions.administrator.modify_users === 2 ?
-                <div className={"radiator-list-box-div"} style={{flexGrow: 1, borderLeftStyle: "dashed"}}><Link to={`/admin/accounts/${user.id}/`}>Settings</Link></div> : null}
+                <div className={"radiator-list-box-div"} style={{flexGrow: 1, borderLeftStyle: "dashed"}}><Link to={`/admin/accounts/${user.id}/`}>{t("settings")}</Link></div> : null}
 
             </div>
           );

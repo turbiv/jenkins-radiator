@@ -7,34 +7,36 @@ import { MdAccountCircle } from 'react-icons/md'
 import { IoIosPower, IoIosBriefcase, IoLogoBuffer  } from 'react-icons/io'
 import { AiFillHome } from 'react-icons/ai'
 import {removeUser} from "../reducers/loginReducer";
+import {useTranslation} from "react-i18next"
 
 
 const Sidebar = (props) => {
+  const { t, i18n } = useTranslation();
 
   const SidebarData = [
     {
-      title: 'Home',
+      title: t("home"),
       path: '/admin/home',
       icon: <AiFillHome />,
       cName: 'nav-text',
       permission: "read_radiators"
     },
     {
-      title: 'Groups',
+      title: t("groups"),
       path: '/admin/groups',
       icon: <IoLogoBuffer />,
       cName: 'nav-text',
       permission: "read_groups"
     },
     {
-      title: 'Jobs',
+      title: t("jobs"),
       path: '/admin/jobs',
       icon: <IoIosBriefcase />,
       cName: 'nav-text',
       permission: "read_jobs"
     },
     {
-      title: 'Accounts',
+      title: t("accounts"),
       path: '/admin/accounts',
       icon: <MdAccountCircle />,
       cName: 'nav-text',
@@ -65,7 +67,7 @@ const Sidebar = (props) => {
             <div className={'nav-text'}>
               <Link to={"/"} onClick={() => props.removeUser()}>
                 <IoIosPower />
-                <span>Log out</span>
+                <span>{t("logout")}</span>
               </Link>
             </div>
           </div>
