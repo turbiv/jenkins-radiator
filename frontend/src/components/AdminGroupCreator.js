@@ -3,11 +3,13 @@ import {postNewGroup} from "../services/radiator"
 import {createNotification} from "../reducers/notificationReducer"
 import {connect} from "react-redux"
 import {useHistory} from "react-router-dom"
+import {useTranslation} from "react-i18next"
 
 const AdminGroupCreator = (props) => {
 
   const [groupTitle, setGroupTitle] = useState("")
   const history = useHistory()
+  const { t, i18n } = useTranslation();
 
   const handleGroupTitleChange = (event) => {
     setGroupTitle(event.target.value)
@@ -23,17 +25,17 @@ const AdminGroupCreator = (props) => {
 
     await postNewGroup(generatedPayload)
       .then(() => {
-        props.createNotification(`Group ${groupTitle} successfully created`, "success")
+        props.createNotification(t("groupCreation", {group_title: groupTitle}), "success")
         history.push("/admin/groups")
       })
-      .catch(() => props.createNotification("Unable to create group", "fail"))
+      .catch(() => props.createNotification(t("groupCreationFail"), "fail"))
   }
 
   return(
     <div>
-      <h2>Group creation page</h2>
+      <h2>{t("groupCreationTitle")}</h2>
       <form onSubmit={handleSubmit}>
-        <label>Group name:</label><br/>
+        <label>{t("groupNameLabel")}</label><br/>
         <input type={"text"} name={"title"} value={groupTitle} onChange={handleGroupTitleChange}/><br/>
         <input type={"submit"} value={"Submit"}/>
       </form>

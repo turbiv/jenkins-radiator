@@ -23,6 +23,8 @@ i18n
           "name": "name",
           "options": "Options",
           "settings": "Settings",
+          "edit": "Edit",
+          "owner": "Owner",
 
           //Sidebar
           "home": "Home",
@@ -59,6 +61,53 @@ i18n
 
           //AdminAccountsList.js
           "deleteUser": "Delete user",
+
+          //AdminGroupsCreator.js
+          "groupCreation": "Group {{group_title}} successfully created",
+          "groupCreationFail": "Unable to create group",
+          "groupCreationTitle": "Group creation page",
+          "groupNameLabel": "Group name:",
+
+          //AdminGroupsList.js
+          "groupName": "Group name",
+          "editGroup": "Edit group",
+          "groupSettings": "Group settings",
+          "newGroup": "New group",
+
+          //AdminHome.js
+          "radiatorName": "Radiator name",
+          "editRadiator": "Edit radiator",
+          "radiatorSettings": "Radiator settings",
+          "newRadiator": "New radiator",
+          "noOwner": "no owner",
+
+          //AdminJobCreator.js
+          "jobError": "Please check job details.",
+          "jobCreated": "Job {{job_name}} successfully created",
+          "jobCreationError": "Unable to create job",
+          "jenkinsError": "Please check jenkins details.",
+          "jenkinsAdded": "Jenkins {{jenkins_name}} successfully created",
+          "jenkinsAddFail": "Unable to add jenkins",
+          "createJob": "Create a job",
+          "jobName": "Job name",
+          "jobPath": "Job path (in jenkins):",
+          "searchJenkins": "Search for jenkins:",
+          "hostname": "Hostname",
+          "addJenkins": "Add a jenkins",
+          "jenkinsName": "Jenkins name",
+          "jenkinsHostname": "Jenkins hostname",
+          "jenkinsPort": "Jenkins Port",
+          "jenkinsToken": "Jenkins API token (username:token)\nLeave empty if public jenkins",
+
+          //AdminJobsList.js
+          "newJob": "New job",
+
+          //AdminRadiatorCreator.js
+          "radiatorCreated": "Radiator {{radiator_name}} successfully created",
+          "radiatorCreationFailed": "Unable to create radiator",
+          "radiatorCreationPage": "Radiator creation page",
+
+          //AdminRadiatorEditor.js
 
         }
       }

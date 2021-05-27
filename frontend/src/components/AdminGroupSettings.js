@@ -3,6 +3,7 @@ import {putGroup, getAllJobs} from "../services/radiator"
 import {Link} from "react-router-dom"
 import {SaveButton} from "../common/Buttons"
 import {useHistory} from "react-router-dom"
+import {useTranslation} from "react-i18next"
 
 const AdminGroupSettings = ({groupData}) => {
 
@@ -12,6 +13,7 @@ const AdminGroupSettings = ({groupData}) => {
   const [loading, setLoading] = useState(true)
   const [radiatorStatus, setRadiatorStatus] = useState(null)
   const history = useHistory()
+  const { t, i18n } = useTranslation();
 
   useEffect(async () => {
     groupData.then((response) => {
@@ -59,7 +61,7 @@ const AdminGroupSettings = ({groupData}) => {
   if(loading){
     return(
       <div>
-        Loading...
+        {t("loading")}
       </div>
     )
   }
@@ -71,7 +73,7 @@ const AdminGroupSettings = ({groupData}) => {
           <thead>
           <tr>
             <th/>
-            <th>Name</th>
+            <th>{t("name")}</th>
             <th/>
           </tr>
           </thead>
@@ -88,7 +90,7 @@ const AdminGroupSettings = ({groupData}) => {
                     checked={jobsToAdd.includes(job.id)}
                   /></td>
                   <td className="title-col">{job.name}</td>
-                  <td className="title-col"><Link key={index} to={`/admin/job/${job.id}`}>Edit</Link></td>
+                  <td className="title-col"><Link key={index} to={`/admin/job/${job.id}`}>{t("edit")}</Link></td>
                 </tr>
               )}
             )

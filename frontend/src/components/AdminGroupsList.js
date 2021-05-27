@@ -4,11 +4,13 @@ import "../css/admin-home.css"
 import {getAllGroups} from "../services/radiator"
 import DropdownButton from "../common/DropdownButton"
 import {Button} from "../common/Buttons"
+import {useTranslation} from "react-i18next"
 
 const AdminGroupsList = () => {
 
   const [groups, setGroups] = useState([])
   const [radiatorStatus, setRadiatorStatus] = useState(null)
+  const { t, i18n } = useTranslation();
 
   useEffect(async () => {
     getAllGroups().then((response) => {
@@ -32,13 +34,13 @@ const AdminGroupsList = () => {
       <div>
         <div className={"radiator-list-header"}>
           <p style={{flexGrow: 2}}>
-            Group name
+            {t("groupName")}
           </p>
           <p style={{flexGrow: 1, borderLeftStyle: "dashed"}}>
-            Owner
+            {t("owner")}
           </p>
           <p style={{flexGrow: 1,  borderLeftStyle: "dashed"}}>
-            Options
+            {t("options")}
           </p>
         </div>
         {groups.map((group, index)=>{
@@ -52,15 +54,15 @@ const AdminGroupsList = () => {
               </div>
               <div className={"radiator-list-box-div"} style={{flexGrow: 1, borderLeftStyle: "dashed"}}>
                 <DropdownButton title={"Options"}>
-                  <Link to={`/admin/group/${group.id}`}>Edit group</Link>
-                  <Link to={`/admin/group/${group.id}/settings`}>Group settings</Link>
+                  <Link to={`/admin/group/${group.id}`}>{t("editGrouo")}</Link>
+                  <Link to={`/admin/group/${group.id}/settings`}>{t("groupSettings")}</Link>
                 </DropdownButton>
               </div>
             </div>
           );
         })}
       </div>
-      <Link to={"/admin/groups/new"}><Button buttonText={"New Group"}/></Link>
+      <Link to={"/admin/groups/new"}><Button buttonText={t("newGroup")}/></Link>
     </div>
   );
 }

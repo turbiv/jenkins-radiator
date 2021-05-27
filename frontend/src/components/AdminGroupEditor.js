@@ -4,11 +4,13 @@ import Group from "../common/Group"
 import Job from "../common/Job"
 import {DragDropContext, Draggable, Droppable} from 'react-beautiful-dnd'
 import {putGroup} from "../services/radiator"
+import {useTranslation} from "react-i18next"
 
 const AdminGroupEditor = ({groupData}) => {
   const [items, setItems] = useState([]);
   const [radiatorStatus, setRadiatorStatus] = useState(null)
   const [responseData, setResponseData] = useState({title: "loading", id: null})
+  const { t, i18n } = useTranslation();
 
   useEffect(async () => {
     groupData.then((response) => {
@@ -74,7 +76,7 @@ const AdminGroupEditor = ({groupData}) => {
           )
         })}
       </DragDropContext>
-      <button id={"placeboButton"} style={{visibility: "hidden"}}>Save</button>
+      <button id={"placeboButton"} style={{visibility: "hidden"}}>{t("save")}</button>
     </Group>
   );
 }

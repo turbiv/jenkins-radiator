@@ -3,12 +3,14 @@ import {getAll} from "../services/radiator"
 import "../css/admin-home.css"
 import {Link} from "react-router-dom"
 import DropdownButton from "../common/DropdownButton"
+import {useTranslation} from "react-i18next"
 
 const AdminHome = () => {
 
   const [radiatorData, setRadiatorData] = useState([])
   const [radiatorStatus, setRadiatorStatus] = useState(null)
   const [loading, setLoading] = useState(true)
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     getAll().then((response) => {
@@ -34,16 +36,16 @@ const AdminHome = () => {
       <div className={"radiator-list-column"}>
         <div className={"radiator-list-header"}>
           <p style={{flexGrow: 3}}>
-            Radiator name
+            {t("radiatorName")}
           </p>
           <p style={{flexGrow: 1, borderLeftStyle: "dashed", borderRightStyle: "dashed"}}>
-            Owner
+            {t("owner")}
           </p>
           <p style={{flexGrow: 1}}>
-            Options
+            {t("options")}
           </p>
         </div>
-        {loading ? <div>Loading...</div> : radiatorData.map((radiator, index)=>{
+        {loading ? <div>{t("loading")}</div> : radiatorData.map((radiator, index)=>{
           return(
             <div key={index} className={"radiator-list-box"} id={index}>
               <div className={"radiator-list-box-div"} style={{flexGrow: 3}}>
@@ -51,19 +53,19 @@ const AdminHome = () => {
               </div>
 
               <div className={"radiator-list-box-div"} style={{flexGrow: 1, borderLeftStyle: "dashed", borderRightStyle: "dashed"}}>
-                {radiator.owner.name || "no owner"}
+                {radiator.owner.name || t("noOwner")}
               </div>
 
               <div className={"radiator-list-box-div"} style={{flexGrow: 1}}>
                 <DropdownButton title={"Options"}>
-                  <Link to={`/admin/radiator/${radiator.id}`}>Edit radiator</Link>
-                  <Link to={`/admin/radiator/${radiator.id}/settings`}>Radiator settings</Link>
+                  <Link to={`/admin/radiator/${radiator.id}`}>{t("editRadiator")}</Link>
+                  <Link to={`/admin/radiator/${radiator.id}/settings`}>{t("radiatorSettings")}</Link>
                 </DropdownButton>
               </div>
             </div>
           );
         })}
-        <Link to={"/admin/radiators/new"}><button>New radiator</button></Link>
+        <Link to={"/admin/radiators/new"}><button>{t("newRadiator")}</button></Link>
         </div>
         <div className={"history-column"}>
 

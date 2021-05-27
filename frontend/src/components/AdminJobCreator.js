@@ -6,6 +6,7 @@ import "../css/table.css"
 import {createNotification} from "../reducers/notificationReducer";
 import {connect} from "react-redux"
 import {useHistory} from "react-router-dom"
+import {useTranslation} from "react-i18next"
 
 const AdminJobCreator = (props) => {
 
@@ -14,6 +15,7 @@ const AdminJobCreator = (props) => {
   const [allJenkinses, setAllJenkinses] = useState([])
   const [jenkinsOptions, setJenkinsOptions] = useState([])
   const history = useHistory()
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     getAllJenkins().then((response) => {
@@ -41,7 +43,7 @@ const AdminJobCreator = (props) => {
   const handleJobSubmit = async () => {
 
     if(!newJob.name || !newJob.path || !newJob.jenkins){
-      props.createNotification("Please check job details.", "fail")
+      props.createNotification(t("jobError"), "fail")
       return
     }
 
@@ -63,10 +65,10 @@ const AdminJobCreator = (props) => {
 
     await postNewJob(formattedJob)
       .then(() => {
-        props.createNotification(`Job ${newJob.name} successfully created`, "success")
+        props.createNotification(t("jobCreated", {job_name: newJob.name}), "success")
         history.push("/admin/jobs")
       })
-      .catch(() => props.createNotification("Unable to create job", "fail"))
+      .catch(() => props.createNotification(t("jobCreationError"), "fail"))
   }
 
   const handleJenkinsSelectionChange = (event) => {
@@ -83,7 +85,7 @@ const AdminJobCreator = (props) => {
     setJenkinsOptions([...allJenkinses, newJenkinsData])
 
     if(!newJenkinsData.name || !newJenkinsData.hostname || newJenkinsData.port === ""){
-      props.createNotification("Please check jenkins details.", "fail")
+      props.createNotification(t("jenkinsError"), "fail")
       return
     }
 
@@ -94,8 +96,8 @@ const AdminJobCreator = (props) => {
     }
 
     await postNewJenkins({...newJenkinsData, hostname})
-      .then(() =>  props.createNotification(`Jenkins ${newJenkinsData.name} successfully created`, "success"))
-      .catch(() => props.createNotification("Unable to add jenkins", "fail"))
+      .then(() =>  props.createNotification(t("jenkinsAdded", {jenkins_name: newJenkinsData.name}), "success"))
+      .catch(() => props.createNotification(t("jenkinsAddFail"), "fail"))
   }
 
   const handleNewJenkinsData = (event) => {
@@ -126,21 +128,21 @@ const AdminJobCreator = (props) => {
   return(
     <div>
       <div>
-        <h2>Create a job</h2>
+        <h2>{t("createJob")}</h2>
         <form>
-          <label>Job name:</label><br/>
+          <label>{t("jobName")}</label><br/>
           <input type={"text"} name={"name"} value={newJob.name} onChange={handleJobNameChange}/><br/><br/>
-          <label>Job path (in jenkins):</label><br/>
+          <label>{t("jobPath")}</label><br/>
           <input type={"text"} name={"path"} value={newJob.path} onChange={handleJobNameChange}/><br/><br/>
 
-          <label>Search for jenkins:</label><br/>
+          <label>{t("searchJenkins")}</label><br/>
           <input type={"text"} name={"jenkins"} onChange={findJenkinsHostname} /><br/>
 
           <table className="layout display responsive-table">
             <thead>
               <tr>
-                <th colSpan={2}>Name</th>
-                <th>Hostname</th>
+                <th colSpan={2}>{t("name")}</th>
+                <th>{t("hostname")}</th>
               </tr>
             </thead>
 
@@ -172,18 +174,17 @@ const AdminJobCreator = (props) => {
         <SaveButton saveHandle={handleJobSubmit}/>
       </div>
       <div>
-        <h2>Add a jenkins</h2>
+        <h2>{t("addJenkins")}</h2>
         <form onSubmit={handleJenkinsSubmit}>
-          <label>Jenkins name</label><br/>
+          <label>{t("jenkinsName")}</label><br/>
           <input type={"text"} name={"name"} value={newJenkinsData.name} onChange={handleNewJenkinsData}/><br/>
-          <label>Jenkins hostname </label><br/>
+          <label>{t("jenkinsHostname")}</label><br/>
           <input type={"text"} name={"hostname"} value={newJenkinsData.hostname} onChange={handleNewJenkinsData}/><br/>
-          <label>Jenkins Port </label><br/>
+          <label>{t("jenkinsPort")}</label><br/>
           <input type={"text"} name={"port"}  value={newJenkinsData.port} onChange={handleNewJenkinsData}/><br/>
 
           <label>
-            Jenkins API token (username:token)<br/>
-            Leave empty if public jenkins
+            {t("jenkinsToken")}
           </label><br/>
           <input type={"text"} name={"token"} value={newJenkinsData.token} onChange={handleNewJenkinsData}/>
         </form>

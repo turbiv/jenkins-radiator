@@ -3,11 +3,13 @@ import {Link} from "react-router-dom"
 import "../css/admin-home.css"
 import {getAllJobs} from "../services/radiator"
 import {Button} from "../common/Buttons"
+import {useTranslation} from "react-i18next"
 
 const AdminJobsList = () => {
 
   const [jobs, setJobs] = useState([])
   const [radiatorStatus, setRadiatorStatus] = useState(null)
+  const { t, i18n } = useTranslation();
 
   useEffect(async () => {
     getAllJobs().then((response) => {
@@ -31,10 +33,10 @@ const AdminJobsList = () => {
       <div>
         <div className={"radiator-list-header"}>
           <p style={{flexGrow: 2}}>
-            Job name
+            {t("jobName")}
           </p>
           <p style={{flexGrow: 1, borderLeftStyle: "dashed"}}>
-            Owner
+            {t("owner")}
           </p>
         </div>
         {jobs.map((job, index)=>{
@@ -50,7 +52,7 @@ const AdminJobsList = () => {
           );
         })}
       </div>
-      <Link to={"/admin/jobs/new"}><Button buttonText={"New Job"}/></Link>
+      <Link to={"/admin/jobs/new"}><Button buttonText={t("newJob")}/></Link>
     </div>
   );
 }
