@@ -20,11 +20,13 @@ import {createNotification} from "../reducers/notificationReducer";
 import AdminAccountsList from "./AdminAccountsList"
 import AdminAccountSettings from "./AdminAccountSettings"
 import "../css/notification.css"
+import {useTranslation} from "react-i18next"
 
 
 const AdminRouter = (props) => {
   const [registerPage, setRegisterPage] = useState(false)
   const [loading, setLoading] = useState(true)
+  const { t, i18n } = useTranslation();
 
   useEffect(async () => {
     const loggedUser = window.localStorage.getItem("loggedUser");
@@ -49,7 +51,7 @@ const AdminRouter = (props) => {
   if(loading){
     return(
       <div>
-        Checking credentials...
+        {t("credentialsCheck")}
       </div>
     )
   }
@@ -59,7 +61,7 @@ const AdminRouter = (props) => {
       <div>
         <div className={"notification-placement"}>{props.notification}</div>
         <Login register={registerPage}/>
-        <button onClick={() => setRegisterPage(!registerPage)}>{registerPage ? "Login as existing user" : "Register new user"}</button>
+        <button onClick={() => setRegisterPage(!registerPage)}>{registerPage ? t("oldLogin") : t("newLogin")}</button>
       </div>
     )
   }

@@ -16,7 +16,7 @@ const AdminRadiatorGroupsEditor = ({radiatorData}) => {
 
   return(
     <div>
-      <p>hedllo</p>
+      <p>test</p>
     </div>
   );
 }

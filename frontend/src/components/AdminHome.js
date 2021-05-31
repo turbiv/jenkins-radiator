@@ -23,6 +23,16 @@ const AdminHome = () => {
     })
   }, [])
 
+
+  const changeLanguageHandle = async (event) => {
+    event.preventDefault()
+    if(i18n.language === "en"){
+      await i18n.changeLanguage("fi")
+    }else{
+      await i18n.changeLanguage("en")
+    }
+  }
+
   if(radiatorStatus){
     return(
       <div>
@@ -57,7 +67,7 @@ const AdminHome = () => {
               </div>
 
               <div className={"radiator-list-box-div"} style={{flexGrow: 1}}>
-                <DropdownButton title={"Options"}>
+                <DropdownButton title={t("options")}>
                   <Link to={`/admin/radiator/${radiator.id}`}>{t("editRadiator")}</Link>
                   <Link to={`/admin/radiator/${radiator.id}/settings`}>{t("radiatorSettings")}</Link>
                 </DropdownButton>
@@ -68,7 +78,7 @@ const AdminHome = () => {
         <Link to={"/admin/radiators/new"}><button>{t("newRadiator")}</button></Link>
         </div>
         <div className={"history-column"}>
-
+        <button onClick={changeLanguageHandle}>Change language</button>
         </div>
       </div>
   );

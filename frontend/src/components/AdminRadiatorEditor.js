@@ -113,7 +113,6 @@ const AdminRadiatorEditor = ({radiatorData}) => {
           </div>)}
         </Droppable>
       </DragDropContext>
-      <button id={"placeboButton"} style={{visibility: "hidden"}}>Save</button>
     </div>
   );
 }

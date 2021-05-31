@@ -107,8 +107,131 @@ i18n
           "radiatorCreationFailed": "Unable to create radiator",
           "radiatorCreationPage": "Radiator creation page",
 
-          //AdminRadiatorEditor.js
+          //AdminRouter.js
+          "credentialsCheck": "Checking credentials...",
+          "oldLogin": "Login as existing user",
+          "newLogin": "Register new user",
 
+          //MainPage.js
+          "welcome": "Welcome",
+          "viewRadiator": "View radiator",
+          "adminPanel": "Admin Panel",
+
+          //RadiatorView.js
+          "loadingRadiator": "Loading radiator..."
+
+
+
+        }
+      },
+      fi: {
+        translation: {
+          //common
+          "loading": "ladataan...",
+          "save": "Tallenna",
+          "username": "Käyttäjä",
+          "password": "Salasana",
+          "login": "Kirjaudu",
+          "administrator": "Administrattori",
+          "descriptions": "Defenitions to be added.",
+          "name": "nimi",
+          "options": "Valinnat",
+          "settings": "Asetukset",
+          "edit": "Muokkaa",
+          "owner": "Omistaja",
+
+          //Sidebar
+          "home": "Koti",
+          "groups": "Ryhmät",
+          "jobs": "Työt",
+          "accounts": "Tilit",
+          "logout": "Kirjaudu ulos",
+
+          "confirmPassword": "Vahvista salasana",
+          "firstAndLastName": "Etu- ja sukunimi",
+          "FailToReigster": "Rekisteröinti epäonnistui",
+          "passwordMatchError": "Salasanat eivät täsmää, tarkista vielä.",
+          "loginFailError": "Kirjautuminen epäonnistui",
+          "missingNameError": "Nimi puuttuu.",
+          "confirmPassworddError": "Vahvistettu salasana puuttuu.",
+          "missingPasswordError": "Salasana puuttuu.",
+          "missingUsernameError": "Käyttäjätunnus puuttuu.",
+
+          //AdminAccountSettings.js
+
+          "loadingUserSettings": "Ladataan käyttäjäasetuksia ...",
+          "writePermission": "Kirjoituslupa",
+          "writeJobs": "Kirjoita työpaikat",
+          "writeGroups": "Kirjoita ryhmät",
+          "writeRadiators": "Kirjoita radiaattorit",
+          "readPermission": "Lukuoikeus",
+          "readJobs": "Lue työt",
+          "readGroups": "Lue ryhmät",
+          "readRadiators": "Lue radiaattorit",
+          "otherPermissions": "Muut käyttöoikeudet",
+          "modifyUsers": "Muokkaa käyttäjiä",
+
+
+          //AdminAccountsList.js
+          "deleteUser": "Poista käyttäjä",
+
+          //AdminGroupsCreator.js
+          "groupCreation": "Ryhmän {{group_title}} luominen onnistui",
+          "groupCreationFail": "Ryhmän luominen epäonnistui",
+          "groupCreationTitle": "Ryhmän luomissivu",
+          "groupNameLabel": "Ryhmän nimi:",
+
+          //AdminGroupsList.js
+          "groupName": "Ryhmän nimi",
+          "editGroup": "Muokkaa ryhmää",
+          "groupSettings": "Ryhmä asetukset",
+          "newGroup": "Uusi ryhmä",
+
+          //AdminHome.js
+          "radiatorName": "Radiaattorin nimi",
+          "editRadiator": "Muokkaa radiaattoria",
+          "radiatorSettings": "Radiaattorin asetukset",
+          "newRadiator": "Uusi radiaattori",
+          "noOwner": "ei omistajaa",
+
+          //AdminJobCreator.js
+          "jobError": "Tarkista työn tiedot.",
+          "jobCreated": "Työ {{job_name}} luotu onnistuneesti",
+          "jobCreationError": "Työn luominen epäonnistui",
+          "jenkinsError": "Tarkista jenkinsin tiedot.",
+          "jenkinsAdded": "Jenkins {{jenkins_name}} on luotu onnistuneesti",
+          "jenkinsAddFail": "Jenkinsin lisääminen epäonnistui",
+          "createJob": "Luo työpaikka",
+          "jobName": "Työn nimi",
+          "jobPath": "Työpolku (jenkinsissä):",
+          "searchJenkins": "Hae jenkins:",
+          "hostname": "Hostname",
+          "addJenkins": "Lisää jenkins",
+          "jenkinsName": "Jenkins nimi",
+          "jenkinsHostname": "Jenkins-isäntänimi",
+          "jenkinsPort": "Jenkinsin satama",
+          "jenkinsToken": "Jenkins-sovellusliittymän tunnus (käyttäjätunnus: token) \n Jätä tyhjäksi, jos julkiset jenkins",
+
+          //AdminJobsList.js
+          "newJob": "Uusi työpaikka",
+
+          //AdminRadiatorCreator.js
+          "radiatorCreated": "Radiaattorin {{radiator_name}} luominen onnistui",
+          "radiatorCreationFailed": "Radiaattorin luominen epäonnistui",
+          "radiatorCreationPage": "Radiaattorin luomissivu",
+
+          //AdminRouter.js
+          "credentialsCheck": "Tarkistetaan kirjautumistietoja ...",
+          "oldLogin": "Kirjaudu nykyisenä käyttäjänä",
+          "newLogin": "Rekisteröi uusi käyttäjä",
+
+          //MainPage.js
+          "welcome": "tervetuloa",
+          "viewRadiator": "Näytä radiaattori",
+          "adminPanel": "Hallintapaneeli",
+
+          //RadiatorView.js
+          "loadingRadiator": "Ladataan radiaattoreita ..."
         }
       }
     },

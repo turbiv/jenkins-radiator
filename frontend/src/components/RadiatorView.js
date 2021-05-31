@@ -3,10 +3,12 @@ import Job from "../common/Job"
 import Group from "../common/Group";
 import "../css/radiator.css";
 import {getRadiatorById} from "../services/public"
+import {useTranslation} from "react-i18next"
 
 const RadiatorView = ({radiatorId}) => {
 
   const [radiator, setRadiator] = useState(null)
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     getRadiatorById(radiatorId).then((response) => setRadiator(response))
@@ -16,7 +18,7 @@ const RadiatorView = ({radiatorId}) => {
   if(!radiator){
     return(
       <div>
-        Loading radiator...
+        {t("loadingRadiator")}
       </div>
     )
   }
@@ -41,36 +43,3 @@ const RadiatorView = ({radiatorId}) => {
 }
 
 export default RadiatorView;
-
-/*
-      without loops how it should look like:
-      <Category title={"Test title 1"}>
-        <div className={"container"}>
-          <Job grow={1} order={1} text={"One"} color={"red"}/>
-          <Job grow={1} order={2} text={"Two"} color={"red"}/>
-          <Job grow={1} order={3} text={"Three"}/>
-          <Job grow={1} order={4} text={"Four"}/>
-          <Job grow={1} order={5} text={"Five"} color={"red"}/>
-        </div>
-        <div className={"container"}>
-          <Job grow={1} order={1} text={"One"}/>
-          <Job grow={1} order={2} text={"Two"} color={"red"}/>
-          <Job grow={1} order={3} text={"Three"}/>
-        </div>
-        <div className={"container"}>
-          <Job grow={1} order={1} text={"One"}/>
-        </div>
-      </Category>
-      <Category title={"Test title 2"}>
-        <div className={"container"}>
-          <Job order={1} text={"One"} color={"red"}/>
-          <Job order={2} text={"Two"} color={"red"}/>
-          <Job order={3} text={"Three"}/>
-          <Job order={4} text={"Four"}/>
-        </div>
-        <div className={"container"}>
-          <Job order={1} text={"One"}/>
-          <Job order={2} text={"Two"} color={"red"}/>
-        </div>
-      </Category>
- */

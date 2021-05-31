@@ -4,6 +4,7 @@ import "../css/table.css"
 import {getAllGroups, putRadiatorSettings} from "../services/radiator"
 import {SaveButton} from "../common/Buttons"
 import {useHistory} from "react-router-dom"
+import {useTranslation} from "react-i18next"
 
 const AdminRadiatorSettings = ({radiatorData}) => {
 
@@ -13,6 +14,7 @@ const AdminRadiatorSettings = ({radiatorData}) => {
   const [loading, setLoading] = useState(true)
   const [radiatorStatus, setRadiatorStatus] = useState(null)
   const history = useHistory()
+  const { t, i18n } = useTranslation();
 
   useEffect(async () => {
     radiatorData.then((response) => {
@@ -55,7 +57,7 @@ const AdminRadiatorSettings = ({radiatorData}) => {
   if(loading){
     return(
     <div>
-      Loading...
+      {t("loading")}
     </div>
     )
   }
@@ -67,7 +69,7 @@ const AdminRadiatorSettings = ({radiatorData}) => {
           <thead>
           <tr>
             <th/>
-            <th>Name</th>
+            <th>{t("name")}</th>
             <th/>
           </tr>
           </thead>
